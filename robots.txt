@@ -1,0 +1,5 @@
+# Pendant la phase de test, l'indexation est bloquée par la balise
+# <meta name="robots" content="noindex"> (réglage noindex dans src/config/site.ts).
+# Ne pas ajouter de Disallow ici : Google ne lirait plus la balise noindex.
+User-agent: *
+Allow: /
