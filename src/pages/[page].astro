@@ -1,0 +1,34 @@
+---
+/**
+ * Pages de contenu en Markdown (src/content/pages/*.md).
+ * Le nom du fichier donne l'adresse : mentions-legales.md → /mentions-legales/
+ */
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export const getStaticPaths = (async () => {
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({
+    params: { page: page.id },
+    props: { page },
+  }));
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+
+<BaseLayout titre={page.data.titre} description={page.data.description}>
+  <article class="conteneur contenu">
+    <h1>{page.data.titre}</h1>
+    <Content />
+  </article>
+</BaseLayout>
+
+<style>
+  .contenu {
+    padding-block: var(--espace-5);
+    max-width: 48rem;
+  }
+</style>

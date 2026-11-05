@@ -1,0 +1,96 @@
+---
+/**
+ * Pied de page : coordonnées du club et liens utiles.
+ * Un champ vide dans src/config/site.ts n'affiche rien.
+ */
+import { site } from '../config/site';
+
+const annee = new Date().getFullYear();
+const { adresse, email, reseaux } = site;
+---
+
+<footer class="pied">
+  <div class="conteneur pied__grille">
+    <div>
+      <p class="pied__nom">{site.nom}</p>
+      <address class="pied__adresse">
+        {adresse.rue}<br />
+        {adresse.codePostal} {adresse.ville}
+      </address>
+      {email && <p><a href={`mailto:${email}`}>{email}</a></p>}
+    </div>
+
+    {
+      (reseaux.instagram || reseaux.facebook) && (
+        <ul class="pied__liens" aria-label="Réseaux sociaux">
+          {reseaux.instagram && (
+            <li>
+              <a href={reseaux.instagram} rel="noopener">Instagram</a>
+            </li>
+          )}
+          {reseaux.facebook && (
+            <li>
+              <a href={reseaux.facebook} rel="noopener">Facebook</a>
+            </li>
+          )}
+        </ul>
+      )
+    }
+
+    <ul class="pied__liens" aria-label="Liens utiles">
+      <li><a href="/contact/">Contact</a></li>
+      <li><a href="/mentions-legales/">Mentions légales</a></li>
+    </ul>
+  </div>
+  <p class="conteneur pied__copyright">© {annee} {site.nom}</p>
+</footer>
+
+<style>
+  .pied {
+    margin-top: var(--espace-6);
+    padding-block: var(--espace-5) var(--espace-3);
+    background: var(--couleur-surface);
+    color: var(--couleur-texte-doux);
+    font-size: 0.95rem;
+  }
+
+  .pied a {
+    color: var(--couleur-texte);
+  }
+
+  .pied__grille {
+    display: grid;
+    gap: var(--espace-4);
+  }
+
+  @media (min-width: 40rem) {
+    .pied__grille {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+
+  .pied__nom {
+    margin: 0 0 var(--espace-2);
+    font-weight: 700;
+    color: var(--couleur-texte);
+  }
+
+  .pied__adresse {
+    font-style: normal;
+  }
+
+  .pied__liens {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--espace-2);
+  }
+
+  .pied__copyright {
+    margin-top: var(--espace-5);
+    padding-top: var(--espace-3);
+    border-top: 1px solid var(--couleur-bordure);
+    font-size: 0.85rem;
+  }
+</style>

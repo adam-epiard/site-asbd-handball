@@ -1,0 +1,39 @@
+---
+/**
+ * Accueil PROVISOIRE de l'étape 2 : sert à valider la chaîne
+ * build → GitHub → OVH sur le sous-domaine de test.
+ * Le vrai modèle d'accueil arrive à l'étape 3.
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const equipes = (await getCollection('equipes')).sort((a, b) => a.data.ordre - b.data.ordre);
+const miseAJour = new Date().toLocaleString('fr-FR', {
+  dateStyle: 'long',
+  timeStyle: 'short',
+  timeZone: 'Europe/Paris',
+});
+---
+
+<BaseLayout titre="Club de handball de La Bruffière">
+  <section class="conteneur chantier">
+    <h1>Nouveau site en construction</h1>
+    <p>
+      Le nouveau site de l'ASBD Vendée Handball est en préparation. En attendant, retrouvez toutes les
+      informations du club sur <a href="https://labruffierehandball.com/">le site actuel</a>.
+    </p>
+
+    <h2>Contrôle technique</h2>
+    <ul>
+      <li>Construit le {miseAJour}</li>
+      <li>Équipes lues dans le contenu : {equipes.map((equipe) => equipe.data.nom).join(', ') || 'aucune'}</li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .chantier {
+    padding-block: var(--espace-6);
+    max-width: 48rem;
+  }
+</style>

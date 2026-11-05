@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout titre="Page introuvable" description="Cette page n'existe pas ou a été déplacée.">
+  <section class="conteneur introuvable">
+    <h1>Page introuvable</h1>
+    <p>Cette page n'existe pas ou a été déplacée. Vous cherchiez peut-être :</p>
+    <ul>
+      <li><a href="/">l'accueil</a></li>
+      <li><a href="/matchs/">les matchs</a></li>
+      <li><a href="/equipe-feminine/">les équipes féminines</a></li>
+      <li><a href="/equipe-masculine/">les équipes masculines</a></li>
+      <li><a href="/contact/">le contact</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .introuvable {
+    padding-block: var(--espace-6);
+    max-width: 48rem;
+  }
+</style>

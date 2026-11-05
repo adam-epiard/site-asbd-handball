@@ -1,0 +1,282 @@
+---
+/**
+ * En-tête : nom du club et menu principal.
+ * Sur téléphone, le menu s'ouvre avec un bouton ; sans JavaScript,
+ * il reste simplement affiché. Les sous-menus utilisent <details>,
+ * natif et utilisable au clavier.
+ */
+import { site } from '../config/site';
+import { menu } from '../config/navigation';
+
+const cheminActuel = Astro.url.pathname;
+const estActif = (href?: string) => href !== undefined && href === cheminActuel;
+---
+
+<header class="entete">
+  <div class="conteneur entete__barre">
+    <a class="entete__logo" href="/" aria-label={`${site.nom}, accueil`}>
+      <span class="entete__sigle" aria-hidden="true">ASBD</span>
+      <span class="entete__nom">Vendée Handball</span>
+    </a>
+
+    <button
+      class="entete__bouton"
+      type="button"
+      aria-expanded="false"
+      aria-controls="menu-principal"
+      data-bouton-menu
+    >
+      <span class="entete__burger" aria-hidden="true"></span>
+      <span class="entete__bouton-texte">Menu</span>
+    </button>
+
+    <nav class="menu" id="menu-principal" aria-label="Menu principal" data-menu>
+      <ul class="menu__liste">
+        {
+          menu.map((lien) => (
+            <li class="menu__element">
+              {lien.enfants ? (
+                <details class="menu__groupe">
+                  <summary class="menu__lien">{lien.label}</summary>
+                  <ul class="menu__sous-liste">
+                    {lien.enfants.map((enfant) => (
+                      <li>
+                        <a
+                          class="menu__sous-lien"
+                          href={enfant.href}
+                          aria-current={estActif(enfant.href) ? 'page' : undefined}
+                        >
+                          {enfant.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ) : (
+                <a class="menu__lien" href={lien.href} aria-current={estActif(lien.href) ? 'page' : undefined}>
+                  {lien.label}
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const bouton = document.querySelector<HTMLButtonElement>('[data-bouton-menu]');
+  const nav = document.querySelector<HTMLElement>('[data-menu]');
+
+  if (bouton && nav) {
+    const fermer = () => {
+      bouton.setAttribute('aria-expanded', 'false');
+      nav.classList.remove('menu--ouvert');
+    };
+
+    bouton.addEventListener('click', () => {
+      const ouvert = bouton.getAttribute('aria-expanded') === 'true';
+      bouton.setAttribute('aria-expanded', String(!ouvert));
+      nav.classList.toggle('menu--ouvert', !ouvert);
+    });
+
+    document.addEventListener('keydown', (evenement) => {
+      if (evenement.key === 'Escape' && bouton.getAttribute('aria-expanded') === 'true') {
+        fermer();
+        bouton.focus();
+      }
+    });
+  }
+
+  // Un seul sous-menu ouvert à la fois, et fermeture au clic en dehors.
+  const groupes = document.querySelectorAll<HTMLDetailsElement>('.menu__groupe');
+  groupes.forEach((groupe) => {
+    groupe.addEventListener('toggle', () => {
+      if (groupe.open) {
+        groupes.forEach((autre) => {
+          if (autre !== groupe) autre.open = false;
+        });
+      }
+    });
+  });
+  document.addEventListener('click', (evenement) => {
+    const cible = evenement.target as Node;
+    groupes.forEach((groupe) => {
+      if (!groupe.contains(cible)) groupe.open = false;
+    });
+  });
+</script>
+
+<style>
+  .entete {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--couleur-primaire);
+    color: var(--couleur-primaire-contraste);
+  }
+
+  .entete__barre {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espace-2);
+    min-height: 4rem;
+  }
+
+  .entete__logo {
+    display: flex;
+    align-items: baseline;
+    gap: var(--espace-2);
+    color: inherit;
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .entete__sigle {
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+  }
+
+  .entete__nom {
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+
+  .entete__bouton {
+    display: none;
+    align-items: center;
+    gap: var(--espace-2);
+    min-height: 2.75rem;
+    padding: var(--espace-2) var(--espace-3);
+    border: 1px solid currentColor;
+    border-radius: var(--rayon);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .entete__burger,
+  .entete__burger::before,
+  .entete__burger::after {
+    display: block;
+    width: 1.1rem;
+    height: 2px;
+    background: currentColor;
+  }
+
+  .entete__burger {
+    position: relative;
+  }
+
+  .entete__burger::before,
+  .entete__burger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .entete__burger::before {
+    top: -6px;
+  }
+
+  .entete__burger::after {
+    top: 6px;
+  }
+
+  .menu {
+    width: 100%;
+  }
+
+  .menu__liste,
+  .menu__sous-liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu__liste {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: var(--espace-3);
+  }
+
+  .menu__lien,
+  .menu__sous-lien {
+    display: block;
+    padding: var(--espace-2) 0;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .menu__lien[aria-current='page'],
+  .menu__sous-lien[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
+  }
+
+  .menu__sous-liste {
+    padding-left: var(--espace-3);
+  }
+
+  /* Téléphone avec JavaScript : menu replié derrière le bouton. */
+  @media (max-width: 59.99rem) {
+    :global(.js) .entete__bouton {
+      display: inline-flex;
+    }
+
+    :global(.js) .menu {
+      display: none;
+    }
+
+    :global(.js) .menu.menu--ouvert {
+      display: block;
+    }
+
+    .menu__lien,
+    .menu__sous-lien {
+      min-height: 2.75rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  /* Écran large : menu en ligne, sous-menus déroulants. */
+  @media (min-width: 60rem) {
+    .entete__barre {
+      flex-wrap: nowrap;
+    }
+
+    .menu {
+      width: auto;
+    }
+
+    .menu__liste {
+      flex-direction: row;
+      gap: var(--espace-4);
+      padding-bottom: 0;
+    }
+
+    .menu__element {
+      position: relative;
+    }
+
+    .menu__sous-liste {
+      position: absolute;
+      top: 100%;
+      left: calc(-1 * var(--espace-3));
+      min-width: 14rem;
+      padding: var(--espace-2) var(--espace-3);
+      background: var(--couleur-fond);
+      color: var(--couleur-texte);
+      border: 1px solid var(--couleur-bordure);
+      border-radius: var(--rayon);
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+    }
+  }
+</style>
