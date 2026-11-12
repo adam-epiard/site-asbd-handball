@@ -49,6 +49,10 @@ Le design system est visible sur la page `/design-system/` (absente du menu). Un
 
 Règle du contenu : **un champ vide n'affiche rien**. On laisse vide plutôt que d'écrire « en cours ».
 
+## Règle de sécurité
+
+Le dépôt est **public** : ne jamais y mettre de mot de passe, de clé ou d'adresse privée. Les secrets (ex. mot de passe d'envoi des formulaires) vivent dans un fichier placé directement sur le serveur, hors de Git.
+
 ## Déploiement
 
 Chaque push sur `main` lance la GitHub Action `.github/workflows/deploy.yml` :
@@ -57,7 +61,7 @@ L'hébergement OVH suit la branche `deploy`. Si une étape échoue, rien n'est p
 
 ### Mise en place (une seule fois)
 
-1. Créer le dépôt GitHub (privé), puis depuis ce dossier :
+1. Créer le dépôt GitHub (public, voir Règle de sécurité), puis depuis ce dossier :
    ```sh
    git init -b main
    git add .
@@ -68,11 +72,12 @@ L'hébergement OVH suit la branche `deploy`. Si une étape échoue, rien n'est p
    Le premier push crée la branche `deploy` (onglet Actions de GitHub pour suivre).
 2. Dans GitHub, **Settings > Actions > General > Workflow permissions** : cocher *Read and write permissions*.
    Relancer l'Action si elle a échoué faute de droits.
-3. Dans OVH, **Web Cloud > Hébergements > (l'hébergement) > onglet Mes sites** : ajouter `test.labruffierehandball.com` vers un nouveau dossier **vide** (ex. `site-astro`), avec SSL coché.
-4. Sur la ligne du sous-domaine, bouton **⁝ > Associer Git** : dépôt `git@github.com:<compte>/site-asbd-handball.git`, branche `deploy`. Ajouter la clé SSH affichée par OVH dans GitHub : de préférence dans le dépôt (**Settings > Deploy keys**, lecture seule) ; si OVH renvoie une erreur, dans le profil (**Settings > SSH and GPG keys**), comme l'indique la doc OVH. Valider avec **Appliquez la configuration** : la colonne Git doit passer à « Activé ».
+3. Dans OVH, **Web Cloud > Hébergements > (l'hébergement) > onglet Mes sites** : ajouter `astro-test.labruffierehandball.com` vers un nouveau dossier **vide** (ici `astro`), sans module pré-installé.
+4. Sur la ligne du site, bouton **⁝ > Associer Git** : dépôt `https://github.com/adam-epiard/site-asbd-handball.git` (dépôt public : pas de clé SSH), branche `deploy`, puis **Appliquer la configuration**. La colonne Git doit passer à « Activé ».
+   Avec un dépôt privé (adresse `git@github.com:…` + clé SSH), l'intégration OVH a échoué en novembre 2026 (« Load key … invalid format ») : rester en public, ou déployer par FTP depuis la GitHub Action.
 5. Dans GitHub, **Settings > Webhooks** : ajouter l'URL donnée par OVH, type `application/json`, événement *Just the push event*.
 6. Dans **Recent Deliveries**, renvoyer l'événement `ping` : un code 200 indique que ça marche.
-7. Ouvrir `test.labruffierehandball.com` : la page « Nouveau site en construction » doit afficher la date du dernier build.
+7. Ouvrir `astro-test.labruffierehandball.com` : la page « Nouveau site en construction » doit afficher la date du dernier build.
 
 Si l'option Git n'apparaît pas dans le menu ⁝ de l'onglet Mes sites, le dépôt automatique est impossible par cette voie : solution de secours, envoyer `dist/` par FTP.
 
