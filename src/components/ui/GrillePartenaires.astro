@@ -1,0 +1,86 @@
+---
+/**
+ * Grille des partenaires. Chaque partenaire a un nom, et si possible un logo
+ * et un lien vers son site. Sans logo, le nom s'affiche à la place.
+ */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+export interface Partenaire {
+  nom: string;
+  logo?: ImageMetadata;
+  href?: string;
+}
+
+interface Props {
+  partenaires: Partenaire[];
+}
+
+const { partenaires } = Astro.props;
+---
+
+<ul class="partenaires">
+  {
+    partenaires.map((partenaire) => (
+      <li class="partenaires__element">
+        {partenaire.href ? (
+          <a class="partenaires__tuile" href={partenaire.href} rel="noopener">
+            {partenaire.logo ? (
+              <Image src={partenaire.logo} alt={partenaire.nom} height={80} class="partenaires__logo" />
+            ) : (
+              <span class="partenaires__nom">{partenaire.nom}</span>
+            )}
+          </a>
+        ) : (
+          <div class="partenaires__tuile">
+            {partenaire.logo ? (
+              <Image src={partenaire.logo} alt={partenaire.nom} height={80} class="partenaires__logo" />
+            ) : (
+              <span class="partenaires__nom">{partenaire.nom}</span>
+            )}
+          </div>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .partenaires {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+    gap: var(--espace-3);
+  }
+
+  .partenaires__tuile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 6.5rem;
+    padding: var(--espace-4);
+    background: var(--blanc);
+    border-radius: var(--rayon-petit);
+    color: var(--texte);
+    text-align: center;
+    text-decoration: none;
+  }
+
+  a.partenaires__tuile:hover {
+    box-shadow: inset 0 0 0 2px var(--noir);
+  }
+
+  .partenaires__logo {
+    max-height: 4rem;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .partenaires__nom {
+    font-weight: var(--graisse-moyen);
+    line-height: 1.3;
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+/**
+ * Champ de formulaire avec son libellé, une aide et un message d'erreur.
+ * Les champs sont obligatoires par défaut ; un champ facultatif l'indique
+ * dans son libellé (plus clair qu'une astérisque).
+ */
+interface Props {
+  nom: string;
+  label: string;
+  type?: 'text' | 'email' | 'tel' | 'textarea';
+  facultatif?: boolean;
+  aide?: string;
+  erreur?: string;
+  valeur?: string;
+  autocomplete?: string;
+}
+
+const { nom, label, type = 'text', facultatif = false, aide, erreur, valeur, autocomplete } = Astro.props;
+
+const id = `champ-${nom}`;
+const idAide = aide ? `${id}-aide` : undefined;
+const idErreur = erreur ? `${id}-erreur` : undefined;
+const decritPar = [idErreur, idAide].filter(Boolean).join(' ') || undefined;
+---
+
+<div class:list={['champ', { 'champ--erreur': erreur }]}>
+  <label class="champ__label" for={id}>
+    {label}
+    {facultatif && <span class="champ__facultatif">(facultatif)</span>}
+  </label>
+  {aide && <p class="champ__aide" id={idAide}>{aide}</p>}
+  {erreur && <p class="champ__erreur" id={idErreur}>{erreur}</p>}
+  {
+    type === 'textarea' ? (
+      <textarea
+        class="champ__saisie champ__saisie--zone"
+        id={id}
+        name={nom}
+        rows="6"
+        required={!facultatif}
+        aria-invalid={erreur ? 'true' : undefined}
+        aria-describedby={decritPar}
+      >{valeur}</textarea>
+    ) : (
+      <input
+        class="champ__saisie"
+        id={id}
+        name={nom}
+        type={type}
+        value={valeur}
+        required={!facultatif}
+        autocomplete={autocomplete}
+        aria-invalid={erreur ? 'true' : undefined}
+        aria-describedby={decritPar}
+      />
+    )
+  }
+</div>
+
+<style>
+  .champ {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espace-1);
+    max-width: 36rem;
+  }
+
+  .champ__label {
+    font-weight: var(--graisse-gras);
+    color: var(--noir);
+  }
+
+  .champ__facultatif {
+    margin-left: var(--espace-1);
+    font-weight: var(--graisse-normal);
+    color: var(--texte-doux);
+  }
+
+  .champ__aide,
+  .champ__erreur {
+    margin: 0;
+    font-size: var(--taille-sm);
+  }
+
+  .champ__aide {
+    color: var(--texte-doux);
+  }
+
+  .champ__erreur {
+    font-weight: var(--graisse-moyen);
+    color: var(--erreur);
+  }
+
+  .champ__saisie {
+    width: 100%;
+    min-height: var(--cible-tactile);
+    margin-top: var(--espace-1);
+    padding: var(--espace-2) var(--espace-3);
+    border: 1px solid var(--texte-doux);
+    border-radius: var(--rayon-petit);
+    background: var(--blanc);
+    color: var(--texte);
+    font: inherit;
+  }
+
+  .champ__saisie--zone {
+    resize: vertical;
+    line-height: var(--interligne);
+  }
+
+  .champ__saisie:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 1px;
+    border-color: var(--noir);
+  }
+
+  .champ--erreur .champ__saisie {
+    border: 2px solid var(--erreur);
+  }
+</style>

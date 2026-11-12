@@ -34,13 +34,18 @@ src/
   config/
     site.ts           nom, adresse, réseaux, réglage noindex
     navigation.ts     menu principal
-  layouts/            gabarit commun (balises meta, en-tête, pied de page)
+  layouts/            gabarit commun (balises meta, polices, en-tête, pied de page)
   components/         en-tête, pied de page
+    ui/               composants du design system (bouton, carte d'équipe, champ...)
+  assets/             images traitées au build (logo)
   pages/              les modèles de pages, sans texte en dur
-  styles/global.css   variables de couleurs, polices et espacements
+  styles/tokens.css   design system : couleurs, polices, tailles, espacements
+  styles/global.css   styles de base des éléments HTML
 public/               copié tel quel : .htaccess (redirections), robots.txt, favicon
 .github/workflows/    déploiement automatique
 ```
+
+Le design system est visible sur la page `/design-system/` (absente du menu). Un composant n'écrit jamais une couleur ou une taille en dur : il utilise les variables de `tokens.css`.
 
 Règle du contenu : **un champ vide n'affiche rien**. On laisse vide plutôt que d'écrire « en cours ».
 
@@ -74,6 +79,24 @@ Si l'option Git n'apparaît pas dans le menu ⁝ de l'onglet Mes sites, le dép�
 ### Le jour de la bascule
 
 Suivre la procédure du dossier de cadrage, et **passer `noindex` à `false`** dans `src/config/site.ts`.
+
+## Vidéo du bandeau d'accueil
+
+La vidéo est **floutée et compressée à l'avance** : environ 2 Mo, et sans calcul pour le téléphone.
+Utiliser un flou gaussien (`gblur`) et une qualité élevée (`-crf 22`) : un flou fort compressé trop fort fait apparaître des blocs.
+Vidéo d'iPhone en HDR : ajouter une conversion des couleurs (`zscale` + `tonemap`), sinon l'image paraît délavée.
+Avec [ffmpeg](https://ffmpeg.org/), depuis le dossier du projet (clip de 10 à 20 s, sans son) :
+
+```sh
+# Grand écran (720p) et téléphone (480p), floutés, sans piste audio
+ffmpeg -i source.mp4 -t 15 -an -vf "fps=25,scale=1280:-2,gblur=sigma=14:steps=3" -c:v libx264 -preset veryfast -crf 22 -x264-params aq-mode=3 -pix_fmt yuv420p -movflags +faststart public/video/bandeau-720.mp4
+ffmpeg -i source.mp4 -t 15 -an -vf "fps=25,scale=854:-2,gblur=sigma=10:steps=3" -c:v libx264 -preset veryfast -crf 24 -x264-params aq-mode=3 -pix_fmt yuv420p -movflags +faststart public/video/bandeau-480.mp4
+# Image fixe affichée avant la lecture
+ffmpeg -ss 1 -i public/video/bandeau-720.mp4 -frames:v 1 -c:v libwebp -quality 70 public/video/bandeau.webp
+```
+
+Puis décommenter `videoAccueil` dans `src/config/site.ts`.
+La vidéo ne se lance pas si le visiteur a réduit les animations ou active l'économie de données : l'image fixe s'affiche à la place.
 
 ## Revenir en arrière
 

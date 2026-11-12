@@ -1,0 +1,56 @@
+---
+/**
+ * Message mis en avant : information, confirmation ou erreur.
+ * - info   : à savoir (ex. horaires de vacances)
+ * - succes : une action a réussi (ex. message envoyé)
+ * - erreur : une action a échoué, avec la marche à suivre
+ */
+interface Props {
+  type?: 'info' | 'succes' | 'erreur';
+  titre?: string;
+}
+
+const { type = 'info', titre } = Astro.props;
+// Une erreur est annoncée immédiatement par les lecteurs d'écran.
+const role = type === 'erreur' ? 'alert' : 'status';
+---
+
+<div class:list={['alerte', `alerte--${type}`]} role={role}>
+  {titre && <p class="alerte__titre">{titre}</p>}
+  <div class="alerte__texte"><slot /></div>
+</div>
+
+<style>
+  .alerte {
+    max-width: var(--mesure);
+    padding: var(--espace-4) var(--espace-5);
+    border-left: 4px solid var(--couleur-alerte);
+    border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0;
+    background: var(--fond-alerte);
+  }
+
+  .alerte--info {
+    --couleur-alerte: var(--noir);
+    --fond-alerte: var(--info-fond);
+  }
+
+  .alerte--succes {
+    --couleur-alerte: var(--succes);
+    --fond-alerte: var(--succes-fond);
+  }
+
+  .alerte--erreur {
+    --couleur-alerte: var(--erreur);
+    --fond-alerte: var(--erreur-fond);
+  }
+
+  .alerte__titre {
+    margin: 0 0 var(--espace-1);
+    font-weight: var(--graisse-gras);
+    color: var(--couleur-alerte);
+  }
+
+  .alerte__texte :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

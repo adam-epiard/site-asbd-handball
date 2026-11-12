@@ -3,6 +3,7 @@
  * Gabarit commun à toutes les pages : balises meta, en-tête, pied de page.
  * Chaque page fournit un titre et une description uniques (référencement).
  */
+import { Font } from 'astro:assets';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -38,8 +39,11 @@ const canonique = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonique} />
 
+    <Font cssVariable="--font-titre" preload />
+    <Font cssVariable="--font-texte" preload={[{ style: 'normal' }]} />
+
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#0b4f9c" />
+    <meta name="theme-color" content="#e10600" />
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>

@@ -5,8 +5,10 @@
  * il reste simplement affiché. Les sous-menus utilisent <details>,
  * natif et utilisable au clavier.
  */
+import { Image } from 'astro:assets';
 import { site } from '../config/site';
 import { menu } from '../config/navigation';
+import logo from '../assets/logo-asbd.png';
 
 const cheminActuel = Astro.url.pathname;
 const estActif = (href?: string) => href !== undefined && href === cheminActuel;
@@ -15,8 +17,11 @@ const estActif = (href?: string) => href !== undefined && href === cheminActuel;
 <header class="entete">
   <div class="conteneur entete__barre">
     <a class="entete__logo" href="/" aria-label={`${site.nom}, accueil`}>
-      <span class="entete__sigle" aria-hidden="true">ASBD</span>
-      <span class="entete__nom">Vendée Handball</span>
+      <Image src={logo} alt="" width={56} height={56} densities={[1, 2]} loading="eager" class="entete__image" />
+      <span class="entete__nom" aria-hidden="true">
+        <span class="entete__sigle">ASBD Handball</span>
+        <span class="entete__ville">La Bruffière</span>
+      </span>
     </a>
 
     <button
@@ -113,8 +118,8 @@ const estActif = (href?: string) => href !== undefined && href === cheminActuel;
     position: sticky;
     top: 0;
     z-index: 50;
-    background: var(--couleur-primaire);
-    color: var(--couleur-primaire-contraste);
+    background: var(--blanc);
+    border-bottom: var(--trait);
   }
 
   .entete__barre {
@@ -123,40 +128,59 @@ const estActif = (href?: string) => href !== undefined && href === cheminActuel;
     align-items: center;
     justify-content: space-between;
     gap: var(--espace-2);
-    min-height: 4rem;
+    min-height: 4.5rem;
   }
 
   .entete__logo {
     display: flex;
-    align-items: baseline;
-    gap: var(--espace-2);
-    color: inherit;
+    align-items: center;
+    gap: var(--espace-3);
+    padding-block: var(--espace-2);
+    color: var(--noir);
     text-decoration: none;
-    font-weight: 700;
   }
 
-  .entete__sigle {
-    font-size: 1.5rem;
-    letter-spacing: 0.04em;
+  .entete__image {
+    width: 3.5rem;
+    height: 3.5rem;
   }
 
   .entete__nom {
-    font-size: 0.95rem;
-    opacity: 0.9;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .entete__sigle {
+    font-family: var(--police-titre);
+    font-size: 1.625rem;
+    font-weight: var(--graisse-titre);
+  }
+
+  .entete__ville {
+    margin-top: 0.2rem;
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
   }
 
   .entete__bouton {
     display: none;
     align-items: center;
     gap: var(--espace-2);
-    min-height: 2.75rem;
-    padding: var(--espace-2) var(--espace-3);
-    border: 1px solid currentColor;
-    border-radius: var(--rayon);
+    min-height: var(--cible-tactile);
+    padding: var(--espace-2) var(--espace-4);
+    border: 2px solid var(--noir);
+    border-radius: var(--rayon-bouton);
     background: transparent;
-    color: inherit;
+    color: var(--noir);
     font: inherit;
+    font-weight: var(--graisse-gras);
     cursor: pointer;
+  }
+
+  .entete__bouton[aria-expanded='true'] {
+    background: var(--noir);
+    color: var(--blanc);
   }
 
   .entete__burger,
@@ -196,36 +220,44 @@ const estActif = (href?: string) => href !== undefined && href === cheminActuel;
     list-style: none;
     margin: 0;
     padding: 0;
+    max-width: none;
   }
 
   .menu__liste {
     display: flex;
     flex-direction: column;
-    padding-bottom: var(--espace-3);
+    padding-bottom: var(--espace-4);
   }
 
   .menu__lien,
   .menu__sous-lien {
     display: block;
     padding: var(--espace-2) 0;
-    color: inherit;
+    color: var(--noir);
+    font-weight: var(--graisse-moyen);
     text-decoration: none;
     cursor: pointer;
+  }
+
+  .menu__lien:hover,
+  .menu__sous-lien:hover {
+    color: var(--rouge-fonce);
   }
 
   .menu__lien[aria-current='page'],
   .menu__sous-lien[aria-current='page'] {
     text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.3em;
+    text-decoration-color: var(--rouge);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 0.45em;
   }
 
   .menu__sous-liste {
-    padding-left: var(--espace-3);
+    padding-left: var(--espace-4);
   }
 
   /* Téléphone avec JavaScript : menu replié derrière le bouton. */
-  @media (max-width: 59.99rem) {
+  @media (max-width: 74.99rem) {
     :global(.js) .entete__bouton {
       display: inline-flex;
     }
@@ -236,18 +268,21 @@ const estActif = (href?: string) => href !== undefined && href === cheminActuel;
 
     :global(.js) .menu.menu--ouvert {
       display: block;
+      border-top: var(--trait);
+      padding-top: var(--espace-2);
     }
 
     .menu__lien,
     .menu__sous-lien {
-      min-height: 2.75rem;
+      min-height: var(--cible-tactile);
       display: flex;
       align-items: center;
+      font-size: var(--taille-lg);
     }
   }
 
   /* Écran large : menu en ligne, sous-menus déroulants. */
-  @media (min-width: 60rem) {
+  @media (min-width: 75rem) {
     .entete__barre {
       flex-wrap: nowrap;
     }
@@ -266,17 +301,35 @@ const estActif = (href?: string) => href !== undefined && href === cheminActuel;
       position: relative;
     }
 
+    .menu__groupe summary {
+      list-style: none;
+    }
+
+    .menu__groupe summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .menu__groupe summary::after {
+      content: '';
+      display: inline-block;
+      width: 0.4em;
+      height: 0.4em;
+      margin-left: 0.4em;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: translateY(-0.2em) rotate(45deg);
+    }
+
     .menu__sous-liste {
       position: absolute;
-      top: 100%;
-      left: calc(-1 * var(--espace-3));
+      top: calc(100% + var(--espace-2));
+      left: calc(-1 * var(--espace-4));
       min-width: 14rem;
-      padding: var(--espace-2) var(--espace-3);
-      background: var(--couleur-fond);
-      color: var(--couleur-texte);
-      border: 1px solid var(--couleur-bordure);
+      padding: var(--espace-2) var(--espace-4);
+      background: var(--blanc);
+      border: var(--trait);
       border-radius: var(--rayon);
-      box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+      box-shadow: 0 12px 32px rgb(0 0 0 / 0.08);
     }
   }
 </style>

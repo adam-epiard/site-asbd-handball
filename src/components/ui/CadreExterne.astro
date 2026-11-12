@@ -1,0 +1,64 @@
+---
+/**
+ * Cadre pour un service externe intégré : widget Scorenco (matchs, classement),
+ * boutique HelloAsso, carte Google Maps.
+ * Le contenu du service va dans le slot. Le lien de secours reste toujours
+ * visible : si le service ne s'affiche pas, le visiteur a une solution.
+ */
+interface Props {
+  /** Nom du service, affiché en petit (ex. « Résultats fournis par Scorenco »). */
+  source: string;
+  secours: { href: string; label: string };
+  /** Hauteur minimale réservée, pour éviter que la page saute au chargement. */
+  hauteurMin?: string;
+}
+
+const { source, secours, hauteurMin = '20rem' } = Astro.props;
+---
+
+<figure class="cadre-externe">
+  <div class="cadre-externe__contenu" style={`--hauteur-min: ${hauteurMin}`}>
+    <slot />
+  </div>
+  <figcaption class="cadre-externe__pied">
+    <span>{source}</span>
+    <a href={secours.href} rel="noopener">{secours.label}</a>
+  </figcaption>
+</figure>
+
+<style>
+  .cadre-externe {
+    margin: 0;
+    border: var(--trait);
+    border-radius: var(--rayon);
+    overflow: hidden;
+    background: var(--blanc);
+  }
+
+  .cadre-externe__contenu {
+    min-height: var(--hauteur-min);
+  }
+
+  .cadre-externe__contenu :global(iframe) {
+    display: block;
+    width: 100%;
+    min-height: var(--hauteur-min);
+    border: 0;
+  }
+
+  .cadre-externe__pied {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--espace-2) var(--espace-4);
+    padding: var(--espace-3) var(--espace-4);
+    border-top: var(--trait);
+    background: var(--gris-salle);
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+  }
+
+  .cadre-externe__pied a {
+    font-weight: var(--graisse-moyen);
+  }
+</style>

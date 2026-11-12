@@ -1,0 +1,258 @@
+---
+/**
+ * Bandeau d'ouverture d'une page (l'accueil en premier).
+ *
+ * Deux versions :
+ * - sans vidéo : fond blanc, titre noir, zone du terrain en rouge en bas ;
+ * - avec vidéo : vidéo floutée en fond, voile sombre, titre blanc.
+ *   La vidéo ne démarre pas si le visiteur a réduit les animations ou active
+ *   l'économie de données : seule l'image fixe (poster) s'affiche.
+ *   Un bouton permet de la mettre en pause (obligatoire pour l'accessibilité).
+ *
+ * Dans les deux cas, les lignes du terrain se tracent à l'ouverture si `anime`.
+ * Les boutons d'action vont dans le slot « actions ».
+ */
+import TraitsTerrain from './TraitsTerrain.astro';
+import type { VideoBandeau } from '../../config/site';
+
+
+interface Props {
+  titre: string;
+  intro?: string;
+  video?: VideoBandeau;
+  /** Tracer les lignes du terrain à l'ouverture (accueil uniquement). */
+  anime?: boolean;
+}
+
+const { titre, intro, video, anime = false } = Astro.props;
+---
+
+<section class:list={['bandeau', { 'bandeau--video': video }]}>
+  {
+    video && (
+      <div class="bandeau__media" aria-hidden="true">
+        <video
+          class="bandeau__video"
+          muted
+          loop
+          playsinline
+          preload="none"
+          poster={video.poster}
+          data-src={video.src}
+          data-src-petit={video.srcPetit ?? video.src}
+          data-video-bandeau
+        />
+      </div>
+    )
+  }
+
+  <div class="conteneur bandeau__texte">
+    <h1 class="bandeau__titre">{titre}</h1>
+    {intro && <p class="bandeau__intro">{intro}</p>}
+    {
+      Astro.slots.has('actions') && (
+        <div class="bandeau__actions">
+          <slot name="actions" />
+        </div>
+      )
+    }
+  </div>
+
+  <div class="bandeau__terrain">
+    <TraitsTerrain couleur="rouge" anime={anime} />
+  </div>
+
+  {
+    video && (
+      <button class="bandeau__pause" type="button" aria-pressed="false" hidden data-pause-bandeau>
+        <span class="bandeau__pause-icone" aria-hidden="true" />
+        <span class="visuellement-cache" data-pause-texte>
+          Mettre la vidéo en pause
+        </span>
+      </button>
+    )
+  }
+</section>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('[data-video-bandeau]');
+  const bouton = document.querySelector<HTMLButtonElement>('[data-pause-bandeau]');
+  const texte = document.querySelector<HTMLElement>('[data-pause-texte]');
+
+  const mouvementReduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const economieDonnees =
+    (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true;
+
+  if (video && bouton && texte && !mouvementReduit && !economieDonnees) {
+    const petitEcran = window.matchMedia('(max-width: 47.99rem)').matches;
+    video.src = (petitEcran ? video.dataset.srcPetit : video.dataset.src) ?? '';
+
+    video
+      .play()
+      .then(() => {
+        bouton.hidden = false;
+      })
+      .catch(() => {
+        // Lecture automatique refusée par le navigateur : l'image fixe reste affichée.
+      });
+
+    bouton.addEventListener('click', () => {
+      if (video.paused) {
+        void video.play();
+        bouton.setAttribute('aria-pressed', 'false');
+        texte.textContent = 'Mettre la vidéo en pause';
+      } else {
+        video.pause();
+        bouton.setAttribute('aria-pressed', 'true');
+        texte.textContent = 'Lire la vidéo';
+      }
+    });
+  }
+</script>
+
+<style>
+  .bandeau {
+    position: relative;
+    padding-top: var(--espace-section);
+    background: var(--blanc);
+    border-bottom: 4px solid var(--rouge);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .bandeau__texte {
+    position: relative;
+    z-index: 2;
+  }
+
+  .bandeau__titre {
+    max-width: 14ch;
+    margin-bottom: var(--espace-5);
+  }
+
+  .bandeau__intro {
+    max-width: 36rem;
+    font-size: var(--taille-lg);
+    color: var(--texte);
+  }
+
+  .bandeau__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espace-3);
+    margin-top: var(--espace-6);
+  }
+
+  .bandeau__terrain {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 64rem);
+    margin: calc(-1 * var(--espace-6)) auto 0;
+    padding-inline: var(--gouttiere);
+  }
+
+  /* ---------- Version vidéo ---------- */
+  .bandeau--video {
+    background: var(--noir);
+    color: var(--blanc);
+  }
+
+  .bandeau__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: var(--noir);
+  }
+
+  .bandeau__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* La vidéo est déjà floutée à l'encodage (plus légère et sans calcul
+       pour le téléphone). Le léger zoom évite les bords nets. */
+    transform: scale(1.04);
+  }
+
+  /* Voile : plus sombre à gauche, derrière le texte, pour la lisibilité. */
+  .bandeau__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(0 0 0 / 0.72) 0%, rgb(0 0 0 / 0.45) 60%, rgb(0 0 0 / 0.3) 100%);
+  }
+
+  .bandeau--video .bandeau__titre {
+    color: var(--blanc);
+  }
+
+  .bandeau--video .bandeau__intro {
+    color: #e6e6e6;
+  }
+
+  .bandeau__pause {
+    position: absolute;
+    right: var(--gouttiere);
+    bottom: var(--espace-4);
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: var(--cible-tactile);
+    height: var(--cible-tactile);
+    border: 2px solid rgb(255 255 255 / 0.7);
+    border-radius: 50%;
+    background: rgb(0 0 0 / 0.35);
+    color: var(--blanc);
+    cursor: pointer;
+  }
+
+  .bandeau__pause[hidden] {
+    display: none;
+  }
+
+  .bandeau__pause:hover {
+    border-color: var(--blanc);
+  }
+
+  .bandeau__pause:focus-visible {
+    outline-color: var(--blanc);
+  }
+
+  /* Icône pause : deux barres ; icône lecture : triangle. */
+  .bandeau__pause-icone {
+    width: 0.75rem;
+    height: 0.875rem;
+    border-inline: 0.25rem solid currentColor;
+  }
+
+  .bandeau__pause[aria-pressed='true'] .bandeau__pause-icone {
+    width: 0;
+    height: 0;
+    margin-left: 0.2rem;
+    border-block: 0.45rem solid transparent;
+    border-left: 0.75rem solid currentColor;
+    border-right: 0;
+  }
+
+  /* Sur grand écran, la zone se place à droite, derrière la fin du texte. */
+  @media (min-width: 60rem) {
+    .bandeau {
+      min-height: 34rem;
+      display: flex;
+      align-items: center;
+      padding-bottom: var(--espace-8);
+    }
+
+    .bandeau--video {
+      min-height: min(44rem, 85vh);
+    }
+
+    .bandeau__terrain {
+      position: absolute;
+      right: -6rem;
+      bottom: 0;
+      width: 52rem;
+      margin: 0;
+      padding: 0;
+    }
+  }
+</style>

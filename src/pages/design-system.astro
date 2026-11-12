@@ -1,0 +1,542 @@
+---
+/**
+ * Vitrine du design system : à montrer au club pour validation,
+ * puis référence pendant le développement. Absente du menu.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Bandeau from '../components/ui/Bandeau.astro';
+import Bouton from '../components/ui/Bouton.astro';
+import Etiquette from '../components/ui/Etiquette.astro';
+import TitreSection from '../components/ui/TitreSection.astro';
+import CarteEquipe from '../components/ui/CarteEquipe.astro';
+import CadreExterne from '../components/ui/CadreExterne.astro';
+import GrillePartenaires from '../components/ui/GrillePartenaires.astro';
+import Champ from '../components/ui/Champ.astro';
+import Alerte from '../components/ui/Alerte.astro';
+import TraitsTerrain from '../components/ui/TraitsTerrain.astro';
+import { site } from '../config/site';
+
+const video = site.videoAccueil;
+
+const couleurs = [
+  { nom: 'Rouge maillot', variable: '--rouge', hex: '#E10600', usage: 'Boutons, motif du terrain, accents', contraste: 'Texte blanc : 5,0:1' },
+  { nom: 'Rouge foncé', variable: '--rouge-fonce', hex: '#B80510', usage: 'Liens, survol des boutons', contraste: 'Sur blanc : 6,8:1' },
+  { nom: 'Noir', variable: '--noir', hex: '#000000', usage: 'Titres, pied de page', contraste: 'Sur blanc : 21:1' },
+  { nom: 'Texte', variable: '--texte', hex: '#262626', usage: 'Texte courant', contraste: 'Sur blanc : 15,1:1' },
+  { nom: 'Texte doux', variable: '--texte-doux', hex: '#5C5C5C', usage: 'Aides, informations secondaires', contraste: 'Sur blanc : 6,7:1' },
+  { nom: 'Gris salle', variable: '--gris-salle', hex: '#F3F3F1', usage: 'Fonds de sections alternées', contraste: '' },
+  { nom: 'Ligne', variable: '--ligne', hex: '#D9D9D5', usage: 'Bordures et séparateurs', contraste: '' },
+  { nom: 'Blanc', variable: '--blanc', hex: '#FFFFFF', usage: 'Fond principal', contraste: '' },
+];
+
+const textes = [
+  { nom: 'Titre de page', detail: 'Big Shoulders 900, 44 à 80 px', classe: 'echantillon--h1', exemple: 'Bienvenue au club' },
+  { nom: 'Titre de section', detail: 'Big Shoulders 800, 32 à 44 px', classe: 'echantillon--h2', exemple: 'Nos équipes' },
+  { nom: 'Titre de carte', detail: 'Archivo 700, 22 px', classe: 'echantillon--h3', exemple: 'Entraînements du mercredi' },
+  { nom: 'Chapeau', detail: 'Archivo 400, 20 px', classe: 'echantillon--lg', exemple: 'Du baby hand aux seniors, chacun trouve sa place sur le terrain.' },
+  { nom: 'Texte courant', detail: 'Archivo 400, 17 px, interligne 1,6', classe: 'echantillon--base', exemple: "Chaque équipe a sa page avec ses horaires d'entraînement, ses coachs et ses prochains matchs. Les informations sont mises à jour à chaque début de saison." },
+  { nom: 'Petit texte', detail: 'Archivo 400, 15 px', classe: 'echantillon--sm', exemple: 'Mis à jour pour la saison 2026-2027' },
+];
+
+const espacements = ['--espace-2', '--espace-4', '--espace-5', '--espace-6', '--espace-7', '--espace-8'];
+
+const partenaires = [
+  { nom: 'Partenaire exemple 1' },
+  { nom: 'Partenaire exemple 2' },
+  { nom: 'Partenaire exemple 3' },
+  { nom: 'Partenaire exemple 4' },
+  { nom: 'Partenaire exemple 5' },
+  { nom: 'Partenaire exemple 6' },
+];
+
+const sommaire = [
+  ['couleurs', 'Couleurs'],
+  ['typographie', 'Typographie'],
+  ['boutons', 'Boutons et étiquettes'],
+  ['equipes', "Cartes d'équipe"],
+  ['services', 'Services intégrés'],
+  ['partenaires', 'Partenaires'],
+  ['formulaires', 'Formulaires et messages'],
+  ['formes', 'Espacements et formes'],
+];
+---
+
+<BaseLayout titre="Design system" description="Couleurs, typographie et composants du nouveau site de l'ASBD Vendée Handball.">
+  <Bandeau
+    titre="Le handball à La Bruffière, pour toute la famille"
+    intro="Du baby hand aux seniors, des équipes pour tous les âges et tous les niveaux, à la salle de La Bruffière."
+    video={video}
+    anime
+  >
+    <Fragment slot="actions">
+      <Bouton href="#equipes">Trouver mon équipe</Bouton>
+      <Bouton href="#services" variante={video ? 'contour-inverse' : 'secondaire'}>Voir les matchs</Bouton>
+    </Fragment>
+  </Bandeau>
+
+  <section class="section conteneur intro">
+    <h2>Design system</h2>
+    <p class="intro__chapeau">
+      Le bandeau ci-dessus est un exemple d'accueil. Cette page rassemble les couleurs, les textes et les éléments du
+      nouveau site, pour valider l'identité avant de construire les pages.
+    </p>
+    <p>
+      Direction choisie : <strong>sportif, familial et sobre</strong>. Le blanc domine, le rouge du maillot est réservé
+      aux actions et au motif du terrain, et les titres reprennent l'allure d'un tableau de score.
+    </p>
+    <p class="intro__note">
+      Les textes de cette page sont des exemples : les horaires, offres et partenaires réels seront repris avec le club.
+    </p>
+    <nav aria-label="Sommaire du design system">
+      <ul class="sommaire">
+        {sommaire.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}
+      </ul>
+    </nav>
+  </section>
+
+  <section class="section section--alterne" aria-labelledby="couleurs">
+    <div class="conteneur">
+      <TitreSection id="couleurs" titre="Couleurs" intro="Le rouge et le noir viennent du logo. Toutes les associations de texte respectent le niveau AA d'accessibilité." />
+      <ul class="nuancier">
+        {
+          couleurs.map((couleur) => (
+            <li class="nuance">
+              <span class="nuance__pastille" style={`background: var(${couleur.variable})`} />
+              <span class="nuance__nom">{couleur.nom}</span>
+              <span class="nuance__code">{couleur.hex}</span>
+              <span class="nuance__usage">{couleur.usage}</span>
+              {couleur.contraste && <span class="nuance__contraste">{couleur.contraste}</span>}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section conteneur" aria-labelledby="typographie">
+    <TitreSection id="typographie" titre="Typographie" intro="Deux familles : Big Shoulders, étroite et grasse, pour les titres et les chiffres ; Archivo, lisible et chaleureuse, pour tout le reste." />
+    <dl class="echantillons">
+      {
+        textes.map((texte) => (
+          <div class="echantillon">
+            <dt class="echantillon__nom">
+              {texte.nom}
+              <span>{texte.detail}</span>
+            </dt>
+            <dd class:list={['echantillon__exemple', texte.classe]}>{texte.exemple}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <div class="score" aria-label="Exemple de score : ASBD 28, visiteurs 24">
+      <span class="score__equipe">ASBD</span>
+      <span class="score__chiffres">28 – 24</span>
+      <span class="score__equipe">Visiteurs</span>
+    </div>
+  </section>
+
+  <section class="section section--alterne" aria-labelledby="boutons">
+    <div class="conteneur">
+      <TitreSection id="boutons" titre="Boutons et étiquettes" intro="Un seul bouton rouge par section : l'action principale. Les boutons font au moins 44 px de haut pour être faciles à toucher." />
+      <div class="rangee">
+        <Bouton>Prendre une licence</Bouton>
+        <Bouton variante="secondaire">Voir les horaires</Bouton>
+        <Bouton disabled>Inscriptions fermées</Bouton>
+      </div>
+      <div class="rangee rangee--rouge">
+        <Bouton variante="inverse">Bouton sur fond rouge</Bouton>
+      </div>
+      <div class="rangee rangee--noir">
+        <Bouton variante="inverse">Bouton sur fond noir</Bouton>
+      </div>
+      <h3 class="sous-titre">Étiquettes</h3>
+      <div class="rangee">
+        <Etiquette>Féminines</Etiquette>
+        <Etiquette>Masculines</Etiquette>
+        <Etiquette>Jeunes</Etiquette>
+        <Etiquette variante="rouge">Domicile</Etiquette>
+        <Etiquette variante="noir">Nouveau</Etiquette>
+      </div>
+      <h3 class="sous-titre">Liens</h3>
+      <p>Les liens dans le texte sont <a href="#boutons">soulignés et en rouge foncé</a>, pour rester visibles sans crier.</p>
+    </div>
+  </section>
+
+  <section class="section conteneur" aria-labelledby="equipes">
+    <TitreSection id="equipes" titre="Nos équipes" intro="Sans photo, la carte affiche la zone du terrain plutôt qu'un texte d'attente." lien={{ href: '#equipes', label: 'Toutes les équipes' }} />
+    <div class="grille-equipes">
+      <CarteEquipe nom="Seniors F" href="#equipes" categorie="Féminines" />
+      <CarteEquipe nom="Seniors M" href="#equipes" categorie="Masculines" />
+      <CarteEquipe nom="U15 F" href="#equipes" categorie="Jeunes" />
+      <CarteEquipe nom="Baby Hand" href="#equipes" categorie="Jeunes" />
+    </div>
+  </section>
+
+  <section class="section section--alterne" aria-labelledby="services">
+    <div class="conteneur">
+      <TitreSection id="services" titre="Matchs de la semaine" intro="Les services externes (Scorenco, HelloAsso, Google Maps) s'affichent dans ce cadre, avec toujours un lien de secours en dessous." />
+      <CadreExterne source="Résultats fournis par Scorenco" secours={{ href: 'https://www.ffhandball.fr/', label: 'Voir sur le site de la FFHB' }} hauteurMin="16rem">
+        <div class="scorenco-widget" data-widget-type="week-events" data-widget-id="4994"></div>
+        <script is:inline async defer src="https://widgets.scorenco.com/host/widgets.js"></script>
+      </CadreExterne>
+    </div>
+  </section>
+
+  <section class="section conteneur" aria-labelledby="partenaires">
+    <TitreSection id="partenaires" titre="Ils soutiennent le club" intro="Logos sur tuiles blanches, sur un fond gris. Sans logo, le nom du partenaire s'affiche." />
+    <div class="fond-partenaires">
+      <GrillePartenaires partenaires={partenaires} />
+    </div>
+  </section>
+
+  <section class="section section--alterne" aria-labelledby="formulaires">
+    <div class="conteneur deux-colonnes">
+      <div>
+        <TitreSection id="formulaires" titre="Contacter le club" intro="Libellés toujours visibles, champs facultatifs indiqués, erreurs expliquées sous le libellé." />
+        <form class="formulaire" action="#" novalidate>
+          <Champ nom="nom" label="Votre nom" autocomplete="name" />
+          <Champ nom="email" label="Votre e-mail" type="email" autocomplete="email" valeur="parent@exemple" erreur="Cette adresse e-mail est incomplète. Exemple : prenom.nom@gmail.com" />
+          <Champ nom="telephone" label="Téléphone" type="tel" facultatif aide="Pour être rappelé plus vite." autocomplete="tel" />
+          <Champ nom="message" label="Votre message" type="textarea" />
+          <div>
+            <Bouton type="button">Envoyer le message</Bouton>
+          </div>
+        </form>
+      </div>
+      <div class="messages">
+        <h3>Messages</h3>
+        <Alerte type="succes" titre="Message envoyé">
+          <p>Le club vous répond par e-mail dans les prochains jours.</p>
+        </Alerte>
+        <Alerte type="erreur" titre="Le message n'est pas parti">
+          <p>Vérifiez votre connexion puis réessayez. Vos informations sont conservées.</p>
+        </Alerte>
+        <Alerte type="info" titre="Bon à savoir">
+          <p>Exemple de message d'information : un changement d'horaire, une fermeture de salle, une date d'inscription.</p>
+        </Alerte>
+      </div>
+    </div>
+  </section>
+
+  <section class="section conteneur" aria-labelledby="formes">
+    <TitreSection id="formes" titre="Espacements et formes" intro="Les espacements suivent une échelle fixe, pour un rythme régulier d'une page à l'autre." />
+    <ul class="espacements">
+      {
+        espacements.map((variable) => (
+          <li>
+            <span class="espacements__barre" style={`width: var(${variable})`} />
+            <code>{variable}</code>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="formes">
+      <div class="forme forme--petit">Champs et étiquettes<br /><code>--rayon-petit</code></div>
+      <div class="forme forme--carte">Cartes et photos<br /><code>--rayon</code></div>
+      <div class="forme forme--pilule">Boutons <code>--rayon-bouton</code></div>
+    </div>
+    <h3 class="sous-titre">Motif du terrain</h3>
+    <p>La zone des 6 et 9 mètres, utilisée avec parcimonie : bandeau d'accueil, cartes sans photo, page introuvable.</p>
+    <div class="motifs">
+      <div class="motif"><TraitsTerrain couleur="rouge" /></div>
+      <div class="motif motif--gris"><TraitsTerrain couleur="ligne" /></div>
+      <div class="motif motif--noir"><TraitsTerrain couleur="blanc" /></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro__chapeau {
+    font-size: var(--taille-lg);
+  }
+
+  .intro__note {
+    color: var(--texte-doux);
+    font-size: var(--taille-sm);
+  }
+
+  .sommaire {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espace-2) var(--espace-5);
+    padding: 0;
+    margin-top: var(--espace-6);
+    list-style: none;
+    max-width: none;
+    font-weight: var(--graisse-moyen);
+  }
+
+  .sous-titre {
+    margin-top: var(--espace-7);
+  }
+
+  /* Couleurs */
+  .nuancier {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: var(--espace-4);
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .nuance {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espace-1);
+    padding-bottom: var(--espace-4);
+    background: var(--blanc);
+    border-radius: var(--rayon);
+    overflow: hidden;
+    font-size: var(--taille-sm);
+  }
+
+  .nuance > span:not(.nuance__pastille) {
+    padding-inline: var(--espace-4);
+  }
+
+  .nuance__pastille {
+    display: block;
+    height: 6rem;
+    margin-bottom: var(--espace-2);
+    box-shadow: inset 0 -1px 0 var(--ligne);
+  }
+
+  .nuance__nom {
+    font-weight: var(--graisse-gras);
+    font-size: var(--taille-base);
+    color: var(--noir);
+  }
+
+  .nuance__code {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nuance__usage,
+  .nuance__contraste {
+    color: var(--texte-doux);
+  }
+
+  /* Typographie */
+  .echantillons {
+    margin: 0;
+  }
+
+  .echantillon {
+    display: grid;
+    gap: var(--espace-2) var(--espace-6);
+    padding-block: var(--espace-5);
+    border-top: var(--trait);
+  }
+
+  @media (min-width: 48rem) {
+    .echantillon {
+      grid-template-columns: 14rem 1fr;
+      align-items: baseline;
+    }
+  }
+
+  .echantillon__nom {
+    font-weight: var(--graisse-gras);
+    color: var(--noir);
+  }
+
+  .echantillon__nom span {
+    display: block;
+    font-weight: var(--graisse-normal);
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+  }
+
+  .echantillon__exemple {
+    margin: 0;
+    max-width: var(--mesure);
+  }
+
+  .echantillon--h1,
+  .echantillon--h2 {
+    font-family: var(--police-titre);
+    line-height: var(--interligne-titre);
+    color: var(--noir);
+  }
+
+  .echantillon--h1 {
+    font-size: var(--taille-h1);
+    font-weight: 900;
+  }
+
+  .echantillon--h2 {
+    font-size: var(--taille-h2);
+    font-weight: var(--graisse-titre);
+  }
+
+  .echantillon--h3 {
+    font-size: var(--taille-h3);
+    font-weight: var(--graisse-gras);
+    color: var(--noir);
+  }
+
+  .echantillon--lg {
+    font-size: var(--taille-lg);
+  }
+
+  .echantillon--sm {
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+  }
+
+  .score {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--espace-2) var(--espace-6);
+    margin-top: var(--espace-6);
+    padding: var(--espace-6) var(--espace-4);
+    background: var(--noir);
+    border-radius: var(--rayon);
+    color: var(--blanc);
+  }
+
+  .score__chiffres {
+    font-family: var(--police-titre);
+    font-size: var(--taille-score);
+    font-weight: 900;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .score__equipe {
+    font-weight: var(--graisse-gras);
+    font-size: var(--taille-lg);
+  }
+
+  /* Boutons */
+  .rangee {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--espace-3);
+    margin-bottom: var(--espace-4);
+  }
+
+  .rangee--rouge,
+  .rangee--noir {
+    padding: var(--espace-5);
+    border-radius: var(--rayon);
+  }
+
+  .rangee--rouge {
+    background: var(--rouge);
+  }
+
+  .rangee--noir {
+    background: var(--noir);
+  }
+
+  /* Équipes */
+  .grille-equipes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: var(--espace-5);
+  }
+
+  /* Partenaires */
+  .fond-partenaires {
+    padding: var(--espace-5);
+    background: var(--gris-salle);
+    border-radius: var(--rayon);
+  }
+
+  /* Formulaires */
+  .deux-colonnes {
+    display: grid;
+    gap: var(--espace-7);
+  }
+
+  @media (min-width: 64rem) {
+    .deux-colonnes {
+      grid-template-columns: 3fr 2fr;
+      align-items: start;
+    }
+  }
+
+  .formulaire {
+    display: grid;
+    gap: var(--espace-5);
+  }
+
+  .messages {
+    display: grid;
+    gap: var(--espace-4);
+  }
+
+  /* Espacements et formes */
+  .espacements {
+    display: grid;
+    gap: var(--espace-3);
+    padding: 0;
+    list-style: none;
+  }
+
+  .espacements li {
+    display: flex;
+    align-items: center;
+    gap: var(--espace-4);
+  }
+
+  .espacements__barre {
+    display: block;
+    height: 1rem;
+    background: var(--rouge);
+    border-radius: 2px;
+  }
+
+  .formes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espace-4);
+    margin-top: var(--espace-6);
+  }
+
+  .forme {
+    padding: var(--espace-4) var(--espace-5);
+    border: 2px solid var(--noir);
+    font-size: var(--taille-sm);
+  }
+
+  .forme--petit {
+    border-radius: var(--rayon-petit);
+  }
+
+  .forme--carte {
+    border-radius: var(--rayon);
+  }
+
+  .forme--pilule {
+    align-self: center;
+    border-radius: var(--rayon-bouton);
+  }
+
+  .motifs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: var(--espace-4);
+  }
+
+  .motif {
+    padding: var(--espace-5) var(--espace-4) 0;
+    background: var(--blanc);
+    border: var(--trait);
+    border-radius: var(--rayon);
+  }
+
+  .motif--gris {
+    background: var(--gris-salle);
+  }
+
+  .motif--noir {
+    background: var(--noir);
+    border-color: var(--noir);
+  }
+</style>

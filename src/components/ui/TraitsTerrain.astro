@@ -1,0 +1,111 @@
+---
+/**
+ * Motif signature du site : la zone d'un terrain de handball, vue de dessus.
+ * Ligne pleine des 6 mètres, ligne pointillée des 9 mètres et le but.
+ * Purement décoratif (aria-hidden). À utiliser avec parcimonie :
+ * bandeau d'accueil, cartes sans photo, page 404.
+ *
+ * Échelle : 1 mètre = 20 unités. But de 3 m centré sur la ligne de but (y = 200).
+ *
+ * Avec `anime`, les lignes se tracent une seule fois à l'ouverture de la page,
+ * comme à la craie. Animation coupée si le visiteur a réduit les animations.
+ */
+interface Props {
+  /** Couleur des lignes. */
+  couleur?: 'rouge' | 'ligne' | 'blanc';
+  anime?: boolean;
+  class?: string;
+}
+
+const { couleur = 'rouge', anime = false, class: classe } = Astro.props;
+---
+
+<svg
+  class:list={['terrain', `terrain--${couleur}`, { 'terrain--anime': anime }, classe]}
+  viewBox="0 0 400 200"
+  preserveAspectRatio="xMidYMax meet"
+  aria-hidden="true"
+  focusable="false"
+>
+  <!-- Ligne des 9 mètres (pointillés) -->
+  <path class="terrain__neuf" d="M -10 200 A 180 180 0 0 1 170 20 L 230 20 A 180 180 0 0 1 410 200" />
+  <!-- Ligne des 6 mètres -->
+  <path class="terrain__six" pathLength="1" d="M 50 200 A 120 120 0 0 1 170 80 L 230 80 A 120 120 0 0 1 350 200" />
+  <!-- But -->
+  <path class="terrain__but" pathLength="1" d="M 170 200 L 170 188 L 230 188 L 230 200" />
+</svg>
+
+<style>
+  .terrain {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .terrain path {
+    fill: none;
+    stroke: var(--couleur-terrain);
+    stroke-width: 4;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .terrain__neuf {
+    stroke-dasharray: 14 10;
+  }
+
+  .terrain__but {
+    stroke-width: 6;
+  }
+
+  .terrain--rouge {
+    --couleur-terrain: var(--rouge);
+  }
+
+  .terrain--ligne {
+    --couleur-terrain: var(--ligne);
+  }
+
+  .terrain--blanc {
+    --couleur-terrain: var(--blanc);
+  }
+
+  /* Tracé à la craie : la ligne des 6 m se dessine, puis le but,
+     puis la ligne des 9 m apparaît. Une seule fois, environ 2,5 s. */
+  @media (prefers-reduced-motion: no-preference) {
+    .terrain--anime path {
+      vector-effect: none;
+      stroke-width: 3;
+    }
+
+    .terrain--anime .terrain__six,
+    .terrain--anime .terrain__but {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: terrain-trace 1.6s var(--courbe) 0.3s forwards;
+    }
+
+    .terrain--anime .terrain__but {
+      stroke-width: 4.5;
+      animation-duration: 0.5s;
+      animation-delay: 1.5s;
+    }
+
+    .terrain--anime .terrain__neuf {
+      opacity: 0;
+      animation: terrain-apparait 0.8s ease-out 1.8s forwards;
+    }
+  }
+
+  @keyframes terrain-trace {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes terrain-apparait {
+    to {
+      opacity: 1;
+    }
+  }
+</style>

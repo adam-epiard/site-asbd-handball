@@ -1,6 +1,6 @@
 ---
 /**
- * Pied de page : coordonnées du club et liens utiles.
+ * Pied de page : coordonnées du club et liens utiles, sur fond noir.
  * Un champ vide dans src/config/site.ts n'affiche rien.
  */
 import { site } from '../config/site';
@@ -22,45 +22,52 @@ const { adresse, email, reseaux } = site;
 
     {
       (reseaux.instagram || reseaux.facebook) && (
-        <ul class="pied__liens" aria-label="Réseaux sociaux">
-          {reseaux.instagram && (
-            <li>
-              <a href={reseaux.instagram} rel="noopener">Instagram</a>
-            </li>
-          )}
-          {reseaux.facebook && (
-            <li>
-              <a href={reseaux.facebook} rel="noopener">Facebook</a>
-            </li>
-          )}
-        </ul>
+        <div>
+          <p class="pied__titre">Suivre le club</p>
+          <ul class="pied__liens">
+            {reseaux.instagram && (
+              <li>
+                <a href={reseaux.instagram} rel="noopener">Instagram</a>
+              </li>
+            )}
+            {reseaux.facebook && (
+              <li>
+                <a href={reseaux.facebook} rel="noopener">Facebook</a>
+              </li>
+            )}
+          </ul>
+        </div>
       )
     }
 
-    <ul class="pied__liens" aria-label="Liens utiles">
-      <li><a href="/contact/">Contact</a></li>
-      <li><a href="/mentions-legales/">Mentions légales</a></li>
-    </ul>
+    <div>
+      <p class="pied__titre">Infos pratiques</p>
+      <ul class="pied__liens">
+        <li><a href="/contact/">Contacter le club</a></li>
+        <li><a href="/licences/">Prendre une licence</a></li>
+        <li><a href="/mentions-legales/">Mentions légales</a></li>
+      </ul>
+    </div>
   </div>
   <p class="conteneur pied__copyright">© {annee} {site.nom}</p>
 </footer>
 
 <style>
   .pied {
-    margin-top: var(--espace-6);
-    padding-block: var(--espace-5) var(--espace-3);
-    background: var(--couleur-surface);
-    color: var(--couleur-texte-doux);
-    font-size: 0.95rem;
+    margin-top: auto;
+    padding-block: var(--espace-7) var(--espace-4);
+    background: var(--noir);
+    color: #cfcfcf;
+    font-size: var(--taille-sm);
   }
 
   .pied a {
-    color: var(--couleur-texte);
+    color: var(--blanc);
   }
 
   .pied__grille {
     display: grid;
-    gap: var(--espace-4);
+    gap: var(--espace-6);
   }
 
   @media (min-width: 40rem) {
@@ -70,9 +77,18 @@ const { adresse, email, reseaux } = site;
   }
 
   .pied__nom {
-    margin: 0 0 var(--espace-2);
-    font-weight: 700;
-    color: var(--couleur-texte);
+    margin: 0 0 var(--espace-3);
+    font-family: var(--police-titre);
+    font-size: 1.75rem;
+    font-weight: var(--graisse-titre);
+    line-height: 1;
+    color: var(--blanc);
+  }
+
+  .pied__titre {
+    margin: 0 0 var(--espace-3);
+    font-weight: var(--graisse-gras);
+    color: var(--blanc);
   }
 
   .pied__adresse {
@@ -88,9 +104,9 @@ const { adresse, email, reseaux } = site;
   }
 
   .pied__copyright {
-    margin-top: var(--espace-5);
-    padding-top: var(--espace-3);
-    border-top: 1px solid var(--couleur-bordure);
-    font-size: 0.85rem;
+    margin-top: var(--espace-7);
+    padding-top: var(--espace-4);
+    border-top: 1px solid #333333;
+    font-size: var(--taille-xs);
   }
 </style>

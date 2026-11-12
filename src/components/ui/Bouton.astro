@@ -1,0 +1,119 @@
+---
+/**
+ * Bouton ou lien en forme de bouton.
+ * Avec `href` : un lien <a>. Sans `href` : un <button>.
+ *
+ * Variantes :
+ * - primaire   : l'action principale de la section (une seule par section)
+ * - secondaire : une action alternative
+ * - inverse    : action principale sur fond rouge, noir ou vidéo (bouton blanc)
+ * - contour-inverse : action secondaire sur fond sombre (contour blanc)
+ */
+interface Props {
+  href?: string;
+  variante?: 'primaire' | 'secondaire' | 'inverse' | 'contour-inverse';
+  type?: 'button' | 'submit' | 'reset';
+  /** Lien vers un autre site (HelloAsso, FFHB...) : ouvre dans le même onglet. */
+  externe?: boolean;
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  variante = 'primaire',
+  type = 'button',
+  externe = false,
+  disabled = false,
+  class: classe,
+} = Astro.props;
+
+const classes = ['bouton', `bouton--${variante}`, classe];
+---
+
+{
+  href ? (
+    <a class:list={classes} href={href} rel={externe ? 'noopener' : undefined}>
+      <slot />
+    </a>
+  ) : (
+    <button class:list={classes} type={type} disabled={disabled}>
+      <slot />
+    </button>
+  )
+}
+
+<style>
+  .bouton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--espace-2);
+    min-height: var(--cible-tactile);
+    padding: var(--espace-2) var(--espace-5);
+    border: 2px solid transparent;
+    border-radius: var(--rayon-bouton);
+    font: inherit;
+    font-weight: var(--graisse-gras);
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color var(--duree) var(--courbe),
+      color var(--duree) var(--courbe),
+      border-color var(--duree) var(--courbe);
+  }
+
+  .bouton--primaire {
+    background: var(--action);
+    color: var(--action-texte);
+  }
+
+  .bouton--primaire:hover {
+    background: var(--action-survol);
+  }
+
+  .bouton--secondaire {
+    background: transparent;
+    border-color: var(--noir);
+    color: var(--noir);
+  }
+
+  .bouton--secondaire:hover {
+    background: var(--noir);
+    color: var(--blanc);
+  }
+
+  .bouton--inverse {
+    background: var(--blanc);
+    color: var(--noir);
+  }
+
+  .bouton--inverse:hover {
+    background: var(--gris-salle);
+  }
+
+  .bouton--contour-inverse {
+    background: transparent;
+    border-color: var(--blanc);
+    color: var(--blanc);
+  }
+
+  .bouton--contour-inverse:hover {
+    background: var(--blanc);
+    color: var(--noir);
+  }
+
+  .bouton:active {
+    transform: translateY(1px);
+  }
+
+  .bouton[disabled] {
+    background: var(--gris-salle);
+    border-color: var(--ligne);
+    color: var(--texte-doux);
+    cursor: not-allowed;
+    transform: none;
+  }
+</style>

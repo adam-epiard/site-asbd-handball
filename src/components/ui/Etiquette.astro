@@ -1,0 +1,41 @@
+---
+/**
+ * Petite étiquette : catégorie d'une équipe, statut, mention courte.
+ * Texte en casse normale (pas de majuscules forcées).
+ */
+interface Props {
+  variante?: 'neutre' | 'rouge' | 'noir';
+}
+
+const { variante = 'neutre' } = Astro.props;
+---
+
+<span class:list={['etiquette', `etiquette--${variante}`]}><slot /></span>
+
+<style>
+  .etiquette {
+    display: inline-block;
+    padding: 0.125rem var(--espace-2);
+    border-radius: var(--rayon-petit);
+    font-size: var(--taille-sm);
+    font-weight: var(--graisse-moyen);
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  .etiquette--neutre {
+    background: var(--gris-salle);
+    color: var(--texte);
+    box-shadow: inset 0 0 0 1px var(--ligne);
+  }
+
+  .etiquette--rouge {
+    background: var(--rouge);
+    color: var(--blanc);
+  }
+
+  .etiquette--noir {
+    background: var(--noir);
+    color: var(--blanc);
+  }
+</style>

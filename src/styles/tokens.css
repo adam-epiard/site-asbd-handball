@@ -1,0 +1,93 @@
+/*
+ * Design system ASBD Vendée Handball : les tokens.
+ *
+ * Toutes les valeurs visuelles du site viennent d'ici. Un composant
+ * n'écrit jamais une couleur ou une taille en dur : il utilise ces variables.
+ * La page /design-system/ les montre en situation.
+ *
+ * Direction : sportif, familial, sobre.
+ * - Sobre : fond blanc, beaucoup d'air, le rouge réservé aux actions et au motif.
+ * - Sportif : titres en caractères étroits et gras, comme un tableau de score.
+ * - Familial : texte courant grand et lisible, coins arrondis, ton direct.
+ */
+
+:root {
+  /* ---------- Couleurs de marque (tirées du logo) ---------- */
+  --rouge: #e10600;            /* Rouge maillot : boutons, motif terrain, accents */
+  --rouge-fonce: #b80510;      /* Survol et appui des boutons, liens */
+  --noir: #000000;             /* Noir du logo : titres, pied de page */
+
+  /* ---------- Neutres ---------- */
+  --blanc: #ffffff;
+  --texte: #262626;            /* Texte courant */
+  --texte-doux: #5c5c5c;       /* Textes secondaires, aides de formulaire */
+  --gris-salle: #f3f3f1;       /* Fonds de sections et de cartes */
+  --ligne: #d9d9d5;            /* Bordures, séparateurs */
+
+  /* ---------- États ---------- */
+  --succes: #1e7b3a;
+  --succes-fond: #e8f3ec;
+  --erreur: #b42318;
+  --erreur-fond: #fdecea;
+  --info-fond: #f3f3f1;
+
+  /* ---------- Rôles (à utiliser dans les composants) ---------- */
+  --fond: var(--blanc);
+  --fond-alterne: var(--gris-salle);
+  --action: var(--rouge);
+  --action-survol: var(--rouge-fonce);
+  --action-texte: var(--blanc);
+  --lien: var(--rouge-fonce);
+  --focus: var(--noir);
+
+  /* ---------- Typographie ---------- */
+  /* --font-titre et --font-texte sont créées par Astro (voir astro.config.mjs). */
+  --police-titre: var(--font-titre, 'Arial Narrow', 'Roboto Condensed', sans-serif);
+  --police-texte: var(--font-texte, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif);
+
+  /* Échelle : texte courant à 17 px pour une lecture confortable sur téléphone,
+     titres qui grandissent avec l'écran. */
+  --taille-xs: 0.8125rem;      /* 13 px : mentions */
+  --taille-sm: 0.9375rem;      /* 15 px : aides, métadonnées */
+  --taille-base: 1.0625rem;    /* 17 px : texte courant */
+  --taille-lg: 1.25rem;        /* 20 px : chapeaux */
+  --taille-h3: 1.375rem;       /* 22 px : titres de cartes (Archivo gras) */
+  --taille-h2: clamp(2rem, 1.55rem + 2vw, 2.75rem);      /* 32 → 44 px */
+  --taille-h1: clamp(2.75rem, 1.9rem + 4.2vw, 5rem);     /* 44 → 80 px */
+  --taille-score: clamp(3.5rem, 2.5rem + 5vw, 6.5rem);   /* chiffres mis en avant */
+
+  --graisse-normal: 400;
+  --graisse-moyen: 600;
+  --graisse-gras: 700;
+  --graisse-titre: 800;
+
+  --interligne: 1.6;
+  --interligne-titre: 1;
+  --mesure: 65ch;              /* longueur de ligne maximale du texte courant */
+
+  /* ---------- Espacements (base 4 px) ---------- */
+  --espace-1: 0.25rem;
+  --espace-2: 0.5rem;
+  --espace-3: 0.75rem;
+  --espace-4: 1rem;
+  --espace-5: 1.5rem;
+  --espace-6: 2rem;
+  --espace-7: 3rem;
+  --espace-8: 4.5rem;
+  --espace-section: clamp(3rem, 2rem + 4vw, 6rem);
+
+  /* ---------- Mise en page ---------- */
+  --largeur-max: 75rem;
+  --gouttiere: clamp(1rem, 0.5rem + 2.5vw, 2rem);
+
+  /* ---------- Formes ---------- */
+  --rayon-petit: 0.375rem;     /* champs, étiquettes */
+  --rayon: 0.75rem;            /* cartes, photos */
+  --rayon-bouton: 999px;       /* boutons en pilule, faciles à viser au doigt */
+  --trait: 1px solid var(--ligne);
+  --cible-tactile: 2.75rem;    /* 44 px : taille minimale d'un élément cliquable */
+
+  /* ---------- Mouvement ---------- */
+  --duree: 160ms;
+  --courbe: cubic-bezier(0.2, 0, 0, 1);
+}

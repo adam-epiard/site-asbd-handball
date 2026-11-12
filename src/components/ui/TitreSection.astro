@@ -1,0 +1,51 @@
+---
+/**
+ * Titre de section, avec un lien optionnel vers la page complète
+ * (par exemple « Tous les matchs »). Le lien passe sous le titre sur téléphone.
+ */
+interface Props {
+  titre: string;
+  /** Phrase d'introduction facultative, sous le titre. */
+  intro?: string;
+  lien?: { href: string; label: string };
+  niveau?: 'h1' | 'h2';
+  id?: string;
+}
+
+const { titre, intro, lien, niveau = 'h2', id } = Astro.props;
+const Balise = niveau;
+---
+
+<div class="titre-section">
+  <div class="titre-section__texte">
+    <Balise id={id} class="titre-section__titre">{titre}</Balise>
+    {intro && <p class="titre-section__intro">{intro}</p>}
+  </div>
+  {lien && <a class="titre-section__lien" href={lien.href}>{lien.label}</a>}
+</div>
+
+<style>
+  .titre-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--espace-2) var(--espace-6);
+    margin-bottom: var(--espace-6);
+  }
+
+  .titre-section__titre {
+    margin-bottom: 0;
+  }
+
+  .titre-section__intro {
+    margin: var(--espace-3) 0 0;
+    font-size: var(--taille-lg);
+    color: var(--texte-doux);
+  }
+
+  .titre-section__lien {
+    font-weight: var(--graisse-gras);
+    padding-block: var(--espace-2);
+  }
+</style>
