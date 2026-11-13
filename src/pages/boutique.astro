@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TitreSection from '../components/ui/TitreSection.astro';
+import CadreExterne from '../components/ui/CadreExterne.astro';
+
+const boutique = 'https://www.helloasso.com/associations/asbd-vendee-handball-2/boutiques/boutique-vetements-sportifs';
+---
+
+<BaseLayout
+  titre="Boutique"
+  description="La boutique de l'ASBD Vendée Handball : vêtements et équipements aux couleurs du club, commande et paiement sur HelloAsso."
+>
+  <section class="section conteneur">
+    <TitreSection
+      niveau="h1"
+      titre="Boutique du club"
+      intro="Vêtements et équipements aux couleurs de l'ASBD. La commande et le paiement se font sur HelloAsso, la plateforme des associations."
+    />
+    <CadreExterne source="Boutique gérée par HelloAsso" secours={{ href: boutique, label: 'Ouvrir la boutique sur HelloAsso' }} hauteurMin="45rem">
+      <iframe src={`${boutique}/widget`} title="Boutique de l'ASBD sur HelloAsso" loading="lazy" style="height: 45rem"></iframe>
+    </CadreExterne>
+  </section>
+</BaseLayout>

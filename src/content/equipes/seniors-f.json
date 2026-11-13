@@ -1,0 +1,21 @@
+{
+  "nom": "Seniors F",
+  "chemin": "equipe-feminine/seniors-f",
+  "categorie": "feminine",
+  "ordre": 10,
+  "entrainements": [
+    {
+      "jour": "vendredi",
+      "horaire": "19h30 - 21h"
+    }
+  ],
+  "scorenco": {
+    "matchs": {
+      "iframe": "https://scorenco.com/widget/5816069075f6410bf9b8bf22/"
+    },
+    "classement": {
+      "iframe": "https://scorenco.com/widget/58160652831a090bf47ec64a/"
+    }
+  },
+  "lienFfhb": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/regional/d1fpl-division-1-feminine-territoriale-32321/poule-193573/"
+}

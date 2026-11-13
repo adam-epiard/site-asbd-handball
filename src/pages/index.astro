@@ -1,39 +1,136 @@
 ---
 /**
- * Accueil PROVISOIRE de l'étape 2 : sert à valider la chaîne
- * build → GitHub → OVH sur le sous-domaine de test.
- * Le vrai modèle d'accueil arrive à l'étape 3.
+ * Accueil : vidéo du club, matchs de la semaine, équipes, appel à rejoindre le club, partenaires.
  */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Bandeau from '../components/ui/Bandeau.astro';
+import Bouton from '../components/ui/Bouton.astro';
+import TitreSection from '../components/ui/TitreSection.astro';
+import GrillePartenaires from '../components/ui/GrillePartenaires.astro';
+import TraitsTerrain from '../components/ui/TraitsTerrain.astro';
+import Scorenco from '../components/Scorenco.astro';
+import GrilleEquipes from '../components/GrilleEquipes.astro';
+import { getEquipes } from '../lib/equipes';
+import { site } from '../config/site';
 
-const equipes = (await getCollection('equipes')).sort((a, b) => a.data.ordre - b.data.ordre);
-const miseAJour = new Date().toLocaleString('fr-FR', {
-  dateStyle: 'long',
-  timeStyle: 'short',
-  timeZone: 'Europe/Paris',
-});
+const equipes = await getEquipes();
+const partenaires = (await getCollection('partenaires'))
+  .sort((a, b) => a.data.ordre - b.data.ordre)
+  .map((p) => ({ nom: p.data.nom, logo: p.data.logo, href: p.data.site }));
+const video = site.videoAccueil;
 ---
 
 <BaseLayout titre="Club de handball de La Bruffière">
-  <section class="conteneur chantier">
-    <h1>Nouveau site en construction</h1>
-    <p>
-      Le nouveau site de l'ASBD Vendée Handball est en préparation. En attendant, retrouvez toutes les
-      informations du club sur <a href="https://labruffierehandball.com/">le site actuel</a>.
-    </p>
+  <Bandeau
+    titre="Le handball à La Bruffière, pour toute la famille"
+    intro="Du baby hand aux seniors, des équipes pour tous les âges et tous les niveaux, à la salle de La Bruffière."
+    video={video}
+    anime
+  >
+    <Fragment slot="actions">
+      <Bouton href="#equipes">Trouver mon équipe</Bouton>
+      <Bouton href="/matchs/" variante={video ? 'contour-inverse' : 'secondaire'}>Voir les matchs</Bouton>
+    </Fragment>
+  </Bandeau>
 
-    <h2>Contrôle technique</h2>
-    <ul>
-      <li>Construit le {miseAJour}</li>
-      <li>Équipes lues dans le contenu : {equipes.map((equipe) => equipe.data.nom).join(', ') || 'aucune'}</li>
-    </ul>
+  <section class="section section--alterne" aria-labelledby="matchs">
+    <div class="conteneur">
+      <TitreSection id="matchs" titre="Matchs de la semaine" lien={{ href: '/matchs/', label: 'Tous les matchs' }} />
+      <Scorenco
+        embed={{ widget: '4994', type: 'week-events' }}
+        titre="Matchs de la semaine"
+        secours={{ href: '/matchs/', label: 'Voir tous les matchs du club' }}
+        hauteur="18rem"
+      />
+    </div>
   </section>
+
+  <section class="section conteneur" aria-labelledby="equipes">
+    <TitreSection
+      id="equipes"
+      titre="Nos équipes"
+      intro="Du baby hand dès 3 ans jusqu'aux seniors et au loisir."
+      lien={{ href: '/entrainement/', label: "Horaires d'entraînement" }}
+    />
+    <GrilleEquipes equipes={equipes} />
+  </section>
+
+  <section class="rejoindre" aria-labelledby="rejoindre">
+    <div class="conteneur rejoindre__grille">
+      <div>
+        <h2 id="rejoindre">Envie de jouer avec nous ?</h2>
+        <p>
+          Débutant ou confirmé, venez découvrir le handball lors d'un entraînement de votre catégorie, puis prenez votre licence en
+          ligne.
+        </p>
+        <div class="rejoindre__actions">
+          <Bouton href="/licences/" variante="inverse">Prendre une licence</Bouton>
+          <Bouton href="/entrainement/" variante="contour-inverse">Voir les horaires</Bouton>
+        </div>
+      </div>
+      <div class="rejoindre__terrain" aria-hidden="true">
+        <TraitsTerrain couleur="blanc" />
+      </div>
+    </div>
+  </section>
+
+  {
+    partenaires.length > 0 && (
+      <section class="section conteneur" aria-labelledby="partenaires">
+        <TitreSection id="partenaires" titre="Ils soutiennent le club" lien={{ href: '/devenir-partenaire/', label: 'Devenir partenaire' }} />
+        <div class="fond-partenaires">
+          <GrillePartenaires partenaires={partenaires} />
+        </div>
+      </section>
+    )
+  }
 </BaseLayout>
 
 <style>
-  .chantier {
-    padding-block: var(--espace-6);
-    max-width: 48rem;
+  .rejoindre {
+    overflow: hidden;
+    background: var(--rouge);
+    color: var(--blanc);
+  }
+
+  .rejoindre__grille {
+    display: grid;
+    gap: var(--espace-5);
+    align-items: end;
+    padding-top: var(--espace-section);
+  }
+
+  @media (min-width: 60rem) {
+    .rejoindre__grille {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  .rejoindre h2 {
+    color: var(--blanc);
+  }
+
+  .rejoindre p {
+    font-size: var(--taille-lg);
+  }
+
+  .rejoindre__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espace-3);
+    margin: var(--espace-6) 0 var(--espace-section);
+  }
+
+  .rejoindre__terrain {
+    width: min(100%, 26rem);
+    justify-self: end;
+    opacity: 0.6;
+  }
+
+  .fond-partenaires {
+    padding: var(--espace-5);
+    background: var(--gris-salle);
+    border-radius: var(--rayon);
   }
 </style>

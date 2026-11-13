@@ -1,0 +1,13 @@
+{
+  "nom": "Baby hand",
+  "chemin": "baby-hand",
+  "categorie": "mixte",
+  "ordre": 70,
+  "naissances": "2021-22-23",
+  "entrainements": [
+    {
+      "jour": "samedi",
+      "horaire": "11h - 12h"
+    }
+  ]
+}

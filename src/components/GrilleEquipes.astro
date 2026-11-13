@@ -1,0 +1,35 @@
+---
+/**
+ * Grille de cartes d'équipe, à partir des fichiers de src/content/equipes/.
+ */
+import CarteEquipe from './ui/CarteEquipe.astro';
+import { infoEquipe, libelleCategorie, lienEquipe, type Equipe } from '../lib/equipes';
+
+interface Props {
+  equipes: Equipe[];
+}
+
+const { equipes } = Astro.props;
+---
+
+<div class="grille-equipes">
+  {
+    equipes.map((equipe) => (
+      <CarteEquipe
+        nom={equipe.data.nom}
+        href={lienEquipe(equipe)}
+        categorie={libelleCategorie(equipe)}
+        niveau={infoEquipe(equipe)}
+        photo={equipe.data.photo}
+      />
+    ))
+  }
+</div>
+
+<style>
+  .grille-equipes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: var(--espace-5);
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TitreSection from '../components/ui/TitreSection.astro';
+import CadreExterne from '../components/ui/CadreExterne.astro';
+import { site } from '../config/site';
+
+const { adresse } = site;
+const adresseComplete = `${adresse.rue}, ${adresse.codePostal} ${adresse.ville}`;
+const requete = encodeURIComponent(adresseComplete);
+---
+
+<BaseLayout
+  titre="Où nous trouver"
+  description="Adresse et plan d'accès de la salle de l'ASBD Vendée Handball, 1 rue des Salles à La Bruffière, en Vendée."
+>
+  <section class="section conteneur">
+    <TitreSection
+      niveau="h1"
+      titre="Où nous trouver"
+      intro={`Entraînements et matchs à domicile ont lieu à la salle de La Bruffière, ${adresseComplete}.`}
+      lien={{ href: '/entrainement/', label: "Horaires d'entraînement" }}
+    />
+    <CadreExterne
+      source="Carte fournie par Google Maps"
+      secours={{ href: `https://www.google.com/maps/search/?api=1&query=${requete}`, label: 'Ouvrir dans Google Maps' }}
+      hauteurMin="26rem"
+    >
+      <iframe
+        src={`https://maps.google.com/maps?q=${requete}&t=m&z=14&output=embed`}
+        title={`Plan d'accès : ${adresseComplete}`}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        style="height: 26rem"></iframe>
+    </CadreExterne>
+  </section>
+</BaseLayout>

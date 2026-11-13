@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TitreSection from '../components/ui/TitreSection.astro';
+
+const membres = (await getCollection('membres')).sort((a, b) => a.data.ordre - b.data.ordre);
+const groupes = [
+  { id: 'bureau', titre: 'Bureau', membres: membres.filter((m) => m.data.groupe === 'bureau') },
+  { id: 'commissions', titre: 'Commissions', membres: membres.filter((m) => m.data.groupe === 'commissions') },
+].filter((g) => g.membres.length > 0);
+---
+
+<BaseLayout
+  titre="Membres"
+  description="Le bureau et les commissions de l'ASBD Vendée Handball, les bénévoles qui font vivre le club de La Bruffière."
+>
+  <section class="section conteneur">
+    <TitreSection niveau="h1" titre="Les bénévoles du club" intro="Le bureau et les commissions qui font vivre l'ASBD au quotidien." />
+    {
+      groupes.map((groupe) => (
+        <div class="groupe">
+          <h2>{groupe.titre}</h2>
+          <ul class="membres">
+            {groupe.membres.map((m) => (
+              <li class="membre">
+                <span class="membre__nom">{m.data.nom}</span>
+                {m.data.role && <span class="membre__role">{m.data.role}</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .groupe + .groupe {
+    margin-top: var(--espace-7);
+  }
+
+  .membres {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: var(--espace-4);
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .membre {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espace-1);
+    padding: var(--espace-4) var(--espace-5);
+    border: var(--trait);
+    border-left: 4px solid var(--rouge);
+    border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0;
+  }
+
+  .membre__nom {
+    font-weight: var(--graisse-gras);
+    color: var(--noir);
+  }
+
+  .membre__role {
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+  }
+</style>

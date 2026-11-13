@@ -1,0 +1,45 @@
+---
+/**
+ * Un widget Scorenco (matchs, classement...), dans le cadre des services externes.
+ * Gère les deux formats : widget récent (identifiant + type) et ancienne iframe.
+ * Le script Scorenco n'est chargé qu'une fois par page, même avec plusieurs widgets.
+ */
+import CadreExterne from './ui/CadreExterne.astro';
+
+type Embed = { widget: string; type: string } | { iframe: string };
+
+interface Props {
+  embed: Embed;
+  titre: string;
+  secours: { href: string; label: string };
+  hauteur?: string;
+}
+
+const { embed, titre, secours, hauteur = '26rem' } = Astro.props;
+---
+
+<CadreExterne source="Résultats fournis par Scorenco" secours={secours} hauteurMin={hauteur}>
+  {
+    'iframe' in embed ? (
+      <iframe src={embed.iframe} title={titre} loading="lazy" style={`height: ${hauteur}`} />
+    ) : (
+      <div class="scorenco-widget" data-widget-type={embed.type} data-widget-id={embed.widget} />
+    )
+  }
+</CadreExterne>
+
+{
+  !('iframe' in embed) && (
+    <script is:inline>
+      // Chargé une seule fois, une fois tous les widgets de la page présents.
+      document.addEventListener('DOMContentLoaded', function () {
+        if (document.querySelector('script[data-scorenco]')) return;
+        var s = document.createElement('script');
+        s.src = 'https://widgets.scorenco.com/host/widgets.js';
+        s.async = true;
+        s.dataset.scorenco = '';
+        document.body.appendChild(s);
+      });
+    </script>
+  )
+}

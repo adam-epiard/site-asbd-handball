@@ -1,0 +1,259 @@
+---
+/**
+ * Modèle Équipe : une page par fichier de src/content/equipes/.
+ * L'adresse vient du champ `chemin` (ex. equipe-feminine/seniors-f → /equipe-feminine/seniors-f/).
+ * Un champ vide n'affiche rien : pas de liste vide, pas de texte d'attente.
+ */
+import type { GetStaticPaths } from 'astro';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Etiquette from '../components/ui/Etiquette.astro';
+import Scorenco from '../components/Scorenco.astro';
+import TraitsTerrain from '../components/ui/TraitsTerrain.astro';
+import { getEquipes, infoEquipe, libelleCategorie, libelleJour } from '../lib/equipes';
+import { site } from '../config/site';
+
+export const getStaticPaths = (async () => {
+  const equipes = await getEquipes();
+  return equipes.map((equipe) => ({
+    params: { equipe: equipe.data.chemin },
+    props: { equipe },
+  }));
+}) satisfies GetStaticPaths;
+
+const { equipe } = Astro.props;
+const { nom, photo, coachs, joueurs, afficherJoueurs, entrainements, scorenco, lienFfhb, categorie } = equipe.data;
+const info = infoEquipe(equipe);
+
+const rubrique =
+  categorie === 'feminine'
+    ? { href: '/equipe-feminine/', label: 'Toutes les équipes féminines' }
+    : categorie === 'masculine'
+      ? { href: '/equipe-masculine/', label: 'Toutes les équipes masculines' }
+      : undefined;
+
+const secours = lienFfhb
+  ? { href: lienFfhb, label: "Voir l'équipe sur le site de la FFHB" }
+  : { href: '/matchs/', label: 'Voir tous les matchs du club' };
+
+const effectif = afficherJoueurs ? joueurs : [];
+const descriptionParts = [`${nom}, équipe de l'ASBD Vendée Handball à La Bruffière`];
+if (info) descriptionParts.push(info.toLowerCase());
+const description = `${descriptionParts.join(', ')} : entraînements, coachs et matchs.`;
+---
+
+<BaseLayout titre={nom} description={description}>
+  <section class="entete-equipe">
+    <div class="conteneur entete-equipe__grille">
+      <div class="entete-equipe__texte">
+        {rubrique && <a class="entete-equipe__retour" href={rubrique.href}>{rubrique.label}</a>}
+        <h1>{nom}</h1>
+        <p class="entete-equipe__infos">
+          <Etiquette>{libelleCategorie(equipe)}</Etiquette>
+          {info && <span>{info}</span>}
+        </p>
+      </div>
+      {
+        photo ? (
+          <Image src={photo.src} alt={photo.alt} widths={[640, 1280]} sizes="(min-width: 60rem) 50vw, 100vw" class="entete-equipe__photo" />
+        ) : (
+          <div class="entete-equipe__terrain" aria-hidden="true">
+            <TraitsTerrain couleur="rouge" />
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    (entrainements.length > 0 || coachs.length > 0) && (
+      <section class="section conteneur infos-equipe">
+        {entrainements.length > 0 && (
+          <div>
+            <h2>Entraînements</h2>
+            <ul class="liste-simple">
+              {entrainements.map((e) => (
+                <li>
+                  <strong>{libelleJour(e.jour)}</strong>
+                  <span>{e.horaire}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="infos-equipe__lieu">
+              {site.adresse.rue}, {site.adresse.ville}. <a href="/ou-nous-trouver/">Plan d'accès</a>
+            </p>
+          </div>
+        )}
+        {coachs.length > 0 && (
+          <div>
+            <h2>{coachs.length > 1 ? 'Coachs' : 'Coach'}</h2>
+            <ul class="liste-simple">
+              {coachs.map((coach) => (
+                <li>{coach}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </section>
+    )
+  }
+
+  {
+    effectif.length > 0 && (
+      <section class="section section--alterne" aria-labelledby="effectif">
+        <div class="conteneur">
+          <h2 id="effectif">Effectif</h2>
+          <ol class="effectif">
+            {effectif.map((joueur) => (
+              <li class="effectif__joueur">
+                {joueur.numero !== undefined && <span class="effectif__numero">{joueur.numero}</span>}
+                <span>{joueur.nom}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    (scorenco.matchs || scorenco.classement) && (
+      <section class="section conteneur matchs-equipe">
+        {scorenco.matchs && (
+          <div>
+            <h2>Prochains matchs</h2>
+            <Scorenco embed={scorenco.matchs} titre={`Prochains matchs ${nom}`} secours={secours} />
+          </div>
+        )}
+        {scorenco.classement && (
+          <div>
+            <h2>Classement</h2>
+            <Scorenco embed={scorenco.classement} titre={`Classement ${nom}`} secours={secours} hauteur="30rem" />
+          </div>
+        )}
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .entete-equipe {
+    padding-top: var(--espace-7);
+    border-bottom: 4px solid var(--rouge);
+    overflow: hidden;
+  }
+
+  .entete-equipe__grille {
+    display: grid;
+    gap: var(--espace-5);
+    align-items: end;
+  }
+
+  @media (min-width: 60rem) {
+    .entete-equipe__grille {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .entete-equipe__texte {
+    padding-bottom: var(--espace-6);
+  }
+
+  .entete-equipe__retour {
+    display: inline-block;
+    margin-bottom: var(--espace-4);
+    font-weight: var(--graisse-moyen);
+  }
+
+  .entete-equipe__infos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--espace-2) var(--espace-3);
+    color: var(--texte-doux);
+  }
+
+  .entete-equipe__photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--rayon) var(--rayon) 0 0;
+  }
+
+  .entete-equipe__terrain {
+    width: min(100%, 30rem);
+    justify-self: end;
+    margin-bottom: -2px;
+  }
+
+  .infos-equipe {
+    display: grid;
+    gap: var(--espace-7);
+  }
+
+  @media (min-width: 48rem) {
+    .infos-equipe {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .liste-simple {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: var(--trait);
+  }
+
+  .liste-simple li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--espace-4);
+    padding: var(--espace-3) 0;
+    border-bottom: var(--trait);
+  }
+
+  .infos-equipe__lieu {
+    margin-top: var(--espace-4);
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+  }
+
+  .effectif {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: var(--espace-2) var(--espace-5);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .effectif__joueur {
+    display: flex;
+    align-items: baseline;
+    gap: var(--espace-3);
+    padding: var(--espace-2) 0;
+    border-bottom: var(--trait);
+  }
+
+  .effectif__numero {
+    min-width: 2.25rem;
+    font-family: var(--police-titre);
+    font-size: 1.5rem;
+    font-weight: var(--graisse-titre);
+    line-height: 1;
+    color: var(--rouge-fonce);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .matchs-equipe {
+    display: grid;
+    gap: var(--espace-7);
+  }
+
+  @media (min-width: 64rem) {
+    .matchs-equipe {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

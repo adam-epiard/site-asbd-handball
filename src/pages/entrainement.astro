@@ -1,0 +1,165 @@
+---
+/**
+ * Horaires d'entraînement, générés depuis les fichiers d'équipes :
+ * changer un horaire ne se fait qu'à un seul endroit.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TitreSection from '../components/ui/TitreSection.astro';
+import { getEquipes, libelleJour, lienEquipe, rangJour } from '../lib/equipes';
+import { site } from '../config/site';
+
+const equipes = (await getEquipes()).filter((e) => e.data.entrainements.length > 0);
+
+// Vue par jour : utile aux parents qui ont plusieurs enfants.
+const parJour = new Map<string, { equipe: (typeof equipes)[number]; horaire: string }[]>();
+for (const equipe of equipes) {
+  for (const e of equipe.data.entrainements) {
+    const liste = parJour.get(e.jour) ?? [];
+    liste.push({ equipe, horaire: e.horaire });
+    parJour.set(e.jour, liste);
+  }
+}
+const jours = [...parJour.keys()].sort((a, b) => rangJour(a) - rangJour(b));
+---
+
+<BaseLayout
+  titre="Entraînements"
+  description="Horaires d'entraînement de chaque équipe de l'ASBD Vendée Handball, du baby hand aux seniors, à la salle de La Bruffière."
+>
+  <section class="section conteneur">
+    <TitreSection
+      niveau="h1"
+      titre="Entraînements"
+      intro={`Tous les entraînements ont lieu à la salle de La Bruffière, ${site.adresse.rue}.`}
+      lien={{ href: '/ou-nous-trouver/', label: "Plan d'accès" }}
+    />
+
+    <div class="tableau-defilant">
+      <table class="tableau">
+        <caption class="visuellement-cache">Horaires d'entraînement par équipe</caption>
+        <thead>
+          <tr>
+            <th scope="col">Équipe</th>
+            <th scope="col">Années de naissance</th>
+            <th scope="col">Jour et horaire</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            equipes.map((equipe) => (
+              <tr>
+                <th scope="row">
+                  <a href={lienEquipe(equipe)}>{equipe.data.nom}</a>
+                </th>
+                <td>{equipe.data.naissances}</td>
+                <td>
+                  {equipe.data.entrainements.map((e) => (
+                    <span class="creneau">
+                      {libelleJour(e.jour)} {e.horaire}
+                    </span>
+                  ))}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section section--alterne" aria-labelledby="par-jour">
+    <div class="conteneur">
+      <h2 id="par-jour">Semaine type</h2>
+      <div class="semaine">
+        {
+          jours.map((jour) => (
+            <div class="semaine__jour">
+              <h3>{libelleJour(jour)}</h3>
+              <ul>
+                {parJour.get(jour)?.map(({ equipe, horaire }) => (
+                  <li>
+                    <span class="semaine__horaire">{horaire}</span>
+                    <a href={lienEquipe(equipe)}>{equipe.data.nom}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tableau-defilant {
+    overflow-x: auto;
+  }
+
+  .tableau {
+    width: 100%;
+    min-width: 34rem;
+    border-collapse: collapse;
+  }
+
+  .tableau th,
+  .tableau td {
+    padding: var(--espace-3) var(--espace-4) var(--espace-3) 0;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: var(--trait);
+  }
+
+  .tableau thead th {
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+    font-weight: var(--graisse-moyen);
+  }
+
+  .tableau tbody th a {
+    color: var(--noir);
+    font-weight: var(--graisse-gras);
+  }
+
+  .creneau {
+    display: block;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .semaine {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: var(--espace-5);
+  }
+
+  .semaine__jour {
+    padding: var(--espace-5);
+    background: var(--blanc);
+    border-radius: var(--rayon);
+  }
+
+  .semaine__jour h3 {
+    font-family: var(--police-titre);
+    font-size: 1.75rem;
+    font-weight: var(--graisse-titre);
+  }
+
+  .semaine__jour ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .semaine__jour li {
+    display: flex;
+    flex-direction: column;
+    padding: var(--espace-2) 0;
+    border-top: var(--trait);
+  }
+
+  .semaine__horaire {
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+    font-variant-numeric: tabular-nums;
+  }
+</style>

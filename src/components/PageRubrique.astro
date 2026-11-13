@@ -1,0 +1,39 @@
+---
+/**
+ * Modèle Rubrique : la liste des équipes d'une catégorie,
+ * suivie des sections mixtes pour les plus jeunes.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TitreSection from './ui/TitreSection.astro';
+import GrilleEquipes from './GrilleEquipes.astro';
+import { getEquipes } from '../lib/equipes';
+
+interface Props {
+  categorie: 'feminine' | 'masculine';
+  titre: string;
+  intro: string;
+  description: string;
+}
+
+const { categorie, titre, intro, description } = Astro.props;
+const equipes = await getEquipes();
+const principales = equipes.filter((e) => e.data.categorie === categorie);
+const mixtes = equipes.filter((e) => e.data.categorie === 'mixte');
+---
+
+<BaseLayout titre={titre} description={description}>
+  <section class="section conteneur">
+    <TitreSection titre={titre} intro={intro} niveau="h1" />
+    <GrilleEquipes equipes={principales} />
+  </section>
+  {
+    mixtes.length > 0 && (
+      <section class="section section--alterne">
+        <div class="conteneur">
+          <TitreSection titre="Pour les plus jeunes et en loisir" intro="Ces sections accueillent filles et garçons ensemble." />
+          <GrilleEquipes equipes={mixtes} />
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

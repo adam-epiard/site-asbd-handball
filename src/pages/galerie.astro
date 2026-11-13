@@ -1,0 +1,17 @@
+---
+/**
+ * Galerie. Les photos seront ajoutées avec celles du club (à jour) ;
+ * en attendant, la page renvoie vers Instagram, où le club publie.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TitreSection from '../components/ui/TitreSection.astro';
+import Bouton from '../components/ui/Bouton.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout titre="Galerie" description="Les photos de l'ASBD Vendée Handball : matchs, tournois et vie du club de handball de La Bruffière.">
+  <section class="section conteneur">
+    <TitreSection niveau="h1" titre="Galerie" intro="Matchs, tournois et vie du club : les photos sont publiées sur notre compte Instagram." />
+    {site.reseaux.instagram && <Bouton href={site.reseaux.instagram} externe>Voir les photos sur Instagram</Bouton>}
+  </section>
+</BaseLayout>

@@ -18,6 +18,7 @@ interface ReglagesSite {
   description: string;
   adresse: { rue: string; codePostal: string; ville: string };
   email: string;
+  emailLicences: string;
   reseaux: { instagram: string; facebook: string };
   noindex: boolean;
   /** Vidéo du bandeau d'accueil ; absente = bandeau sur fond blanc. */
@@ -34,11 +35,13 @@ export const site: ReglagesSite = {
     codePostal: '85530',
     ville: 'La Bruffière',
   },
-  /** Laisser vide tant que l'adresse n'est pas confirmée : rien ne s'affiche. */
-  email: '',
+  /** Adresse de contact affichée sur le site. Vide = rien ne s'affiche. */
+  email: 'communication@labruffierehandball.com',
+  /** Adresse du club à la FFHB, pour les licences. */
+  emailLicences: '6285014@ffhandball.net',
   reseaux: {
-    instagram: '',
-    facebook: '',
+    instagram: 'https://www.instagram.com/asbd_handball/',
+    facebook: 'https://www.facebook.com/asbdhandball',
   },
   /**
    * true tant que le site n'est en ligne que sur le sous-domaine de test :

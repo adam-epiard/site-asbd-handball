@@ -1,0 +1,28 @@
+{
+  "nom": "U15 F",
+  "chemin": "equipe-feminine/u15-f",
+  "categorie": "feminine",
+  "ordre": 20,
+  "naissances": "2013-14-15",
+  "entrainements": [
+    {
+      "jour": "mercredi",
+      "horaire": "18h - 19h30"
+    },
+    {
+      "jour": "vendredi",
+      "horaire": "18h30 - 19h30"
+    }
+  ],
+  "scorenco": {
+    "matchs": {
+      "widget": "145782",
+      "type": "team"
+    },
+    "classement": {
+      "widget": "145815",
+      "type": "ranking"
+    }
+  },
+  "lienFfhb": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u15f-85-32677/poule-192825/"
+}

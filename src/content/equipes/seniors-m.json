@@ -1,7 +1,25 @@
 {
   "nom": "Seniors M",
+  "chemin": "equipe-masculine/seniors-m",
   "categorie": "masculine",
-  "ordre": 10,
-  "joueurs": [],
-  "coachs": []
+  "ordre": 40,
+  "entrainements": [
+    {
+      "jour": "mercredi",
+      "horaire": "20h - 21h30"
+    },
+    {
+      "jour": "vendredi",
+      "horaire": "21h - 22h30"
+    }
+  ],
+  "scorenco": {
+    "matchs": {
+      "iframe": "https://scorenco.com/widget/58051a3db9a2b00bf318619f/"
+    },
+    "classement": {
+      "iframe": "https://scorenco.com/widget/58050fba56430a0c04ed8d1a/"
+    }
+  },
+  "lienFfhb": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/d1m85-32667/"
 }

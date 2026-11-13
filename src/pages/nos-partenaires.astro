@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TitreSection from '../components/ui/TitreSection.astro';
+import GrillePartenaires from '../components/ui/GrillePartenaires.astro';
+import Bouton from '../components/ui/Bouton.astro';
+
+const partenaires = (await getCollection('partenaires'))
+  .sort((a, b) => a.data.ordre - b.data.ordre)
+  .map((p) => ({ nom: p.data.nom, logo: p.data.logo, href: p.data.site }));
+---
+
+<BaseLayout
+  titre="Nos partenaires"
+  description="Les entreprises et partenaires qui soutiennent l'ASBD Vendée Handball, le club de handball de La Bruffière."
+>
+  <section class="section conteneur">
+    <TitreSection
+      niveau="h1"
+      titre="Nos partenaires"
+      intro="Merci aux entreprises qui soutiennent le club. Leur aide fait vivre nos équipes, nos tournois et l'accueil des jeunes."
+    />
+    <div class="fond-partenaires">
+      <GrillePartenaires partenaires={partenaires} />
+    </div>
+  </section>
+
+  <section class="section section--alterne">
+    <div class="conteneur appel">
+      <div>
+        <h2>Devenir partenaire</h2>
+        <p>Soutenez le club et gagnez en visibilité auprès des licenciés, des familles et des supporters.</p>
+      </div>
+      <Bouton href="/devenir-partenaire/">Devenir partenaire</Bouton>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .fond-partenaires {
+    padding: var(--espace-5);
+    background: var(--gris-salle);
+    border-radius: var(--rayon);
+  }
+
+  .appel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espace-5);
+  }
+
+  .appel p {
+    margin-bottom: 0;
+  }
+</style>

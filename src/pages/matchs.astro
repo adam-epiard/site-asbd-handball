@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TitreSection from '../components/ui/TitreSection.astro';
+import Scorenco from '../components/Scorenco.astro';
+import { getEquipes, lienEquipe } from '../lib/equipes';
+
+const equipes = (await getEquipes()).filter((e) => e.data.scorenco.matchs || e.data.lienFfhb);
+---
+
+<BaseLayout
+  titre="Matchs"
+  description="Calendrier et résultats des équipes de l'ASBD Vendée Handball : matchs à domicile à La Bruffière et à l'extérieur."
+>
+  <section class="section conteneur">
+    <TitreSection niveau="h1" titre="Matchs" intro="Les matchs du club, à domicile et à l'extérieur. Venez encourager les Rouges !" />
+    <Scorenco
+      embed={{ iframe: 'https://scorenco.com/widget/632ad022a81a4e0a1b97b6ef/' }}
+      titre="Matchs du club"
+      secours={{ href: 'https://www.ffhandball.fr/', label: 'Voir sur le site de la FFHB' }}
+      hauteur="36rem"
+    />
+  </section>
+
+  <section class="section section--alterne" aria-labelledby="par-equipe">
+    <div class="conteneur">
+      <h2 id="par-equipe">Matchs et classement par équipe</h2>
+      <ul class="par-equipe">
+        {
+          equipes.map((equipe) => (
+            <li>
+              <a href={lienEquipe(equipe)}>{equipe.data.nom}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .par-equipe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espace-3);
+    padding: 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .par-equipe a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--cible-tactile);
+    padding: var(--espace-2) var(--espace-5);
+    background: var(--blanc);
+    border-radius: var(--rayon-bouton);
+    color: var(--noir);
+    font-weight: var(--graisse-gras);
+    text-decoration: none;
+  }
+
+  .par-equipe a:hover {
+    box-shadow: inset 0 0 0 2px var(--noir);
+  }
+</style>

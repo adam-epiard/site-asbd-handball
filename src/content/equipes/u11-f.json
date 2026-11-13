@@ -1,0 +1,24 @@
+{
+  "nom": "U11 F",
+  "chemin": "equipe-feminine/u11-f",
+  "categorie": "feminine",
+  "ordre": 30,
+  "naissances": "2016-17-18",
+  "entrainements": [
+    {
+      "jour": "mercredi",
+      "horaire": "15h - 16h30"
+    }
+  ],
+  "scorenco": {
+    "matchs": {
+      "widget": "195315",
+      "type": "team"
+    },
+    "classement": {
+      "widget": "195316",
+      "type": "ranking"
+    }
+  },
+  "lienFfhb": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u11-f-85-32679/poule-199572/"
+}

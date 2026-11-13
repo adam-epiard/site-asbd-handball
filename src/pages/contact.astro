@@ -1,0 +1,99 @@
+---
+/**
+ * Contact. Le formulaire arrivera à l'étape 5 (script PHP) ;
+ * en attendant, les coordonnées directes suffisent.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TitreSection from '../components/ui/TitreSection.astro';
+import Bouton from '../components/ui/Bouton.astro';
+import { site } from '../config/site';
+
+const { adresse, email, emailLicences, reseaux } = site;
+---
+
+<BaseLayout
+  titre="Contact"
+  description="Contacter l'ASBD Vendée Handball : e-mail du club, adresse de la salle à La Bruffière, réseaux sociaux et licences."
+>
+  <section class="section conteneur">
+    <TitreSection niveau="h1" titre="Contacter le club" intro="Une question sur une équipe, un essai ou un partenariat ? Écrivez-nous." />
+    <div class="contacts">
+      {
+        email && (
+          <div class="contact">
+            <h2>Par e-mail</h2>
+            <p>
+              <a href={`mailto:${email}`}>{email}</a>
+            </p>
+            <Bouton href={`mailto:${email}`}>Écrire au club</Bouton>
+          </div>
+        )
+      }
+      <div class="contact">
+        <h2>À la salle</h2>
+        <address>
+          {adresse.rue}<br />
+          {adresse.codePostal} {adresse.ville}
+        </address>
+        <p><a href="/ou-nous-trouver/">Plan d'accès</a> · <a href="/entrainement/">Horaires d'entraînement</a></p>
+      </div>
+      {
+        emailLicences && (
+          <div class="contact">
+            <h2>Licences</h2>
+            <p>
+              Pour prendre une licence, écrivez à <a href={`mailto:${emailLicences}`}>{emailLicences}</a>.
+            </p>
+            <p><a href="/licences/">Voir les étapes</a></p>
+          </div>
+        )
+      }
+      {
+        (reseaux.instagram || reseaux.facebook) && (
+          <div class="contact">
+            <h2>Sur les réseaux</h2>
+            <ul>
+              {reseaux.instagram && (
+                <li>
+                  <a href={reseaux.instagram} rel="noopener">Instagram</a>
+                </li>
+              )}
+              {reseaux.facebook && (
+                <li>
+                  <a href={reseaux.facebook} rel="noopener">Facebook</a>
+                </li>
+              )}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contacts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: var(--espace-5);
+  }
+
+  .contact {
+    padding: var(--espace-5);
+    border: var(--trait);
+    border-radius: var(--rayon);
+  }
+
+  .contact h2 {
+    font-size: 1.75rem;
+  }
+
+  address {
+    font-style: normal;
+    margin-bottom: var(--espace-4);
+  }
+
+  .contact ul {
+    padding-left: 1.2em;
+  }
+</style>

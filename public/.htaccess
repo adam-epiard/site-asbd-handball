@@ -10,6 +10,9 @@ Options -Indexes
 RedirectMatch 301 ^/evenements/?$ /
 RedirectMatch 301 ^/album-photo/?$ /galerie/
 RedirectMatch 301 ^/licences-2025-26/?$ /licences/
+RedirectMatch 301 ^/u10-mixte/?$ /entrainement/
+RedirectMatch 301 ^/equipe-masculine/u19-m/?$ /equipe-masculine/
+RedirectMatch 301 ^/(elementor-889|inscription)/?$ /
 
 # Forcer HTTPS : à activer seulement quand le certificat est vérifié
 # sur le domaine et sur www (voir Risques dans le dossier de cadrage).

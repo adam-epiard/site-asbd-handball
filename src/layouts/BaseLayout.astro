@@ -20,6 +20,8 @@ const { titre, description = site.description } = Astro.props;
 
 const titreComplet = Astro.url.pathname === '/' ? `${site.nom} : ${titre}` : `${titre} | ${site.nom}`;
 const canonique = new URL(Astro.url.pathname, Astro.site);
+// Date du build, visible dans le code source : pratique pour vérifier qu'un déploiement est passé.
+const construitLe = new Date().toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short', timeZone: 'Europe/Paris' });
 ---
 
 <!doctype html>
@@ -45,6 +47,7 @@ const canonique = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#e10600" />
     <script is:inline>document.documentElement.classList.add('js');</script>
+    <Fragment set:html={`<!-- Construit le ${construitLe} -->`} />
   </head>
   <body>
     <a class="lien-evitement" href="#contenu">Aller au contenu</a>

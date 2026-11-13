@@ -1,0 +1,22 @@
+{
+  "nom": "U12 M",
+  "chemin": "equipe-masculine/u12_m",
+  "categorie": "masculine",
+  "ordre": 50,
+  "naissances": "2015-16-17",
+  "entrainements": [
+    {
+      "jour": "mercredi",
+      "horaire": "16h30 - 18h"
+    }
+  ],
+  "scorenco": {
+    "matchs": {
+      "iframe": "https://v1.scorenco.com/widget/58162d175a5ae30bf9d263b3/"
+    },
+    "classement": {
+      "iframe": "https://v1.scorenco.com/widget/58162cd85a5ae30bf9d263ab/"
+    }
+  },
+  "lienFfhb": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u12m-85-32674/poule-199621/"
+}

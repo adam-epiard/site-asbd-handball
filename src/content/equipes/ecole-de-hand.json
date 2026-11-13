@@ -1,0 +1,19 @@
+{
+  "nom": "École de hand",
+  "chemin": "ecole-de-hand",
+  "categorie": "mixte",
+  "ordre": 60,
+  "naissances": "2018-19-20",
+  "entrainements": [
+    {
+      "jour": "mercredi",
+      "horaire": "13h45 - 15h"
+    }
+  ],
+  "scorenco": {
+    "matchs": {
+      "widget": "195318",
+      "type": "team"
+    }
+  }
+}

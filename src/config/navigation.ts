@@ -1,9 +1,6 @@
 /**
- * Menu principal.
- *
- * PROVISOIRE : les adresses seront alignées sur celles du WordPress actuel
- * à l'étape 3 (modèles), pour conserver toutes les URL existantes.
- * D'ici là, les pages qui n'existent pas encore mènent à la 404.
+ * Menu principal. Les adresses reprennent celles du site WordPress,
+ * pour ne casser aucun lien existant (sauf les redirections du .htaccess).
  */
 export interface LienMenu {
   label: string;
@@ -15,24 +12,28 @@ export interface LienMenu {
 export const menu: LienMenu[] = [
   { label: 'Accueil', href: '/' },
   {
-    label: 'Équipes',
-    enfants: [
-      { label: 'Équipes féminines', href: '/equipe-feminine/' },
-      { label: 'Équipes masculines', href: '/equipe-masculine/' },
-    ],
-  },
-  { label: 'Matchs', href: '/matchs/' },
-  {
     label: 'Le club',
     enfants: [
       { label: 'Histoire', href: '/histoire/' },
       { label: 'Membres', href: '/membres/' },
-      { label: 'Partenaires', href: '/partenaires/' },
+      { label: 'Nos partenaires', href: '/nos-partenaires/' },
       { label: 'Galerie', href: '/galerie/' },
+      { label: 'Boutique', href: '/boutique/' },
     ],
   },
+  {
+    label: 'Nos équipes',
+    enfants: [
+      { label: 'Équipes féminines', href: '/equipe-feminine/' },
+      { label: 'Équipes masculines', href: '/equipe-masculine/' },
+      { label: 'École de hand', href: '/ecole-de-hand/' },
+      { label: 'Baby hand', href: '/baby-hand/' },
+      { label: 'Loisirs', href: '/loisirs/' },
+    ],
+  },
+  { label: 'Matchs', href: '/matchs/' },
+  { label: 'Entraînements', href: '/entrainement/' },
   { label: 'Licences', href: '/licences/' },
-  { label: 'Entraînement', href: '/entrainement/' },
-  { label: 'Boutique', href: '/boutique/' },
+  { label: 'Nous trouver', href: '/ou-nous-trouver/' },
   { label: 'Contact', href: '/contact/' },
 ];
