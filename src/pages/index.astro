@@ -1,13 +1,12 @@
 ---
 /**
- * Accueil : vidéo du club, matchs de la semaine, équipes, appel à rejoindre le club, partenaires.
+ * Accueil : vidéo du club, matchs de la semaine, équipes, appel à rejoindre le club.
+ * Les partenaires défilent dans le bandeau commun, au-dessus du pied de page.
  */
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Bandeau from '../components/ui/Bandeau.astro';
 import Bouton from '../components/ui/Bouton.astro';
 import TitreSection from '../components/ui/TitreSection.astro';
-import GrillePartenaires from '../components/ui/GrillePartenaires.astro';
 import TraitsTerrain from '../components/ui/TraitsTerrain.astro';
 import Scorenco from '../components/Scorenco.astro';
 import GrilleEquipes from '../components/GrilleEquipes.astro';
@@ -15,9 +14,6 @@ import { getEquipes } from '../lib/equipes';
 import { site } from '../config/site';
 
 const equipes = await getEquipes();
-const partenaires = (await getCollection('partenaires'))
-  .sort((a, b) => a.data.ordre - b.data.ordre)
-  .map((p) => ({ nom: p.data.nom, logo: p.data.logo, href: p.data.site }));
 const video = site.videoAccueil;
 ---
 
@@ -75,16 +71,6 @@ const video = site.videoAccueil;
     </div>
   </section>
 
-  {
-    partenaires.length > 0 && (
-      <section class="section conteneur" aria-labelledby="partenaires">
-        <TitreSection id="partenaires" titre="Ils soutiennent le club" lien={{ href: '/devenir-partenaire/', label: 'Devenir partenaire' }} />
-        <div class="fond-partenaires">
-          <GrillePartenaires partenaires={partenaires} />
-        </div>
-      </section>
-    )
-  }
 </BaseLayout>
 
 <style>
@@ -126,11 +112,5 @@ const video = site.videoAccueil;
     width: min(100%, 26rem);
     justify-self: end;
     opacity: 0.6;
-  }
-
-  .fond-partenaires {
-    padding: var(--espace-5);
-    background: var(--gris-salle);
-    border-radius: var(--rayon);
   }
 </style>

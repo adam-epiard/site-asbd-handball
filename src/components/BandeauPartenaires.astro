@@ -1,0 +1,146 @@
+---
+/**
+ * Bandeau défilant des partenaires, au-dessus du pied de page sur tout le site.
+ * Défilement continu en CSS (aucun JavaScript), en pause au survol ou au clavier.
+ * Si le visiteur a réduit les animations : liste fixe qu'on fait défiler à la main.
+ */
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+const partenaires = (await getCollection('partenaires')).sort((a, b) => a.data.ordre - b.data.ordre);
+// Vitesse constante quel que soit le nombre de logos : environ 3 secondes par logo.
+const duree = `${Math.max(20, partenaires.length * 3)}s`;
+---
+
+{
+  partenaires.length > 0 && (
+    <section class="bandeau-partenaires" aria-labelledby="titre-bandeau-partenaires">
+      <div class="conteneur bandeau-partenaires__entete">
+        <h2 id="titre-bandeau-partenaires" class="bandeau-partenaires__titre">
+          Merci à nos partenaires
+        </h2>
+        <a href="/nos-partenaires/">Tous nos partenaires</a>
+      </div>
+      <div class="bandeau-partenaires__fenetre">
+        <div class="bandeau-partenaires__piste" style={`--duree: ${duree}`}>
+          {[0, 1].map((copie) => (
+            <ul class="bandeau-partenaires__liste" aria-hidden={copie === 1 ? 'true' : undefined}>
+              {partenaires.map((p) => (
+                <li class="bandeau-partenaires__element">
+                  {p.data.logo ? (
+                    p.data.site ? (
+                      <a href={p.data.site} rel="noopener" tabindex={copie === 1 ? -1 : undefined}>
+                        <Image src={p.data.logo} alt={p.data.nom} height={56} densities={[1, 2]} loading="eager" decoding="async" class="bandeau-partenaires__logo" />
+                      </a>
+                    ) : (
+                      <Image src={p.data.logo} alt={p.data.nom} height={56} densities={[1, 2]} loading="eager" decoding="async" class="bandeau-partenaires__logo" />
+                    )
+                  ) : (
+                    <span class="bandeau-partenaires__nom">{p.data.nom}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .bandeau-partenaires {
+    margin-top: var(--espace-section);
+    padding-block: var(--espace-6);
+    border-top: var(--trait);
+    background: var(--blanc);
+  }
+
+  .bandeau-partenaires__entete {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--espace-2) var(--espace-5);
+    margin-bottom: var(--espace-5);
+  }
+
+  .bandeau-partenaires__titre {
+    margin: 0;
+    font-size: 1.75rem;
+  }
+
+  .bandeau-partenaires__entete a {
+    font-weight: var(--graisse-moyen);
+  }
+
+  .bandeau-partenaires__fenetre {
+    overflow: hidden;
+    /* Les logos apparaissent et disparaissent en fondu sur les bords. */
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .bandeau-partenaires__piste {
+    display: flex;
+    width: max-content;
+    animation: defilement var(--duree) linear infinite;
+  }
+
+  .bandeau-partenaires__fenetre:hover .bandeau-partenaires__piste,
+  .bandeau-partenaires__fenetre:focus-within .bandeau-partenaires__piste {
+    animation-play-state: paused;
+  }
+
+  .bandeau-partenaires__liste {
+    display: flex;
+    align-items: center;
+    gap: var(--espace-7);
+    margin: 0;
+    padding: 0 var(--espace-7) 0 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .bandeau-partenaires__element {
+    flex: none;
+    display: flex;
+    align-items: center;
+    height: 4.5rem;
+  }
+
+  .bandeau-partenaires__logo {
+    width: auto;
+    height: auto;
+    max-height: 3.5rem;
+    max-width: 11rem;
+    object-fit: contain;
+  }
+
+  .bandeau-partenaires__nom {
+    font-weight: var(--graisse-moyen);
+    white-space: nowrap;
+  }
+
+  @keyframes defilement {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Animations réduites : pas de défilement automatique, la liste se fait glisser au doigt. */
+  @media (prefers-reduced-motion: reduce) {
+    .bandeau-partenaires__fenetre {
+      overflow-x: auto;
+      mask-image: none;
+    }
+
+    .bandeau-partenaires__piste {
+      animation: none;
+      padding-inline: var(--gouttiere);
+    }
+
+    .bandeau-partenaires__liste[aria-hidden='true'] {
+      display: none;
+    }
+  }
+</style>

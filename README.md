@@ -48,7 +48,7 @@ public/               copié tel quel : .htaccess (redirections), robots.txt, fa
 Le design system est visible sur la page `/design-system/` (absente du menu). Un composant n'écrit jamais une couleur ou une taille en dur : il utilise les variables de `tokens.css`.
 
 Règle du contenu : **un champ vide n'affiche rien**. On laisse vide plutôt que d'écrire « en cours ».
-
+  
 ## Règle de sécurité
 
 Le dépôt est **public** : ne jamais y mettre de mot de passe, de clé ou d'adresse privée. Les secrets (ex. mot de passe d'envoi des formulaires) vivent dans un fichier placé directement sur le serveur, hors de Git.

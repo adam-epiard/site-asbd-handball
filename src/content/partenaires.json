@@ -1,1 +1,106 @@
-[]
+[
+  {
+    "id": "ams",
+    "nom": "AMS Acier Alu Inox",
+    "logo": "../assets/partenaires/ams.png",
+    "ordre": 10
+  },
+  {
+    "id": "bruffiere-automobiles",
+    "nom": "Bruffière Automobiles",
+    "logo": "../assets/partenaires/bruffiere-automobiles.png",
+    "ordre": 20
+  },
+  {
+    "id": "drapeau-frederic",
+    "nom": "Drapeau Frédéric",
+    "logo": "../assets/partenaires/drapeau-frederic.png",
+    "ordre": 30,
+    "site": "https://www.sarlfredericdrapeau.com"
+  },
+  {
+    "id": "ecs",
+    "nom": "ECS Économie Confort Service",
+    "logo": "../assets/partenaires/ecs.png",
+    "ordre": 40
+  },
+  {
+    "id": "entrepotes",
+    "nom": "L'Entrepotes, bar et cave à bières",
+    "logo": "../assets/partenaires/entrepotes.png",
+    "ordre": 50
+  },
+  {
+    "id": "fluenergie",
+    "nom": "Fluénergie",
+    "logo": "../assets/partenaires/fluenergie.png",
+    "ordre": 60
+  },
+  {
+    "id": "gaec-le-grand-air",
+    "nom": "GAEC Le Grand Air",
+    "logo": "../assets/partenaires/gaec-le-grand-air.png",
+    "ordre": 70
+  },
+  {
+    "id": "garage-chauvet",
+    "nom": "Garage Chauvet",
+    "logo": "../assets/partenaires/garage-chauvet.png",
+    "ordre": 80
+  },
+  {
+    "id": "jfn-creations",
+    "nom": "JFN Créations",
+    "logo": "../assets/partenaires/jfn-creations.png",
+    "ordre": 90
+  },
+  {
+    "id": "maison-sauvage",
+    "nom": "Maison Sauvage",
+    "logo": "../assets/partenaires/maison-sauvage.png",
+    "ordre": 100
+  },
+  {
+    "id": "menuiserie-n2r",
+    "nom": "Menuiserie N2R",
+    "logo": "../assets/partenaires/menuiserie-n2r.png",
+    "ordre": 110
+  },
+  {
+    "id": "l-otium",
+    "nom": "L'Otium",
+    "logo": "../assets/partenaires/l-otium.png",
+    "ordre": 120
+  },
+  {
+    "id": "le-petit-lerot",
+    "nom": "Le Petit Lérot",
+    "logo": "../assets/partenaires/le-petit-lerot.png",
+    "ordre": 130
+  },
+  {
+    "id": "pierre-et-jardin",
+    "nom": "Pierre & Jardin",
+    "logo": "../assets/partenaires/pierre-et-jardin.png",
+    "ordre": 140
+  },
+  {
+    "id": "servimac",
+    "nom": "Servimac",
+    "logo": "../assets/partenaires/servimac.png",
+    "ordre": 150
+  },
+  {
+    "id": "la-tour-de-pizz",
+    "nom": "La Tour de Pizz'",
+    "logo": "../assets/partenaires/la-tour-de-pizz.png",
+    "ordre": 160
+  },
+  {
+    "id": "viva-la-vie",
+    "nom": "Viva la Vie",
+    "logo": "../assets/partenaires/viva-la-vie.png",
+    "ordre": 170,
+    "site": "https://www.vivalavie.fr"
+  }
+]
