@@ -1,0 +1,4 @@
+# Seul formulaire.php répond aux visiteurs ; la bibliothèque n'est pas accessible directement.
+<Files "formulaire-lib.php">
+  Require all denied
+</Files>
