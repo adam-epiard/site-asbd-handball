@@ -1,0 +1,51 @@
+---
+/**
+ * Devenir partenaire : le texte vient de src/content/pages/devenir-partenaire.md
+ * (modifiable sans toucher au code), suivi du formulaire partenaire.
+ */
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Formulaire from '../components/Formulaire.astro';
+import Champ from '../components/ui/Champ.astro';
+
+const page = await getEntry('pages', 'devenir-partenaire');
+if (!page) throw new Error('src/content/pages/devenir-partenaire.md est introuvable');
+const { Content } = await render(page);
+---
+
+<BaseLayout titre={page.data.titre} description={page.data.description}>
+  <section class="section conteneur mise-en-page">
+    <div class="texte">
+      <h1>{page.data.titre}</h1>
+      <Content />
+    </div>
+    <div>
+      <h2>Nous écrire</h2>
+      <Formulaire nom="partenaire" bouton="Envoyer ma demande" succes="Merci ! Le club vous recontacte rapidement avec les formules de partenariat.">
+        <Champ nom="nom" label="Votre nom" autocomplete="name" maxlength={100} />
+        <Champ nom="societe" label="Société" autocomplete="organization" maxlength={150} />
+        <Champ nom="email" label="Votre e-mail" type="email" autocomplete="email" maxlength={254} />
+        <Champ nom="telephone" label="Téléphone" type="tel" facultatif autocomplete="tel" maxlength={30} aide="Pour être rappelé plus vite." />
+        <Champ nom="message" label="Votre message" type="textarea" facultatif maxlength={5000} />
+      </Formulaire>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .mise-en-page {
+    display: grid;
+    gap: var(--espace-7);
+  }
+
+  @media (min-width: 64rem) {
+    .mise-en-page {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .texte :global(h2) {
+    margin-top: var(--espace-6);
+  }
+</style>

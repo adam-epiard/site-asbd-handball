@@ -17,9 +17,11 @@ interface Props {
   description?: string;
   /** Afficher le bandeau défilant des partenaires (masqué sur la page Partenaires). */
   bandeauPartenaires?: boolean;
+  /** Exclure cette page des moteurs de recherche (pages de confirmation...). */
+  noindex?: boolean;
 }
 
-const { titre, description = site.description, bandeauPartenaires = true } = Astro.props;
+const { titre, description = site.description, bandeauPartenaires = true, noindex = false } = Astro.props;
 
 const titreComplet = Astro.url.pathname === '/' ? `${site.nom} : ${titre}` : `${titre} | ${site.nom}`;
 const canonique = new URL(Astro.url.pathname, Astro.site);
@@ -35,7 +37,7 @@ const construitLe = new Date().toLocaleString('fr-FR', { dateStyle: 'short', tim
     <title>{titreComplet}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonique} />
-    {site.noindex && <meta name="robots" content="noindex, nofollow" />}
+    {(site.noindex || noindex) && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />

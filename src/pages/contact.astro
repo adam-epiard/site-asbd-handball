@@ -1,11 +1,11 @@
 ---
 /**
- * Contact. Le formulaire arrivera à l'étape 5 (script PHP) ;
- * en attendant, les coordonnées directes suffisent.
+ * Contact : formulaire (envoyé par public/api/formulaire.php) et coordonnées directes.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TitreSection from '../components/ui/TitreSection.astro';
-import Bouton from '../components/ui/Bouton.astro';
+import Formulaire from '../components/Formulaire.astro';
+import Champ from '../components/ui/Champ.astro';
 import { site } from '../config/site';
 
 const { adresse, email, emailLicences, reseaux } = site;
@@ -17,6 +17,14 @@ const { adresse, email, emailLicences, reseaux } = site;
 >
   <section class="section conteneur">
     <TitreSection niveau="h1" titre="Contacter le club" intro="Une question sur une équipe, un essai ou un partenariat ? Écrivez-nous." />
+    <div class="mise-en-page">
+      <Formulaire nom="contact" bouton="Envoyer le message" succes="Le club vous répond par e-mail dans les prochains jours.">
+        <Champ nom="nom" label="Votre nom" autocomplete="name" maxlength={100} />
+        <Champ nom="email" label="Votre e-mail" type="email" autocomplete="email" maxlength={254} />
+        <Champ nom="objet" label="Objet" maxlength={150} aide="Par exemple : essai pour mon enfant, question sur une équipe." />
+        <Champ nom="message" label="Votre message" type="textarea" maxlength={5000} />
+      </Formulaire>
+
     <div class="contacts">
       {
         email && (
@@ -25,7 +33,6 @@ const { adresse, email, emailLicences, reseaux } = site;
             <p>
               <a href={`mailto:${email}`}>{email}</a>
             </p>
-            <Bouton href={`mailto:${email}`}>Écrire au club</Bouton>
           </div>
         )
       }
@@ -68,14 +75,26 @@ const { adresse, email, emailLicences, reseaux } = site;
         )
       }
     </div>
+    </div>
   </section>
 </BaseLayout>
 
 <style>
+  .mise-en-page {
+    display: grid;
+    gap: var(--espace-7);
+  }
+
+  @media (min-width: 64rem) {
+    .mise-en-page {
+      grid-template-columns: 3fr 2fr;
+      align-items: start;
+    }
+  }
+
   .contacts {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-    gap: var(--espace-5);
+    gap: var(--espace-4);
   }
 
   .contact {

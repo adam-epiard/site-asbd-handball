@@ -48,7 +48,7 @@ public/               copié tel quel : .htaccess (redirections), robots.txt, fa
 Le design system est visible sur la page `/design-system/` (absente du menu). Un composant n'écrit jamais une couleur ou une taille en dur : il utilise les variables de `tokens.css`.
 
 Règle du contenu : **un champ vide n'affiche rien**. On laisse vide plutôt que d'écrire « en cours ».
-  
+
 ## Règle de sécurité
 
 Le dépôt est **public** : ne jamais y mettre de mot de passe, de clé ou d'adresse privée. Les secrets (ex. mot de passe d'envoi des formulaires) vivent dans un fichier placé directement sur le serveur, hors de Git.
@@ -84,6 +84,16 @@ Si l'option Git n'apparaît pas dans le menu ⁝ de l'onglet Mes sites, le dép�
 ### Le jour de la bascule
 
 Suivre la procédure du dossier de cadrage, et **passer `noindex` à `false`** dans `src/config/site.ts`.
+
+## Formulaires (contact, devenir partenaire)
+
+Les formulaires envoient vers `public/api/formulaire.php`, un petit script PHP exécuté par l'hébergement OVH, qui envoie l'e-mail au club avec la fonction `mail()` (aucun mot de passe stocké).
+
+- Destinataire, expéditeur et champs : en tête de `public/api/formulaire-lib.php`.
+- Anti-spam : champ piège invisible (`site_web`) et refus des envois en moins de 3 secondes.
+- PHP ne tourne pas avec `npm run dev` : l'envoi réel se teste sur le site de test.
+- Tests du script : `php tests/formulaire.test.php` (PHP 8.3 en ligne de commande).
+- Si aucun e-mail n'arrive : vérifier dans OVH, onglet **Plus > Scripts e-mail**, que l'envoi d'e-mails par script est actif.
 
 ## Vidéo du bandeau d'accueil
 

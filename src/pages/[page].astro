@@ -2,13 +2,16 @@
 /**
  * Pages de contenu en Markdown (src/content/pages/*.md).
  * Le nom du fichier donne l'adresse : mentions-legales.md → /mentions-legales/
+ * Les pages qui ont leur propre modèle (texte + formulaire) sont exclues ici.
  */
 import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 export const getStaticPaths = (async () => {
-  const pages = await getCollection('pages');
+  // Défini ici : Astro exécute getStaticPaths à part, sans accès au reste du fichier.
+  const pagesDediees = ['devenir-partenaire'];
+  const pages = (await getCollection('pages')).filter((page) => !pagesDediees.includes(page.id));
   return pages.map((page) => ({
     params: { page: page.id },
     props: { page },

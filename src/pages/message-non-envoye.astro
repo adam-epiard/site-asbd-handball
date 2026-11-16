@@ -1,0 +1,28 @@
+---
+/** Échec d'envoi d'un formulaire sans JavaScript (champ invalide ou envoi impossible). */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Alerte from '../components/ui/Alerte.astro';
+import Bouton from '../components/ui/Bouton.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout titre="Message non envoyé" description="Votre message n'a pas pu être envoyé au club." bandeauPartenaires={false} noindex>
+  <section class="section conteneur confirmation">
+    <h1>Le message n'est pas parti</h1>
+    <Alerte type="erreur" titre="Vérifiez le formulaire">
+      <p>
+        Un champ obligatoire est peut-être vide ou l'adresse e-mail incomplète. Revenez à la page précédente pour corriger,
+        ou écrivez directement au club à <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+    </Alerte>
+    <Bouton href="/contact/" variante="secondaire">Retour au formulaire de contact</Bouton>
+  </section>
+</BaseLayout>
+
+<style>
+  .confirmation {
+    display: grid;
+    gap: var(--espace-5);
+    justify-items: start;
+  }
+</style>

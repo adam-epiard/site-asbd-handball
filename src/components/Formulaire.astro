@@ -1,0 +1,206 @@
+---
+/**
+ * Formulaire envoyé au script PHP de l'hébergement (public/api/formulaire.php).
+ * Les champs (composant Champ) vont dans le slot.
+ *
+ * - Avec JavaScript : envoi sans rechargement, erreurs affichées sous les champs,
+ *   saisie conservée en cas d'échec.
+ * - Sans JavaScript : envoi classique, puis page /message-envoye/ ou /message-non-envoye/.
+ * Anti-spam : champ piège invisible (site_web) et délai minimum côté serveur (ouvert_le).
+ */
+import Bouton from './ui/Bouton.astro';
+import { site } from '../config/site';
+
+interface Props {
+  /** Doit correspondre à une clé de FORMULAIRES dans formulaire-lib.php. */
+  nom: 'contact' | 'partenaire';
+  bouton: string;
+  /** Message affiché après un envoi réussi. */
+  succes: string;
+}
+
+const { nom, bouton, succes } = Astro.props;
+---
+
+<form class="formulaire" method="post" action="/api/formulaire.php" data-formulaire data-succes={succes} data-email={site.email}>
+  <input type="hidden" name="formulaire" value={nom} />
+  <input type="hidden" name="ouvert_le" value="" data-ouvert-le />
+
+  <div class="formulaire__piege" aria-hidden="true">
+    <label for={`site-web-${nom}`}>Ne pas remplir ce champ</label>
+    <input id={`site-web-${nom}`} type="text" name="site_web" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="formulaire__statut" role="status" aria-live="polite" tabindex="-1" data-statut hidden></div>
+
+  <div class="formulaire__champs">
+    <slot />
+  </div>
+
+  <div class="formulaire__actions">
+    <Bouton type="submit">{bouton}</Bouton>
+  </div>
+
+  <p class="formulaire__rgpd">
+    Vos informations servent uniquement à vous répondre. Elles sont envoyées par e-mail au club et ne sont pas
+    conservées sur le site.
+  </p>
+</form>
+
+<script>
+  type Reponse = { ok: boolean; erreurs?: Record<string, string> };
+
+  for (const formulaire of document.querySelectorAll<HTMLFormElement>('[data-formulaire]')) {
+    const ouvertLe = formulaire.querySelector<HTMLInputElement>('[data-ouvert-le]');
+    const statut = formulaire.querySelector<HTMLElement>('[data-statut]');
+    const bouton = formulaire.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (!ouvertLe || !statut || !bouton) continue;
+
+    ouvertLe.value = String(Date.now());
+    const libelleBouton = bouton.textContent ?? '';
+    const email = formulaire.dataset.email ?? '';
+
+    const afficherStatut = (type: 'succes' | 'erreur', titre: string, texte: string) => {
+      statut.className = `formulaire__statut formulaire__statut--${type}`;
+      statut.replaceChildren();
+      const t = document.createElement('p');
+      t.className = 'formulaire__statut-titre';
+      t.textContent = titre;
+      const p = document.createElement('p');
+      p.textContent = texte;
+      statut.append(t, p);
+      if (type === 'erreur' && email) {
+        const lien = document.createElement('a');
+        lien.href = `mailto:${email}`;
+        lien.textContent = email;
+        p.append(' ', lien, '.');
+      }
+      statut.hidden = false;
+      statut.focus();
+    };
+
+    const effacerErreurs = () => {
+      for (const champ of formulaire.querySelectorAll<HTMLElement>('[data-champ]')) {
+        champ.classList.remove('champ--erreur');
+        champ.querySelector('input, textarea')?.removeAttribute('aria-invalid');
+        const zone = champ.querySelector<HTMLElement>('[data-erreur]');
+        if (zone) {
+          zone.textContent = '';
+          zone.hidden = true;
+        }
+      }
+    };
+
+    const afficherErreurs = (erreurs: Record<string, string>) => {
+      let premier: HTMLElement | null = null;
+      for (const [nom, message] of Object.entries(erreurs)) {
+        const champ = formulaire.querySelector<HTMLElement>(`[data-champ="${nom}"]`);
+        const saisie = champ?.querySelector<HTMLElement>('input, textarea');
+        const zone = champ?.querySelector<HTMLElement>('[data-erreur]');
+        if (!champ || !saisie || !zone) continue;
+        champ.classList.add('champ--erreur');
+        saisie.setAttribute('aria-invalid', 'true');
+        zone.textContent = message;
+        zone.hidden = false;
+        premier ??= saisie;
+      }
+      premier?.focus();
+    };
+
+    formulaire.addEventListener('submit', async (evenement) => {
+      evenement.preventDefault();
+      effacerErreurs();
+      statut.hidden = true;
+      bouton.disabled = true;
+      bouton.textContent = 'Envoi en cours…';
+
+      try {
+        const reponse = await fetch(formulaire.action, {
+          method: 'POST',
+          body: new FormData(formulaire),
+          headers: { Accept: 'application/json' },
+        });
+        // Une page d'erreur du serveur (HTML) ne doit pas passer pour une coupure réseau.
+        const donnees = (await reponse.json().catch(() => ({ ok: false }))) as Reponse;
+
+        if (reponse.ok && donnees.ok) {
+          formulaire.reset();
+          ouvertLe.value = String(Date.now());
+          afficherStatut('succes', 'Message envoyé', formulaire.dataset.succes ?? '');
+        } else if (reponse.status === 422 && donnees.erreurs) {
+          afficherErreurs(donnees.erreurs);
+        } else {
+          afficherStatut('erreur', "Le message n'est pas parti", 'Réessayez dans quelques minutes, ou écrivez-nous à');
+        }
+      } catch {
+        afficherStatut(
+          'erreur',
+          "Le message n'est pas parti",
+          'Vérifiez votre connexion puis réessayez. Vos informations sont conservées. Vous pouvez aussi écrire à',
+        );
+      } finally {
+        bouton.disabled = false;
+        bouton.textContent = libelleBouton;
+      }
+    });
+  }
+</script>
+
+<style>
+  .formulaire {
+    display: grid;
+    gap: var(--espace-5);
+    max-width: 36rem;
+  }
+
+  .formulaire__champs {
+    display: grid;
+    gap: var(--espace-5);
+  }
+
+  /* Hors de l'écran plutôt que display:none : certains robots ignorent les champs masqués. */
+  .formulaire__piege {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .formulaire__statut {
+    padding: var(--espace-4) var(--espace-5);
+    border-left: 4px solid var(--couleur-statut, var(--noir));
+    border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0;
+    background: var(--fond-statut, var(--info-fond));
+  }
+
+  .formulaire__statut:focus {
+    outline: none;
+  }
+
+  .formulaire__statut--succes {
+    --couleur-statut: var(--succes);
+    --fond-statut: var(--succes-fond);
+  }
+
+  .formulaire__statut--erreur {
+    --couleur-statut: var(--erreur);
+    --fond-statut: var(--erreur-fond);
+  }
+
+  .formulaire__statut :global(p) {
+    margin: 0;
+  }
+
+  .formulaire__statut :global(.formulaire__statut-titre) {
+    margin-bottom: var(--espace-1);
+    font-weight: var(--graisse-gras);
+    color: var(--couleur-statut);
+  }
+
+  .formulaire__rgpd {
+    margin: 0;
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+  }
+</style>

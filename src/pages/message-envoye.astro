@@ -1,0 +1,24 @@
+---
+/** Confirmation après envoi d'un formulaire sans JavaScript. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Alerte from '../components/ui/Alerte.astro';
+import Bouton from '../components/ui/Bouton.astro';
+---
+
+<BaseLayout titre="Message envoyé" description="Votre message a bien été envoyé au club." bandeauPartenaires={false} noindex>
+  <section class="section conteneur confirmation">
+    <h1>Message envoyé</h1>
+    <Alerte type="succes" titre="C'est parti">
+      <p>Le club a bien reçu votre message et vous répond par e-mail dans les prochains jours.</p>
+    </Alerte>
+    <Bouton href="/" variante="secondaire">Retour à l'accueil</Bouton>
+  </section>
+</BaseLayout>
+
+<style>
+  .confirmation {
+    display: grid;
+    gap: var(--espace-5);
+    justify-items: start;
+  }
+</style>

@@ -3,6 +3,8 @@
  * Champ de formulaire avec son libellé, une aide et un message d'erreur.
  * Les champs sont obligatoires par défaut ; un champ facultatif l'indique
  * dans son libellé (plus clair qu'une astérisque).
+ * La zone d'erreur existe toujours (masquée si vide) : le script d'envoi
+ * des formulaires peut y afficher les erreurs renvoyées par le serveur.
  */
 interface Props {
   nom: string;
@@ -13,23 +15,24 @@ interface Props {
   erreur?: string;
   valeur?: string;
   autocomplete?: string;
+  maxlength?: number;
 }
 
-const { nom, label, type = 'text', facultatif = false, aide, erreur, valeur, autocomplete } = Astro.props;
+const { nom, label, type = 'text', facultatif = false, aide, erreur, valeur, autocomplete, maxlength } = Astro.props;
 
 const id = `champ-${nom}`;
 const idAide = aide ? `${id}-aide` : undefined;
-const idErreur = erreur ? `${id}-erreur` : undefined;
-const decritPar = [idErreur, idAide].filter(Boolean).join(' ') || undefined;
+const idErreur = `${id}-erreur`;
+const decritPar = [idErreur, idAide].filter(Boolean).join(' ');
 ---
 
-<div class:list={['champ', { 'champ--erreur': erreur }]}>
+<div class:list={['champ', { 'champ--erreur': erreur }]} data-champ={nom}>
   <label class="champ__label" for={id}>
     {label}
     {facultatif && <span class="champ__facultatif">(facultatif)</span>}
   </label>
   {aide && <p class="champ__aide" id={idAide}>{aide}</p>}
-  {erreur && <p class="champ__erreur" id={idErreur}>{erreur}</p>}
+  <p class="champ__erreur" id={idErreur} hidden={!erreur} data-erreur>{erreur}</p>
   {
     type === 'textarea' ? (
       <textarea
@@ -38,6 +41,7 @@ const decritPar = [idErreur, idAide].filter(Boolean).join(' ') || undefined;
         name={nom}
         rows="6"
         required={!facultatif}
+        maxlength={maxlength}
         aria-invalid={erreur ? 'true' : undefined}
         aria-describedby={decritPar}
       >{valeur}</textarea>
@@ -49,6 +53,7 @@ const decritPar = [idErreur, idAide].filter(Boolean).join(' ') || undefined;
         type={type}
         value={valeur}
         required={!facultatif}
+        maxlength={maxlength}
         autocomplete={autocomplete}
         aria-invalid={erreur ? 'true' : undefined}
         aria-describedby={decritPar}
