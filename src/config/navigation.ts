@@ -28,7 +28,6 @@ export const menu: LienMenu[] = [
       { label: 'Équipes masculines', href: '/equipe-masculine/' },
       { label: 'École de hand', href: '/ecole-de-hand/' },
       { label: 'Baby hand', href: '/baby-hand/' },
-      { label: 'Loisirs', href: '/loisirs/' },
     ],
   },
   { label: 'Matchs', href: '/matchs/' },
