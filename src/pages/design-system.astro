@@ -14,9 +14,44 @@ import GrillePartenaires from '../components/ui/GrillePartenaires.astro';
 import Champ from '../components/ui/Champ.astro';
 import Alerte from '../components/ui/Alerte.astro';
 import TraitsTerrain from '../components/ui/TraitsTerrain.astro';
+import CarteMatch from '../components/matchs/CarteMatch.astro';
+import ListeMatchs from '../components/matchs/ListeMatchs.astro';
+import Classement from '../components/matchs/Classement.astro';
+import { construire, dateParis, type LigneClassement } from '../lib/matchs';
 import { site } from '../config/site';
 
 const video = site.videoAccueil;
+
+// Matchs fictifs pour montrer les blocs.
+const equipeExemple = { id: 'exemple', nom: 'Seniors F', lien: '#services' };
+const exemple = (id: string, jour: string, heure: string | null, adversaire: string, scores: [number, number] | null, aDomicile = true) => {
+  const club = { nom: 'AS BRUFFIERE', club: true, score: scores?.[0] ?? null };
+  const autre = { nom: adversaire, club: false, score: scores?.[1] ?? null };
+  return construire({
+    id,
+    equipe: equipeExemple,
+    date: heure ? dateParis(`${jour}T${heure}`) : null,
+    jour,
+    horaireInconnu: !heure,
+    journee: null,
+    competition: 'D1FPL ; Poule C',
+    coupe: false,
+    tour: null,
+    pouleId: null,
+    domicile: aDomicile ? club : autre,
+    exterieur: aDomicile ? autre : club,
+  });
+};
+const exempleDernier = exemple('d', '2026-11-14', '21:00', 'ASC LA MONTAGNE', [26, 24], false);
+const exempleNul = exemple('n', '2026-11-21', '20:30', 'HB CLISSON', [19, 19]);
+const exempleProchain = exemple('p', '2026-12-05', '20:30', 'CHANTONNAY VHB', null);
+const exempleSansHoraire = exemple('s', '2027-01-09', null, 'HBC DU LAC', null, false);
+const exempleClassement: LigneClassement[] = [
+  { place: 1, equipe: 'HT BOCAGE*PHB', club: false, points: 14, joues: 6, gagnes: 4, nuls: 0, perdus: 2, difference: 24 },
+  { place: 2, equipe: 'HBC DU LAC', club: false, points: 13, joues: 6, gagnes: 5, nuls: 0, perdus: 1, difference: 21 },
+  { place: 3, equipe: 'AS BRUFFIERE', club: true, points: 12, joues: 6, gagnes: 3, nuls: 0, perdus: 3, difference: 4 },
+  { place: 4, equipe: 'TRIGNAC HB', club: false, points: 12, joues: 6, gagnes: 3, nuls: 0, perdus: 3, difference: 6 },
+];
 
 const couleurs = [
   { nom: 'Rouge maillot', variable: '--rouge', hex: '#E10600', usage: 'Boutons, motif du terrain, accents', contraste: 'Texte blanc : 5,0:1' },
@@ -174,12 +209,33 @@ const sommaire = [
 
   <section class="section section--alterne" aria-labelledby="services">
     <div class="conteneur">
-      <TitreSection id="services" titre="Matchs de la semaine" intro="Les services externes (Scorenco, HelloAsso, Google Maps) s'affichent dans ce cadre, avec toujours un lien de secours en dessous." />
-      <CadreExterne source="Résultats fournis par Scorenco" secours={{ href: 'https://www.ffhandball.fr/', label: 'Voir sur le site de la FFHB' }} hauteurMin="16rem">
-        <div class="scorenco-widget" data-widget-type="week-events" data-widget-id="4994"></div>
-        <script is:inline async defer src="https://widgets.scorenco.com/host/widgets.js"></script>
-      </CadreExterne>
+      <TitreSection
+        id="services"
+        titre="Matchs et classements"
+        intro="Données de la FFHB, affichées avec nos blocs. Exemple fictif : sur le site, ce sont les vrais matchs."
+      />
+      <div class="matchs-exemple">
+        <CarteMatch match={exempleProchain} titre="Prochain match" variante="prochain" />
+        <CarteMatch match={exempleDernier} titre="Dernier résultat" />
+      </div>
+      <div class="deux-colonnes matchs-exemple__details">
+        <div>
+          <h3>Liste de matchs</h3>
+          <ListeMatchs matchs={[exempleDernier, exempleNul, exempleProchain, exempleSansHoraire]} />
+        </div>
+        <div>
+          <h3>Classement</h3>
+          <Classement lignes={exempleClassement} poule="D1FPL ; Poule C" />
+        </div>
+      </div>
     </div>
+  </section>
+
+  <section class="section conteneur" aria-labelledby="externes">
+    <TitreSection id="externes" titre="Services externes" intro="HelloAsso et Google Maps s'affichent dans ce cadre, avec toujours un lien de secours en dessous." />
+    <CadreExterne source="Boutique fournie par HelloAsso" secours={{ href: '/boutique/', label: 'Ouvrir la boutique' }} hauteurMin="10rem">
+      <p class="cadre-exemple">Contenu du service</p>
+    </CadreExterne>
   </section>
 
   <section class="section conteneur" aria-labelledby="partenaires">
@@ -538,5 +594,27 @@ const sommaire = [
   .motif--noir {
     background: var(--noir);
     border-color: var(--noir);
+  }
+
+  .matchs-exemple {
+    display: grid;
+    gap: var(--espace-5);
+    margin-bottom: var(--espace-7);
+  }
+
+  @media (min-width: 48rem) {
+    .matchs-exemple {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .matchs-exemple__details h3 {
+    margin-bottom: var(--espace-4);
+  }
+
+  .cadre-exemple {
+    margin: 0;
+    padding: var(--espace-6);
+    color: var(--texte-doux);
   }
 </style>

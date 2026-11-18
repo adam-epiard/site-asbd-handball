@@ -1,0 +1,197 @@
+---
+/**
+ * Un match mis en avant, façon tableau de score : prochain match ou dernier résultat.
+ * - variante « prochain » : fond noir, « contre » entre les deux équipes ;
+ * - variante « resultat » : fond blanc, scores en grand et résultat du club.
+ */
+import Resultat from './Resultat.astro';
+import { libelleHeure, libelleJourMatch, nomEquipe, type Match } from '../../lib/matchs';
+
+interface Props {
+  match: Match;
+  titre: string;
+  variante?: 'prochain' | 'resultat';
+  /** Afficher le nom de l'équipe du club (Seniors F...), utile hors de la page de l'équipe. */
+  avecEquipe?: boolean;
+  niveau?: 'h2' | 'h3';
+}
+
+const { match, titre, variante = 'resultat', avecEquipe = false, niveau = 'h3' } = Astro.props;
+const Balise = niveau;
+const jour = libelleJourMatch(match.jour);
+const quand = match.horaireInconnu ? `${jour} · horaire à venir` : `${jour} · ${libelleHeure(match.date!)}`;
+const camps = [match.domicile, match.exterieur];
+const afficherScores = variante === 'resultat' && match.joue;
+---
+
+<article class:list={['carte-match', `carte-match--${variante}`]}>
+  <header class="carte-match__entete">
+    <Balise class="carte-match__titre">{titre}</Balise>
+    {avecEquipe && <a class="carte-match__equipe" href={match.equipe.lien}>{match.equipe.nom}</a>}
+  </header>
+
+  <p class="carte-match__quand">
+    <span class="carte-match__jour">{quand}</span>
+    <span class="carte-match__lieu">{match.aDomicile ? 'À domicile' : "À l'extérieur"}</span>
+  </p>
+
+  <ul class="carte-match__camps" aria-label="Équipes et score">
+    {
+      camps.map((camp, i) => (
+        <li class:list={['carte-match__camp', { 'carte-match__camp--club': camp.club }]}>
+          <span class="carte-match__nom">{nomEquipe(camp)}</span>
+          {afficherScores ? <span class="carte-match__score">{camp.score}</span> : i === 0 && <span class="carte-match__contre">contre</span>}
+        </li>
+      ))
+    }
+  </ul>
+
+  {
+    (match.resultat || match.competition) && (
+      <footer class="carte-match__pied">
+        {match.competition && <span class="carte-match__competition">{match.competition}</span>}
+        {afficherScores && match.resultat && <Resultat resultat={match.resultat} />}
+      </footer>
+    )
+  }
+</article>
+
+<style>
+  .carte-match {
+    display: grid;
+    gap: var(--espace-4);
+    align-content: start;
+    padding: var(--espace-5);
+    border-radius: var(--rayon);
+    background: var(--blanc);
+    border: var(--trait);
+  }
+
+  .carte-match--prochain {
+    background: var(--noir);
+    border-color: var(--noir);
+    color: var(--blanc);
+  }
+
+  .carte-match__entete {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--espace-2) var(--espace-4);
+  }
+
+  .carte-match__titre {
+    margin: 0;
+    font-family: var(--police-texte);
+    font-size: var(--taille-sm);
+    font-weight: var(--graisse-gras);
+    color: var(--rouge-fonce);
+  }
+
+  .carte-match--prochain .carte-match__titre {
+    color: var(--blanc);
+    padding: 0.125rem var(--espace-2);
+    border-radius: var(--rayon-petit);
+    background: var(--rouge);
+  }
+
+  .carte-match__equipe {
+    font-weight: var(--graisse-gras);
+  }
+
+  .carte-match--prochain .carte-match__equipe {
+    color: var(--blanc);
+  }
+
+  .carte-match__quand {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espace-1) var(--espace-3);
+    margin: 0;
+  }
+
+  .carte-match__jour {
+    font-weight: var(--graisse-gras);
+  }
+
+  .carte-match__jour::first-letter {
+    text-transform: uppercase;
+  }
+
+  .carte-match__lieu {
+    color: var(--texte-doux);
+  }
+
+  .carte-match--prochain .carte-match__lieu {
+    color: rgb(255 255 255 / 0.75);
+  }
+
+  .carte-match__camps {
+    display: grid;
+    gap: var(--espace-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .carte-match__camp {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 var(--espace-4);
+    font-family: var(--police-titre);
+    font-weight: var(--graisse-titre);
+    line-height: 1.05;
+  }
+
+  .carte-match__nom {
+    font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+    overflow-wrap: anywhere;
+  }
+
+  .carte-match__camp--club .carte-match__nom {
+    color: var(--rouge);
+  }
+
+  .carte-match--prochain .carte-match__camp--club .carte-match__nom {
+    color: var(--blanc);
+  }
+
+  .carte-match--prochain .carte-match__camp:not(.carte-match__camp--club) .carte-match__nom {
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  .carte-match__score {
+    font-size: clamp(2.25rem, 1.8rem + 2vw, 3.25rem);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .carte-match__contre {
+    flex-basis: 100%;
+    order: 2;
+    font-family: var(--police-texte);
+    font-size: var(--taille-sm);
+    font-weight: var(--graisse-moyen);
+    color: rgb(255 255 255 / 0.75);
+    padding-top: var(--espace-1);
+  }
+
+  .carte-match__pied {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espace-2) var(--espace-4);
+    padding-top: var(--espace-3);
+    border-top: var(--trait);
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+  }
+
+  .carte-match--prochain .carte-match__pied {
+    border-top-color: rgb(255 255 255 / 0.25);
+    color: rgb(255 255 255 / 0.75);
+  }
+</style>

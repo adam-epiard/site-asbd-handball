@@ -1,0 +1,33 @@
+---
+/**
+ * Les matchs du club de la semaine (accueil) : la semaine en cours si le club joue,
+ * sinon la prochaine semaine avec des matchs. Rien ne s'affiche s'il n'y a aucun match à venir.
+ */
+import TitreSection from '../ui/TitreSection.astro';
+import ListeMatchs from './ListeMatchs.astro';
+import SourceFfhb from './SourceFfhb.astro';
+import { derniereMaj, libelleSemaine, semaineAMontrer, tousLesMatchs } from '../../lib/matchs';
+
+interface Props {
+  lien?: { href: string; label: string };
+}
+
+const { lien } = Astro.props;
+const semaine = semaineAMontrer(await tousLesMatchs(), new Date());
+const maj = await derniereMaj();
+const libelle = semaine ? libelleSemaine(semaine) : '';
+const titre = semaine?.enCours ? 'Matchs de la semaine' : 'Prochains matchs';
+const intro = libelle.charAt(0).toUpperCase() + libelle.slice(1);
+---
+
+{
+  semaine && (
+    <section class="section section--alterne" aria-labelledby="matchs-semaine">
+      <div class="conteneur">
+        <TitreSection id="matchs-semaine" titre={titre} intro={intro} lien={lien} />
+        <ListeMatchs matchs={semaine.matchs} groupe="jour" avecEquipe />
+        <SourceFfhb maj={maj} />
+      </div>
+    </section>
+  )
+}

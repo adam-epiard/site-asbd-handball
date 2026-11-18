@@ -1,10 +1,31 @@
 ---
+/**
+ * Matchs du club : les matchs à venir de toutes les équipes, semaine par semaine,
+ * puis les résultats des dernières semaines. Le détail par équipe est sur sa page.
+ */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TitreSection from '../components/ui/TitreSection.astro';
-import Scorenco from '../components/Scorenco.astro';
+import ListeMatchs from '../components/matchs/ListeMatchs.astro';
+import SourceFfhb from '../components/matchs/SourceFfhb.astro';
 import { getEquipes, lienEquipe } from '../lib/equipes';
+import { derniereMaj, libelleSemaine, matchsAVenir, matchsPasses, parSemaine, tousLesMatchs } from '../lib/matchs';
 
-const equipes = (await getEquipes()).filter((e) => e.data.scorenco.matchs || e.data.lienFfhb);
+/** Nombre de semaines de résultats affichées. */
+const SEMAINES_RESULTATS = 3;
+
+const maintenant = new Date();
+const matchs = await tousLesMatchs();
+const aVenir = parSemaine(matchsAVenir(matchs, maintenant));
+// Résultats : semaines les plus récentes d'abord, matchs dans l'ordre du week-end.
+const resultats = parSemaine(matchsPasses(matchs, maintenant))
+  .slice(0, SEMAINES_RESULTATS)
+  .map((s) => ({ ...s, matchs: [...s.matchs].reverse() }));
+const maj = await derniereMaj();
+const equipes = await getEquipes();
+const titre = (s: Parameters<typeof libelleSemaine>[0]) => {
+  const l = libelleSemaine(s);
+  return l.charAt(0).toUpperCase() + l.slice(1);
+};
 ---
 
 <BaseLayout
@@ -13,31 +34,74 @@ const equipes = (await getEquipes()).filter((e) => e.data.scorenco.matchs || e.d
 >
   <section class="section conteneur">
     <TitreSection niveau="h1" titre="Matchs" intro="Les matchs du club, à domicile et à l'extérieur. Venez encourager les Rouges !" />
-    <Scorenco
-      embed={{ iframe: 'https://scorenco.com/widget/632ad022a81a4e0a1b97b6ef/' }}
-      titre="Matchs du club"
-      secours={{ href: 'https://www.ffhandball.fr/', label: 'Voir sur le site de la FFHB' }}
-      hauteur="36rem"
-    />
+
+    {
+      aVenir.length > 0 ? (
+        <div class="semaines">
+          {aVenir.map((s) => (
+            <section class="semaine" aria-label={titre(s)}>
+              <h2 class="semaine__titre">{titre(s)}</h2>
+              <ListeMatchs matchs={s.matchs} groupe="jour" avecEquipe niveauJour="h3" />
+            </section>
+          ))}
+        </div>
+      ) : (
+        <p class="vide">Aucun match prévu pour l'instant. Le calendrier se remplit au fil de la saison.</p>
+      )
+    }
+    <SourceFfhb maj={maj} />
   </section>
 
-  <section class="section section--alterne" aria-labelledby="par-equipe">
-    <div class="conteneur">
-      <h2 id="par-equipe">Matchs et classement par équipe</h2>
-      <ul class="par-equipe">
-        {
-          equipes.map((equipe) => (
-            <li>
-              <a href={lienEquipe(equipe)}>{equipe.data.nom}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+  {
+    resultats.length > 0 && (
+      <section class="section section--alterne" aria-labelledby="resultats">
+        <div class="conteneur">
+          <TitreSection id="resultats" titre="Derniers résultats" />
+          <div class="semaines">
+            {resultats.map((s) => (
+              <section class="semaine" aria-label={titre(s)}>
+                <h3 class="semaine__titre">{titre(s)}</h3>
+                <ListeMatchs matchs={s.matchs} groupe="jour" avecEquipe niveauJour="h4" />
+              </section>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section conteneur" aria-labelledby="par-equipe">
+    <h2 id="par-equipe">Calendrier et classement par équipe</h2>
+    <ul class="par-equipe">
+      {
+        equipes.map((equipe) => (
+          <li>
+            <a href={lienEquipe(equipe)}>{equipe.data.nom}</a>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 </BaseLayout>
 
 <style>
+  .semaines {
+    display: grid;
+    gap: var(--espace-7);
+  }
+
+  .semaine__titre {
+    margin-bottom: var(--espace-4);
+    font-size: var(--taille-h3);
+    font-family: var(--police-texte);
+    font-weight: var(--graisse-gras);
+    color: var(--rouge-fonce);
+  }
+
+  .vide {
+    color: var(--texte-doux);
+  }
+
   .par-equipe {
     display: flex;
     flex-wrap: wrap;
@@ -52,7 +116,7 @@ const equipes = (await getEquipes()).filter((e) => e.data.scorenco.matchs || e.d
     align-items: center;
     min-height: var(--cible-tactile);
     padding: var(--espace-2) var(--espace-5);
-    background: var(--blanc);
+    background: var(--gris-salle);
     border-radius: var(--rayon-bouton);
     color: var(--noir);
     font-weight: var(--graisse-gras);

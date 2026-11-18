@@ -1,6 +1,6 @@
 ---
 /**
- * Accueil : vidéo du club, matchs de la semaine, équipes, appel à rejoindre le club.
+ * Accueil : vidéo du club, matchs de la semaine (données FFHB), équipes, appel à rejoindre le club.
  * Les partenaires défilent dans le bandeau commun, au-dessus du pied de page.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -8,7 +8,7 @@ import Bandeau from '../components/ui/Bandeau.astro';
 import Bouton from '../components/ui/Bouton.astro';
 import TitreSection from '../components/ui/TitreSection.astro';
 import TraitsTerrain from '../components/ui/TraitsTerrain.astro';
-import Scorenco from '../components/Scorenco.astro';
+import MatchsSemaine from '../components/matchs/MatchsSemaine.astro';
 import GrilleEquipes from '../components/GrilleEquipes.astro';
 import { getEquipes } from '../lib/equipes';
 import { site } from '../config/site';
@@ -30,23 +30,13 @@ const video = site.videoAccueil;
     </Fragment>
   </Bandeau>
 
-  <section class="section section--alterne" aria-labelledby="matchs">
-    <div class="conteneur">
-      <TitreSection id="matchs" titre="Matchs de la semaine" lien={{ href: '/matchs/', label: 'Tous les matchs' }} />
-      <Scorenco
-        embed={{ widget: '4994', type: 'week-events' }}
-        titre="Matchs de la semaine"
-        secours={{ href: '/matchs/', label: 'Voir tous les matchs du club' }}
-        hauteur="18rem"
-      />
-    </div>
-  </section>
+  <MatchsSemaine lien={{ href: '/matchs/', label: 'Tous les matchs' }} />
 
   <section class="section conteneur" aria-labelledby="equipes">
     <TitreSection
       id="equipes"
       titre="Nos équipes"
-      intro="Du baby hand dès 3 ans jusqu'aux seniors et au loisir."
+      intro="Du baby hand dès 3 ans jusqu'aux seniors."
       lien={{ href: '/entrainement/', label: "Horaires d'entraînement" }}
     />
     <GrilleEquipes equipes={equipes} />

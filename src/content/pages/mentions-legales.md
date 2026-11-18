@@ -29,7 +29,9 @@ Le site a été conçu par l'ASBD Vendée Handball.
 
 Le site ne dépose aucun cookie de suivi et n'utilise aucun outil de mesure d'audience. Les informations envoyées par e-mail au club servent uniquement à vous répondre.
 
-Les services intégrés (Scorenco pour les matchs, HelloAsso pour la boutique, Google Maps pour le plan d'accès) appliquent leur propre politique de confidentialité.
+Les services intégrés (HelloAsso pour la boutique, Google Maps pour le plan d'accès) appliquent leur propre politique de confidentialité.
+
+Les calendriers, résultats et classements proviennent du site de la Fédération française de handball ([ffhandball.fr](https://www.ffhandball.fr/)) et sont repris tels quels, à titre d'information.
 
 Conformément au Règlement général sur la protection des données (RGPD), vous pouvez demander l'accès, la rectification ou la suppression de vos données en écrivant à [communication@labruffierehandball.com](mailto:communication@labruffierehandball.com).
 

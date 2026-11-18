@@ -1,0 +1,218 @@
+---
+/**
+ * Bloc « Matchs » de la page d'une équipe : prochain match et dernier résultat
+ * (toutes compétitions), puis deux onglets :
+ * - Championnat : calendrier et classement ; avec plusieurs phases (brassage, phase 2),
+ *   un onglet par phase, la phase en cours ouverte ;
+ * - Coupes : chaque coupe (Coupe de France, de Vendée...) avec ses tours et résultats.
+ * Sans match de coupe, pas d'onglets. Chaque partie peut être retirée avec `blocs`.
+ * Une partie sans données n'affiche rien ; sans aucune donnée, le bloc entier disparaît.
+ */
+import CarteMatch from './CarteMatch.astro';
+import ListeMatchs from './ListeMatchs.astro';
+import CalendrierClassement from './CalendrierClassement.astro';
+import SourceFfhb from './SourceFfhb.astro';
+import Onglets from '../ui/Onglets.astro';
+import type { Equipe } from '../../lib/equipes';
+import {
+  classementsEquipe,
+  derniereMaj,
+  dernierResultat,
+  lienFfhbEquipe,
+  matchsEquipe,
+  parCoupe,
+  phasesEquipe,
+  prochainMatch,
+} from '../../lib/matchs';
+
+type Bloc = 'prochain' | 'dernier' | 'calendrier' | 'classement' | 'coupes';
+
+interface Props {
+  equipe: Equipe;
+  blocs?: Bloc[];
+}
+
+const { equipe, blocs = ['prochain', 'dernier', 'calendrier', 'classement', 'coupes'] } = Astro.props;
+const maintenant = new Date();
+const matchs = await matchsEquipe(equipe);
+
+const prochain = blocs.includes('prochain') ? prochainMatch(matchs, maintenant) : undefined;
+const dernier = blocs.includes('dernier') ? dernierResultat(matchs) : undefined;
+const avecCalendrier = blocs.includes('calendrier');
+const avecClassement = blocs.includes('classement');
+const championnat = avecCalendrier ? matchs.filter((m) => !m.coupe) : [];
+const coupes = blocs.includes('coupes') ? parCoupe(matchs) : [];
+const [classement] = avecClassement ? await classementsEquipe(equipe) : [];
+
+// Plusieurs phases (brassage, phase 2) : un onglet par phase, la phase en cours ouverte.
+const phases = await phasesEquipe(equipe, maintenant);
+const avecPhases = phases.length > 1;
+const idsPhases = new Set(phases.flatMap((ph) => ph.matchs.map((m) => m.id)));
+// Matchs hors phase (saisis à la main, plateaux) : listés sous les phases.
+const autresMatchs = avecPhases ? championnat.filter((m) => !idsPhases.has(m.id)) : [];
+const maj = await derniereMaj(equipe);
+const lien = await lienFfhbEquipe(equipe);
+
+const aDuChampionnat = championnat.length > 0 || Boolean(classement);
+const aDesDonnees = Boolean(prochain || dernier || aDuChampionnat || coupes.length);
+const titreId = `matchs-${equipe.id}`;
+const onglets = [
+  { id: 'championnat', titre: 'Championnat' },
+  { id: 'coupes', titre: coupes.length > 1 ? `Coupes (${coupes.length})` : 'Coupe' },
+];
+/** Bilan d'une coupe vu du club : victoires et défaites. */
+const bilan = (c: (typeof coupes)[number]) => {
+  const joues = c.tours.flatMap((t) => t.matchs).filter((m) => m.resultat);
+  const v = joues.filter((m) => m.resultat === 'victoire').length;
+  const d = joues.filter((m) => m.resultat === 'defaite').length;
+  const n = joues.length - v - d;
+  if (joues.length === 0) return '';
+  return [v && `${v} victoire${v > 1 ? 's' : ''}`, n && `${n} nul${n > 1 ? 's' : ''}`, d && `${d} défaite${d > 1 ? 's' : ''}`]
+    .filter(Boolean)
+    .join(', ');
+};
+---
+
+{
+  aDesDonnees && (
+    <section class="section conteneur matchs-equipe" aria-labelledby={titreId}>
+      <h2 id={titreId}>Matchs</h2>
+
+      {(prochain || dernier) && (
+        <div class="matchs-equipe__cartes">
+          {prochain && <CarteMatch match={prochain} titre="Prochain match" variante="prochain" />}
+          {dernier && <CarteMatch match={dernier} titre="Dernier résultat" />}
+        </div>
+      )}
+
+      <Onglets onglets={onglets} prefixe={`matchs-${equipe.id}`} libelle={`Compétitions de l'équipe ${equipe.data.nom}`}>
+        {aDuChampionnat && (
+          <div slot="championnat">
+            {avecPhases ? (
+              <>
+                <Onglets
+                  onglets={phases.map((ph) => ({ id: ph.id, titre: ph.titre }))}
+                  actif={phases.find((ph) => ph.enCours)?.id}
+                  prefixe={`phases-${equipe.id}`}
+                  variante="secondaire"
+                  libelle={`Phases du championnat ${equipe.data.nom}`}
+                >
+                  {phases.map((ph) => (
+                    <div slot={ph.id}>
+                      {ph.nom && <p class="matchs-equipe__phase">{ph.nom}</p>}
+                      <CalendrierClassement
+                        matchs={avecCalendrier ? ph.matchs : []}
+                        classement={avecClassement ? ph.classement : null}
+                        exclure={prochain}
+                      />
+                    </div>
+                  ))}
+                </Onglets>
+                {autresMatchs.length > 0 && (
+                  <div class="matchs-equipe__autres-matchs">
+                    <h3>Autres matchs</h3>
+                    <ListeMatchs matchs={autresMatchs} />
+                  </div>
+                )}
+              </>
+            ) : (
+              <CalendrierClassement matchs={championnat} classement={classement} exclure={prochain} />
+            )}
+          </div>
+        )}
+
+        {coupes.length > 0 && (
+          <div slot="coupes" class="matchs-equipe__coupes">
+            {coupes.map((c) => (
+              <article class="coupe">
+                <header class="coupe__entete">
+                  <h3 class="coupe__nom">{c.nom}</h3>
+                  {bilan(c) && <p class="coupe__bilan">{bilan(c)}</p>}
+                </header>
+                {c.tours.map((t) => (
+                  <div class="coupe__tour">
+                    {t.nom && t.nom !== c.nom && <h4 class="coupe__tour-nom">{t.nom}</h4>}
+                    <ListeMatchs matchs={t.matchs} />
+                  </div>
+                ))}
+              </article>
+            ))}
+          </div>
+        )}
+      </Onglets>
+
+      <SourceFfhb maj={maj} lien={lien} />
+    </section>
+  )
+}
+
+<style>
+  .matchs-equipe__cartes {
+    display: grid;
+    gap: var(--espace-5);
+    margin-bottom: var(--espace-7);
+  }
+
+  @media (min-width: 48rem) {
+    .matchs-equipe__cartes {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .matchs-equipe h3 {
+    margin-bottom: var(--espace-4);
+  }
+
+  .matchs-equipe__phase {
+    margin: 0 0 var(--espace-5);
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+  }
+
+  .matchs-equipe__autres-matchs {
+    margin-top: var(--espace-7);
+  }
+
+  .matchs-equipe__coupes {
+    display: grid;
+    gap: var(--espace-7);
+  }
+
+  @media (min-width: 64rem) {
+    .matchs-equipe__coupes {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .coupe {
+    display: grid;
+    gap: var(--espace-4);
+  }
+
+  .coupe__entete {
+    padding-top: var(--espace-4);
+    border-top: 4px solid var(--noir);
+  }
+
+  .matchs-equipe .coupe__nom {
+    margin: 0;
+    font-family: var(--police-titre);
+    font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+    font-weight: var(--graisse-titre);
+    line-height: 1.05;
+  }
+
+  .coupe__bilan {
+    margin: var(--espace-2) 0 0;
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+  }
+
+  .coupe__tour-nom {
+    margin: 0 0 var(--espace-2);
+    font-size: var(--taille-sm);
+    font-weight: var(--graisse-gras);
+    color: var(--rouge-fonce);
+  }
+</style>

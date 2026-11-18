@@ -8,7 +8,7 @@ import type { GetStaticPaths } from 'astro';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Etiquette from '../components/ui/Etiquette.astro';
-import Scorenco from '../components/Scorenco.astro';
+import MatchsEquipe from '../components/matchs/MatchsEquipe.astro';
 import TraitsTerrain from '../components/ui/TraitsTerrain.astro';
 import { getEquipes, infoEquipe, libelleCategorie, libelleJour } from '../lib/equipes';
 import { site } from '../config/site';
@@ -22,7 +22,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { equipe } = Astro.props;
-const { nom, photo, coachs, joueurs, afficherJoueurs, entrainements, scorenco, lienFfhb, categorie } = equipe.data;
+const { nom, photo, coachs, joueurs, afficherJoueurs, entrainements, categorie } = equipe.data;
 const info = infoEquipe(equipe);
 
 const rubrique =
@@ -31,10 +31,6 @@ const rubrique =
     : categorie === 'masculine'
       ? { href: '/equipe-masculine/', label: 'Toutes les équipes masculines' }
       : undefined;
-
-const secours = lienFfhb
-  ? { href: lienFfhb, label: "Voir l'équipe sur le site de la FFHB" }
-  : { href: '/matchs/', label: 'Voir tous les matchs du club' };
 
 const effectif = afficherJoueurs ? joueurs : [];
 const descriptionParts = [`${nom}, équipe de l'ASBD Vendée Handball à La Bruffière`];
@@ -116,24 +112,7 @@ const description = `${descriptionParts.join(', ')} : entraînements, coachs et 
     )
   }
 
-  {
-    (scorenco.matchs || scorenco.classement) && (
-      <section class="section conteneur matchs-equipe">
-        {scorenco.matchs && (
-          <div>
-            <h2>Prochains matchs</h2>
-            <Scorenco embed={scorenco.matchs} titre={`Prochains matchs ${nom}`} secours={secours} />
-          </div>
-        )}
-        {scorenco.classement && (
-          <div>
-            <h2>Classement</h2>
-            <Scorenco embed={scorenco.classement} titre={`Classement ${nom}`} secours={secours} hauteur="30rem" />
-          </div>
-        )}
-      </section>
-    )
-  }
+  <MatchsEquipe equipe={equipe} />
 </BaseLayout>
 
 <style>
@@ -244,16 +223,5 @@ const description = `${descriptionParts.join(', ')} : entraînements, coachs et 
     line-height: 1;
     color: var(--rouge-fonce);
     font-variant-numeric: tabular-nums;
-  }
-
-  .matchs-equipe {
-    display: grid;
-    gap: var(--espace-7);
-  }
-
-  @media (min-width: 64rem) {
-    .matchs-equipe {
-      grid-template-columns: 1fr 1fr;
-    }
   }
 </style>

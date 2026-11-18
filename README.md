@@ -8,7 +8,7 @@ L'accueil est une page provisoire qui sert à valider le déploiement sur le sou
 
 ## Prérequis
 
-- Node.js **22.12 ou plus récent** (24 LTS conseillé, voir `.nvmrc`) : `node -v`
+- Node.js **22.18 ou plus récent** (24 LTS conseillé, voir `.nvmrc`) : `node -v`
 - Git
 - VS Code avec l'extension Astro (proposée à l'ouverture du dossier)
 
@@ -21,7 +21,10 @@ L'accueil est une page provisoire qui sert à valider le déploiement sur le sou
 | `npm run check`   | Vérifie TypeScript et les données du contenu                 |
 | `npm run build`   | Construit le site dans `dist/`                               |
 | `npm run preview` | Sert le contenu de `dist/` en local                          |
-| `npm run verify`  | `check` puis `build`, comme la GitHub Action                 |
+| `npm run sync`    | Récupère les matchs et classements sur le site de la FFHB    |
+| `npm run ffhb:trouver` | Liste les compétitions où joue le club (championnat, coupes, plateaux) |
+| `npm test`        | Tests de la lecture FFHB et des matchs                       |
+| `npm run verify`  | Tests, `check` puis `build`, comme la GitHub Action          |
 
 ## Organisation
 
@@ -31,6 +34,8 @@ src/
   content/
     equipes/          un fichier JSON par équipe (seniors-m.json...)
     pages/            pages en Markdown (mentions-legales.md → /mentions-legales/)
+  data/resultats/     matchs et classements FFHB, écrits par npm run sync (ne pas modifier à la main)
+  lib/matchs.ts       matchs réunis (FFHB + saisis à la main), prochain match, semaine...
   config/
     site.ts           nom, adresse, réseaux, réglage noindex
     navigation.ts     menu principal
@@ -41,8 +46,11 @@ src/
   pages/              les modèles de pages, sans texte en dur
   styles/tokens.css   design system : couleurs, polices, tailles, espacements
   styles/global.css   styles de base des éléments HTML
+  components/matchs/  blocs matchs : carte, liste, classement, matchs de la semaine
 public/               copié tel quel : .htaccess (redirections), robots.txt, favicon
-.github/workflows/    déploiement automatique
+scripts/              synchronisation FFHB (ffhb-sync.mjs, ffhb/)
+tests/                tests (node --test) et pages FFHB d'exemple
+.github/workflows/    déploiement automatique (et synchronisation programmée)
 ```
 
 Le design system est visible sur la page `/design-system/` (absente du menu). Un composant n'écrit jamais une couleur ou une taille en dur : il utilise les variables de `tokens.css`.
@@ -56,7 +64,8 @@ Le dépôt est **public** : ne jamais y mettre de mot de passe, de clé ou d'adr
 ## Déploiement
 
 Chaque push sur `main` lance la GitHub Action `.github/workflows/deploy.yml` :
-vérification, build, puis publication de `dist/` sur la branche `deploy`.
+tests, récupération des matchs FFHB, vérification, build, puis publication de `dist/` sur la branche `deploy`.
+L'Action tourne aussi seule chaque nuit et le week-end (voir [Matchs et classements](#matchs-et-classements)).
 L'hébergement OVH suit la branche `deploy`. Si une étape échoue, rien n'est publié.
 
 ### Mise en place (une seule fois)
@@ -94,6 +103,67 @@ Les formulaires envoient vers `public/api/formulaire.php`, un petit script PHP e
 - PHP ne tourne pas avec `npm run dev` : l'envoi réel se teste sur le site de test.
 - Tests du script : `php tests/formulaire.test.php` (PHP 8.3 en ligne de commande).
 - Si aucun e-mail n'arrive : vérifier dans OVH, onglet **Plus > Scripts e-mail**, que l'envoi d'e-mails par script est actif.
+
+## Matchs et classements
+
+Les matchs, scores et classements viennent du **site de la FFHB** (ffhandball.fr). Ils sont **enregistrés dans le dépôt** (`src/data/resultats/`) : le site ne dépend d'aucun service extérieur pour s'afficher.
+
+- `npm run sync` lit, pour chaque équipe qui a un champ `ffhb`, les pages de ses compétitions et écrit `src/data/resultats/<équipe>.json`. Pour ménager le site de la FFHB, les poules terminées et les journées anciennes ne sont pas relues (`npm run sync -- --complet` pour tout relire).
+- La GitHub Action le fait seule : chaque nuit vers 4 h 40, le vendredi soir, et le samedi et le dimanche toutes les 2 h ; le lundi, elle cherche aussi les nouvelles compétitions du club. Quand des données changent, elle les commite sur `main` (« Résultats FFHB : mise à jour automatique ») et republie le site. Penser à faire `git pull` avant de travailler.
+- Le site recalcule « prochain match » et « matchs de la semaine » à chaque build, donc au moins chaque nuit.
+- Si la FFHB ne répond pas ou change ses pages, les dernières données sont gardées et l'Action affiche un avertissement (onglet Actions, résumé du passage). Rien ne casse.
+
+### Suivre une équipe
+
+Dans la fiche de l'équipe (`src/content/equipes/…json`), les adresses de **toutes ses compétitions** : championnat, coupes, plateaux.
+
+```json
+"ffhb": {
+  "competitions": [
+    "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u12m-85-32674/",
+    "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/coupe-u12-m85-trophee-jp-bart-33804/"
+  ]
+}
+```
+
+- Mettre l'adresse de la **compétition** (sans `poule-…` à la fin) : toutes les poules où joue le club sont suivies seules, **phase 1, phase 2 et tours de coupe** compris. Une adresse de poule précise marche aussi (cette poule seule).
+- **Trouver les adresses** : `npm run ffhb:trouver` parcourt les compétitions du comité de Vendée, de la ligue des Pays de la Loire et de la Coupe de France, et liste celles où joue le club, avec l'équipe du site qui les suit (1 à 2 minutes).
+- Chaque lundi, l'Action fait cette recherche et affiche un **avertissement** si le club joue dans une compétition suivie par aucune équipe (par exemple une coupe qui commence) : il suffit d'ajouter son adresse à la bonne fiche.
+- Sur la page de l'équipe, deux onglets : **Championnat** (calendrier et classement ; avec plusieurs phases, un onglet par phase, la phase en cours ouverte) et **Coupes** (chaque coupe avec ses tours, ses résultats et le bilan du club). Ailleurs, les matchs de coupe portent l'étiquette « Coupe ».
+- Deux équipes du club dans la même poule : ajouter `"libelle": "AS BRUFFIERE 2"` (nom exact à la FFHB).
+- Équipe en entente portée par un autre club : ajouter `"structure": "<numéro FFHB du club>"`.
+- **Nouvelle saison** : remplacer les adresses (la saison est dans l'adresse : `saison-2027-2028-23`), puis lancer `npm run ffhb:trouver`.
+- Le nom du club s'affiche « ASBD » ; les préfixes ajoutés par la FFHB (« U11F85 C. ») sont retirés.
+
+### Ajouter un match à la main
+
+Tournoi, plateau, match amical, ou équipe absente du site de la FFHB : dans la fiche de l'équipe.
+
+```json
+"matchs": [
+  { "date": "2026-12-12T14:00", "adversaire": "Montaigu", "domicile": true, "competition": "Tournoi de Noël" },
+  { "date": "2026-11-28", "adversaire": "Les Herbiers", "domicile": false, "scoreClub": 12, "scoreAdversaire": 9 }
+]
+```
+
+Heure de Paris. Sans heure, « horaire à venir » s'affiche. Sans score, le match est « à venir » ; il passe dans les résultats une fois les scores ajoutés.
+
+### Blocs disponibles
+
+Dans `src/components/matchs/`, réutilisables sur n'importe quelle page :
+
+| Bloc | Rôle |
+| ---- | ---- |
+| `MatchsEquipe` | Bloc complet d'une page équipe : prochain match, dernier résultat, puis onglets Championnat (calendrier, classement) et Coupes (une partie par coupe, avec ses tours). `blocs={['prochain', 'classement']}` pour n'en garder qu'une partie |
+| `MatchsSemaine` | Matchs du club de la semaine (accueil) |
+| `CarteMatch` | Un match en grand : prochain match (fond noir) ou dernier résultat |
+| `ListeMatchs` | Liste compacte, groupée par jour ou non, avec ou sans le nom de l'équipe |
+| `Classement` | Tableau de classement, ligne du club en avant |
+| `SourceFfhb` | Mention « Résultats de la FFHB, mis à jour le… » et lien de secours |
+| `CalendrierClassement` | Calendrier (à venir, joués repliés) et classement côte à côte : une phase, ou tout le championnat |
+| `ui/Onglets` | Onglets réutilisables (un slot par vue), imbricables (`variante="secondaire"`) ; `…#coupes` ou `…#phase-1` dans l'adresse ouvre l'onglet |
+
+Les données se lisent avec les fonctions de `src/lib/matchs.ts` (`matchsEquipe`, `tousLesMatchs`, `prochainMatch`, `parSemaine`…).
 
 ## Vidéo du bandeau d'accueil
 

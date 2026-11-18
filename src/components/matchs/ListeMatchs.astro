@@ -1,0 +1,207 @@
+---
+/**
+ * Liste compacte de matchs : une ligne par match (jour, équipes, score ou horaire).
+ * - groupe « jour » : un intertitre par jour (accueil, page Matchs) ;
+ * - groupe « aucun » : le jour est écrit sur chaque ligne (calendrier d'une équipe).
+ * avecEquipe : chaque ligne indique l'équipe du club concernée, avec un lien vers sa page.
+ */
+import Resultat from './Resultat.astro';
+import { libelleHeure, libelleJourCourt, libelleJourMatch, nomEquipe, type Match } from '../../lib/matchs';
+
+interface Props {
+  matchs: Match[];
+  groupe?: 'jour' | 'aucun';
+  avecEquipe?: boolean;
+  /** Niveau des intertitres de jour. */
+  niveauJour?: 'h3' | 'h4';
+}
+
+const { matchs, groupe = 'aucun', avecEquipe = false, niveauJour = 'h3' } = Astro.props;
+const BaliseJour = niveauJour;
+
+const groupes =
+  groupe === 'jour'
+    ? [...new Set(matchs.map((m) => m.jour))].map((jour) => ({ jour, matchs: matchs.filter((m) => m.jour === jour) }))
+    : [{ jour: null, matchs }];
+---
+
+{
+  matchs.length > 0 && (
+    <div class="liste-matchs">
+      {groupes.map((g) => (
+        <div class="liste-matchs__groupe">
+          {g.jour && <BaliseJour class="liste-matchs__jour">{libelleJourMatch(g.jour)}</BaliseJour>}
+          <ul class="liste-matchs__lignes">
+            {g.matchs.map((m) => (
+              <li class:list={['ligne-match', { 'ligne-match--joue': m.joue }]}>
+                <span class="ligne-match__quand">
+                  {!g.jour && <span class="ligne-match__date">{libelleJourCourt(m.jour)}</span>}
+                  <span class="ligne-match__heure">{m.horaireInconnu ? 'Horaire à venir' : libelleHeure(m.date!)}</span>
+                </span>
+
+                <span class="ligne-match__affiche">
+                  {(avecEquipe || m.coupe) && (
+                    <span class="ligne-match__infos">
+                      {avecEquipe && (
+                        <a class="ligne-match__equipe" href={m.equipe.lien}>
+                          {m.equipe.nom}
+                        </a>
+                      )}
+                      {m.coupe && <span class="ligne-match__coupe" title={m.competition ?? undefined}>Coupe</span>}
+                    </span>
+                  )}
+                  <span class="ligne-match__camps">
+                    <span class:list={{ 'ligne-match__club': m.domicile.club }}>{nomEquipe(m.domicile)}</span>
+                    {m.joue ? (
+                      <span class="ligne-match__score">
+                        {m.domicile.score}
+                        <span aria-hidden="true">-</span>
+                        <span class="visuellement-cache"> à </span>
+                        {m.exterieur.score}
+                      </span>
+                    ) : (
+                      <span class="ligne-match__contre"> contre </span>
+                    )}
+                    <span class:list={{ 'ligne-match__club': m.exterieur.club }}>{nomEquipe(m.exterieur)}</span>
+                  </span>
+                </span>
+
+                <span class="ligne-match__etat">
+                  {m.resultat ? (
+                    <Resultat resultat={m.resultat} court />
+                  ) : (
+                    <span class="ligne-match__lieu">{m.aDomicile ? 'Dom.' : 'Ext.'}</span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+<style>
+  .liste-matchs {
+    display: grid;
+    gap: var(--espace-5);
+  }
+
+  .liste-matchs__jour {
+    margin: 0 0 var(--espace-2);
+    font-family: var(--police-texte);
+    font-size: var(--taille-base);
+    font-weight: var(--graisse-gras);
+  }
+
+  .liste-matchs__jour::first-letter {
+    text-transform: uppercase;
+  }
+
+  .liste-matchs__lignes {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: none;
+    border-top: var(--trait);
+  }
+
+  .ligne-match {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr auto;
+    align-items: center;
+    gap: var(--espace-2) var(--espace-4);
+    min-height: var(--cible-tactile);
+    padding: var(--espace-3) 0;
+    border-bottom: var(--trait);
+  }
+
+  .ligne-match__quand {
+    display: grid;
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ligne-match__date {
+    font-weight: var(--graisse-gras);
+    color: var(--texte);
+  }
+
+  .ligne-match__affiche {
+    display: grid;
+    gap: var(--espace-1);
+    min-width: 0;
+  }
+
+  .ligne-match__infos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--espace-1) var(--espace-2);
+  }
+
+  .ligne-match__equipe {
+    font-size: var(--taille-sm);
+    font-weight: var(--graisse-gras);
+  }
+
+  .ligne-match__coupe {
+    padding: 0 var(--espace-2);
+    border-radius: var(--rayon-petit);
+    background: var(--noir);
+    color: var(--blanc);
+    font-size: var(--taille-xs);
+    font-weight: var(--graisse-gras);
+    line-height: 1.6;
+  }
+
+  .ligne-match__camps {
+    font-family: var(--police-titre);
+    font-size: 1.375rem;
+    font-weight: var(--graisse-titre);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+
+  .ligne-match__club {
+    color: var(--rouge);
+  }
+
+  .ligne-match__score {
+    display: inline-block;
+    margin-inline: var(--espace-2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ligne-match__contre {
+    font-family: var(--police-texte);
+    font-size: var(--taille-sm);
+    font-weight: var(--graisse-normal);
+    color: var(--texte-doux);
+  }
+
+  .ligne-match__etat {
+    justify-self: end;
+  }
+
+  .ligne-match__lieu {
+    font-size: var(--taille-sm);
+    font-weight: var(--graisse-moyen);
+    color: var(--texte-doux);
+  }
+
+  /* Téléphone : l'horaire passe au-dessus de l'affiche. */
+  @media (max-width: 30rem) {
+    .ligne-match {
+      grid-template-columns: 1fr auto;
+    }
+
+    .ligne-match__quand {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: var(--espace-2);
+    }
+  }
+</style>

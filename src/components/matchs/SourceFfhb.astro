@@ -1,0 +1,38 @@
+---
+/**
+ * Mention de la source des résultats, avec la date de mise à jour et le lien de secours
+ * vers le site de la FFHB. Rien ne s'affiche s'il n'y a ni date ni lien.
+ */
+import { libelleMaj } from '../../lib/matchs';
+
+interface Props {
+  maj: Date | null;
+  lien?: string;
+}
+
+const { maj, lien } = Astro.props;
+---
+
+{
+  (maj || lien) && (
+    <p class="source-ffhb">
+      {maj && <span>Résultats de la FFHB, mis à jour le {libelleMaj(maj)}.</span>}
+      {lien && (
+        <a href={lien} rel="noopener">
+          Voir sur le site de la FFHB
+        </a>
+      )}
+    </p>
+  )
+}
+
+<style>
+  .source-ffhb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espace-1) var(--espace-4);
+    margin: var(--espace-5) 0 0;
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+  }
+</style>

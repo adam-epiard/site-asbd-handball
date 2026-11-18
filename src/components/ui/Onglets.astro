@@ -1,0 +1,202 @@
+---
+/**
+ * Onglets : plusieurs vues d'un même bloc (ex. Championnat / Coupes).
+ * Chaque vue est un slot nommé comme son identifiant :
+ *
+ *   <Onglets onglets={[{ id: 'championnat', titre: 'Championnat' }, { id: 'coupes', titre: 'Coupes' }]}>
+ *     <div slot="championnat">…</div>
+ *     <div slot="coupes">…</div>
+ *   </Onglets>
+ *
+ * - Clavier : flèches gauche et droite, Début, Fin (motif ARIA « tabs »).
+ * - Adresse : …#coupes ouvre directement l'onglet Coupes, et le lien se partage.
+ * - Sans JavaScript : toutes les vues s'affichent l'une sous l'autre, chacune avec son titre.
+ * Un onglet dont le slot est vide n'est pas affiché ; avec un seul onglet, pas de barre d'onglets.
+ * Des onglets peuvent être imbriqués (Championnat → Phase 1 / Phase 2).
+ */
+interface Props {
+  onglets: { id: string; titre: string }[];
+  /** Préfixe des identifiants, pour avoir plusieurs blocs d'onglets sur une page. */
+  prefixe?: string;
+  /** Libellé de la barre d'onglets pour les lecteurs d'écran. */
+  libelle: string;
+  /** Onglet ouvert par défaut (sinon le premier). */
+  actif?: string;
+  /** principal : pastilles (Championnat / Coupes) ; secondaire : onglets soulignés, pour un niveau imbriqué (phases). */
+  variante?: 'principal' | 'secondaire';
+}
+
+const { onglets, prefixe = 'onglet', libelle, actif, variante = 'principal' } = Astro.props;
+const rendus = await Promise.all(
+  onglets.map(async (o) => ({ ...o, html: Astro.slots.has(o.id) ? await Astro.slots.render(o.id) : '' })),
+);
+const visibles = rendus.filter((o) => o.html.trim() !== '');
+const avecBarre = visibles.length > 1;
+const indexActif = Math.max(0, visibles.findIndex((o) => o.id === actif));
+---
+
+{
+  visibles.length > 0 && (
+    <div class:list={['onglets', `onglets--${variante}`]} data-onglets={avecBarre ? '' : undefined} data-actif={indexActif}>
+      {avecBarre && (
+        <div class="onglets__barre" role="tablist" aria-label={libelle}>
+          {visibles.map((o, i) => (
+            <button
+              type="button"
+              class="onglets__onglet"
+              role="tab"
+              id={`${prefixe}-${o.id}-onglet`}
+              aria-controls={`${prefixe}-${o.id}`}
+              aria-selected={i === indexActif ? 'true' : 'false'}
+              tabindex={i === indexActif ? 0 : -1}
+              data-ancre={o.id}
+            >
+              {o.titre}
+            </button>
+          ))}
+        </div>
+      )}
+      {visibles.map((o, i) => (
+        <div
+          class="onglets__vue"
+          id={avecBarre ? `${prefixe}-${o.id}` : undefined}
+          role={avecBarre ? 'tabpanel' : undefined}
+          aria-labelledby={avecBarre ? `${prefixe}-${o.id}-onglet` : undefined}
+          tabindex={avecBarre ? 0 : undefined}
+          hidden={avecBarre && i !== indexActif}
+        >
+          {avecBarre && <p class="onglets__titre-secours">{o.titre}</p>}
+          <Fragment set:html={o.html} />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+<script>
+  for (const bloc of document.querySelectorAll<HTMLElement>('[data-onglets]')) {
+    // Seulement les onglets de ce bloc, pas ceux d'un bloc d'onglets imbriqué.
+    const onglets = [...bloc.querySelectorAll<HTMLButtonElement>('[role="tab"]')].filter((o) => o.closest('[data-onglets]') === bloc);
+    const vues = [...bloc.querySelectorAll<HTMLElement>('[role="tabpanel"]')].filter((v) => v.closest('[data-onglets]') === bloc);
+
+    const choisir = (index: number, focus = false) => {
+      onglets.forEach((onglet, i) => {
+        const actif = i === index;
+        onglet.setAttribute('aria-selected', String(actif));
+        onglet.tabIndex = actif ? 0 : -1;
+        vues[i].hidden = !actif;
+      });
+      if (focus) onglets[index].focus();
+    };
+
+    // L'onglet demandé dans l'adresse (…#coupes), sinon celui choisi par défaut.
+    const demande = onglets.findIndex((o) => `#${o.dataset.ancre}` === location.hash);
+    choisir(demande >= 0 ? demande : Number(bloc.dataset.actif ?? 0));
+
+    onglets.forEach((onglet, i) => {
+      onglet.addEventListener('click', () => {
+        choisir(i);
+        history.replaceState(null, '', `#${onglet.dataset.ancre}`);
+      });
+      onglet.addEventListener('keydown', (e) => {
+        const suivant: Record<string, number> = {
+          ArrowRight: (i + 1) % onglets.length,
+          ArrowLeft: (i - 1 + onglets.length) % onglets.length,
+          Home: 0,
+          End: onglets.length - 1,
+        };
+        if (!(e.key in suivant)) return;
+        e.preventDefault();
+        choisir(suivant[e.key], true);
+      });
+    });
+  }
+</script>
+
+<style>
+  .onglets__barre {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espace-2);
+    margin-bottom: var(--espace-6);
+  }
+
+  /* Sans JavaScript, les vues s'affichent toutes : la barre ne sert à rien. */
+  :global(html:not(.js)) .onglets__barre {
+    display: none;
+  }
+
+  .onglets__onglet {
+    min-height: var(--cible-tactile);
+    padding: var(--espace-2) var(--espace-5);
+    border: 0;
+    border-radius: var(--rayon-bouton);
+    background: var(--gris-salle);
+    box-shadow: inset 0 0 0 1px var(--ligne);
+    color: var(--texte);
+    font: inherit;
+    font-weight: var(--graisse-gras);
+    cursor: pointer;
+    transition: background-color var(--duree) var(--courbe);
+  }
+
+  .onglets__onglet:hover {
+    box-shadow: inset 0 0 0 2px var(--noir);
+  }
+
+  .onglets__onglet[aria-selected='true'] {
+    background: var(--noir);
+    box-shadow: none;
+    color: var(--blanc);
+  }
+
+  /* Niveau imbriqué : onglets soulignés, plus discrets que les pastilles. */
+  .onglets--secondaire > .onglets__barre {
+    gap: 0 var(--espace-5);
+    margin-bottom: var(--espace-5);
+    border-bottom: var(--trait);
+  }
+
+  .onglets--secondaire > .onglets__barre > .onglets__onglet {
+    padding-inline: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    color: var(--texte-doux);
+    margin-bottom: -1px;
+    border-bottom: 3px solid transparent;
+  }
+
+  .onglets--secondaire > .onglets__barre > .onglets__onglet:hover {
+    color: var(--texte);
+    box-shadow: none;
+  }
+
+  .onglets--secondaire > .onglets__barre > .onglets__onglet[aria-selected='true'] {
+    background: none;
+    color: var(--noir);
+    border-bottom-color: var(--rouge);
+  }
+
+  .onglets__onglet:focus-visible,
+  .onglets__vue:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .onglets__titre-secours {
+    display: none;
+  }
+
+  :global(html:not(.js)) .onglets__titre-secours {
+    display: block;
+    margin: var(--espace-7) 0 var(--espace-4);
+    font-family: var(--police-titre);
+    font-size: var(--taille-h3);
+    font-weight: var(--graisse-titre);
+  }
+
+  :global(html:not(.js)) .onglets__vue[hidden] {
+    display: block;
+  }
+</style>

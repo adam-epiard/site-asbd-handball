@@ -1,0 +1,70 @@
+---
+/**
+ * Résultat d'un match vu du club : Victoire, Nul ou Défaite.
+ * La couleur n'est jamais la seule information : le mot est toujours écrit.
+ */
+import type { Match } from '../../lib/matchs';
+
+interface Props {
+  resultat: NonNullable<Match['resultat']>;
+  /** Version courte (V, N, D) pour les listes ; le mot complet reste lu par les lecteurs d'écran. */
+  court?: boolean;
+}
+
+const { resultat, court = false } = Astro.props;
+const libelles = { victoire: 'Victoire', nul: 'Nul', defaite: 'Défaite' } as const;
+const libelle = libelles[resultat];
+---
+
+<span class:list={['resultat', `resultat--${resultat}`, { 'resultat--court': court }]}>
+  {
+    court ? (
+      <>
+        <span aria-hidden="true">{libelle.charAt(0)}</span>
+        <span class="visuellement-cache">{libelle}</span>
+      </>
+    ) : (
+      libelle
+    )
+  }
+</span>
+
+<style>
+  .resultat {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.125rem var(--espace-2);
+    border-radius: var(--rayon-petit);
+    font-size: var(--taille-sm);
+    font-weight: var(--graisse-gras);
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  .resultat--court {
+    min-width: 1.75rem;
+    padding-inline: 0;
+    font-family: var(--police-titre);
+    font-size: 1.125rem;
+    font-weight: var(--graisse-titre);
+    line-height: 1.6;
+  }
+
+  .resultat--victoire {
+    background: var(--succes);
+    color: var(--blanc);
+  }
+
+  .resultat--nul {
+    background: var(--gris-salle);
+    color: var(--texte);
+    box-shadow: inset 0 0 0 1px var(--ligne);
+  }
+
+  .resultat--defaite {
+    background: var(--blanc);
+    color: var(--texte-doux);
+    box-shadow: inset 0 0 0 1px var(--ligne);
+  }
+</style>

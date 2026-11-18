@@ -1,0 +1,90 @@
+---
+/**
+ * Calendrier et classement côte à côte (une phase de championnat, ou tout le championnat).
+ * Calendrier : matchs à venir, puis matchs joués repliés. Quand tout est joué
+ * (phase terminée), les résultats s'affichent directement.
+ */
+import ListeMatchs from './ListeMatchs.astro';
+import Classement from './Classement.astro';
+import { matchsAVenir, matchsPasses, type ClassementPoule, type Match } from '../../lib/matchs';
+
+interface Props {
+  matchs: Match[];
+  classement?: ClassementPoule | null;
+  /** Match déjà mis en avant au-dessus (prochain match), à ne pas répéter. */
+  exclure?: Match;
+}
+
+const { matchs, classement, exclure } = Astro.props;
+const maintenant = new Date();
+const aVenir = matchsAVenir(matchs, maintenant).filter((m) => m !== exclure);
+const passes = matchsPasses(matchs, maintenant);
+const termine = matchsAVenir(matchs, maintenant).length === 0;
+---
+
+{
+  (matchs.length > 0 || classement) && (
+    <div class="calendrier-classement">
+      {matchs.length > 0 && (
+        <div>
+          <h3>{termine ? 'Résultats' : 'Calendrier'}</h3>
+          {termine ? (
+            <ListeMatchs matchs={passes} />
+          ) : (
+            <>
+              {aVenir.length > 0 ? <ListeMatchs matchs={aVenir} /> : <p class="calendrier-classement__vide">Pas d'autre match prévu pour l'instant.</p>}
+              {passes.length > 0 && (
+                <details class="calendrier-classement__passes">
+                  <summary>Matchs joués ({passes.length})</summary>
+                  <ListeMatchs matchs={passes} />
+                </details>
+              )}
+            </>
+          )}
+        </div>
+      )}
+      {classement && (
+        <div>
+          <h3>Classement</h3>
+          <Classement lignes={classement.lignes} poule={classement.poule} />
+        </div>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .calendrier-classement {
+    display: grid;
+    gap: var(--espace-7);
+  }
+
+  @media (min-width: 64rem) {
+    .calendrier-classement {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  h3 {
+    margin-bottom: var(--espace-4);
+  }
+
+  .calendrier-classement__vide {
+    color: var(--texte-doux);
+  }
+
+  .calendrier-classement__passes {
+    margin-top: var(--espace-5);
+  }
+
+  .calendrier-classement__passes summary {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--cible-tactile);
+    margin-bottom: var(--espace-3);
+    font-weight: var(--graisse-gras);
+    color: var(--lien);
+    cursor: pointer;
+  }
+</style>

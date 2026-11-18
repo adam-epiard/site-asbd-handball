@@ -1,0 +1,146 @@
+---
+/**
+ * Classement d'une poule, la ligne du club mise en avant.
+ * Sur téléphone, seules les colonnes essentielles restent (rang, équipe, points, joués, différence).
+ */
+import { nomEquipe, type LigneClassement } from '../../lib/matchs';
+
+interface Props {
+  lignes: LigneClassement[];
+  /** Nom de la poule, en légende du tableau. */
+  poule: string;
+}
+
+const { lignes, poule } = Astro.props;
+const signe = (n: number | null) => (n === null ? '' : n > 0 ? `+${n}` : String(n));
+---
+
+{
+  lignes.length > 0 && (
+    <div class="classement">
+      <table>
+        <caption>{poule}</caption>
+        <thead>
+          <tr>
+            <th scope="col" class="classement__rang">
+              <abbr title="Rang">#</abbr>
+            </th>
+            <th scope="col" class="classement__equipe">Équipe</th>
+            <th scope="col">
+              <abbr title="Points">Pts</abbr>
+            </th>
+            <th scope="col">
+              <abbr title="Matchs joués">J</abbr>
+            </th>
+            <th scope="col" class="classement__detail">
+              <abbr title="Gagnés">G</abbr>
+            </th>
+            <th scope="col" class="classement__detail">
+              <abbr title="Nuls">N</abbr>
+            </th>
+            <th scope="col" class="classement__detail">
+              <abbr title="Perdus">P</abbr>
+            </th>
+            <th scope="col">
+              <abbr title="Différence de buts">Diff.</abbr>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {lignes.map((l) => (
+            <tr class:list={{ 'classement__ligne--club': l.club }} aria-current={l.club ? 'true' : undefined}>
+              <td class="classement__rang">{l.place}</td>
+              <th scope="row" class="classement__equipe">
+                {nomEquipe({ nom: l.equipe, club: l.club })}
+              </th>
+              <td class="classement__points">{l.points}</td>
+              <td>{l.joues}</td>
+              <td class="classement__detail">{l.gagnes}</td>
+              <td class="classement__detail">{l.nuls}</td>
+              <td class="classement__detail">{l.perdus}</td>
+              <td>{signe(l.difference)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+<style>
+  .classement {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+
+  caption {
+    padding-bottom: var(--espace-3);
+    text-align: left;
+    font-size: var(--taille-sm);
+    color: var(--texte-doux);
+  }
+
+  th,
+  td {
+    padding: var(--espace-2) var(--espace-2);
+    border-bottom: var(--trait);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  thead th {
+    font-size: var(--taille-sm);
+    font-weight: var(--graisse-gras);
+    color: var(--texte-doux);
+    border-bottom: 2px solid var(--noir);
+  }
+
+  abbr {
+    text-decoration: none;
+  }
+
+  .classement__rang {
+    width: 2rem;
+    text-align: left;
+    font-family: var(--police-titre);
+    font-size: 1.25rem;
+    font-weight: var(--graisse-titre);
+  }
+
+  .classement__equipe {
+    width: 100%;
+    text-align: left;
+    white-space: normal;
+    font-weight: var(--graisse-moyen);
+  }
+
+  .classement__points {
+    font-weight: var(--graisse-gras);
+  }
+
+  .classement__ligne--club {
+    background: var(--gris-salle);
+  }
+
+  .classement__ligne--club .classement__rang {
+    box-shadow: inset 4px 0 0 var(--rouge);
+    padding-left: var(--espace-3);
+    color: var(--rouge-fonce);
+  }
+
+  .classement__ligne--club .classement__equipe {
+    font-weight: var(--graisse-gras);
+    color: var(--rouge-fonce);
+  }
+
+  @media (max-width: 30rem) {
+    .classement__detail {
+      display: none;
+    }
+  }
+</style>

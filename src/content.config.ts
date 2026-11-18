@@ -12,14 +12,76 @@ import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 /**
- * Intégration Scorenco. Deux formats existent chez Scorenco :
- * - widget récent : identifiant + type (team, ranking, week-events...)
- * - ancien widget en iframe : adresse complète
+ * Un match saisi à la main. La date est l'heure de Paris, sans fuseau : 2026-11-21T20:30
+ * (ou 2026-11-21 si l'horaire n'est pas connu). Sans score, le match est « à venir ».
  */
-const scorenco = z.union([
-  z.object({ widget: z.string().regex(/^\d+$/), type: z.string().min(1) }),
-  z.object({ iframe: z.url() }),
-]);
+const matchManuel = z.object({
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2})?$/, 'Format attendu : 2026-11-21T20:30'),
+  adversaire: z.string().min(1),
+  domicile: z.boolean().default(true),
+  competition: z.string().min(1).optional(),
+  scoreClub: z.number().int().nonnegative().optional(),
+  scoreAdversaire: z.number().int().nonnegative().optional(),
+});
+
+const camp = z.object({
+  nom: z.string(),
+  club: z.boolean(),
+  score: z.number().int().nullable(),
+  scoreMT: z.number().int().nullable(),
+});
+
+/**
+ * Matchs et classements récupérés sur le site de la FFHB, un fichier par équipe
+ * (même nom que la fiche équipe). Écrits par scripts/ffhb-sync.mjs : ne pas modifier à la main.
+ */
+const resultats = defineCollection({
+  loader: glob({ base: './src/data/resultats', pattern: '*.json' }),
+  schema: z.object({
+    majLe: z.iso.datetime(),
+    poules: z.array(
+      z.object({
+        id: z.string(),
+        nom: z.string(),
+        /** Nom de la compétition : « U15F 85 », « COUPE DE VENDEE U15F 85 TROPHEE JP BART »... */
+        competition: z.string().nullable().default(null),
+        /** Phase (brassage, phase 2, tour de coupe) ; classement : false si la phase n'a pas de classement. */
+        phase: z.object({ nom: z.string(), classement: z.boolean() }).nullable().default(null),
+        source: z.url(),
+        adresse: z.url(),
+        equipe: z.string(),
+        journees: z.array(z.object({ numero: z.number().int(), debut: z.string(), fin: z.string() })),
+        classement: z.array(
+          z.object({
+            place: z.number().int().nullable(),
+            equipe: z.string(),
+            club: z.boolean(),
+            points: z.number().int().nullable(),
+            joues: z.number().int().nullable(),
+            gagnes: z.number().int().nullable(),
+            nuls: z.number().int().nullable(),
+            perdus: z.number().int().nullable(),
+            butsPour: z.number().int().nullable(),
+            butsContre: z.number().int().nullable(),
+            difference: z.number().int().nullable(),
+          }),
+        ),
+        journeesLues: z.array(z.number().int()),
+        rencontres: z.array(
+          z.object({
+            id: z.string(),
+            journee: z.number().int().nullable(),
+            date: z.string().nullable(),
+            domicile: camp,
+            exterieur: camp,
+          }),
+        ),
+      }),
+    ),
+    /** Poules vérifiées sans le club, par adresse suivie : elles ne sont plus relues. */
+    sansClub: z.record(z.string(), z.array(z.string())).default({}),
+  }),
+});
 
 const jours = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'] as const;
 
@@ -66,12 +128,23 @@ const equipes = defineCollection({
           }),
         )
         .default([]),
-      scorenco: z
+      /**
+       * Matchs et classements récupérés sur le site de la FFHB (npm run sync).
+       * competitions : adresses des compétitions de l'équipe (championnat, coupe, plateaux).
+       * Toutes les poules où joue le club sont suivies : phase 1, phase 2, tours de coupe.
+       * npm run ffhb:trouver liste les compétitions du club et leurs adresses.
+       */
+      ffhb: z
         .object({
-          matchs: scorenco.optional(),
-          classement: scorenco.optional(),
+          competitions: z.array(z.url()).min(1),
+          /** Club FFHB de l'équipe, si ce n'est pas l'AS Bruffière (entente portée par un autre club). */
+          structure: z.string().regex(/^\d+$/).optional(),
+          /** Nom exact de l'équipe à la FFHB, si le club a deux équipes dans la même poule. */
+          libelle: z.string().min(1).optional(),
         })
-        .default({}),
+        .optional(),
+      /** Matchs saisis à la main : tournois, plateaux, matchs absents du site de la FFHB. */
+      matchs: z.array(matchManuel).default([]),
       /** Page de l'équipe sur le site de la FFHB, lien de secours. */
       lienFfhb: z.url().optional(),
     }),
@@ -110,4 +183,4 @@ const partenaires = defineCollection({
     }),
 });
 
-export const collections = { equipes, pages, membres, partenaires };
+export const collections = { equipes, pages, membres, partenaires, resultats };
