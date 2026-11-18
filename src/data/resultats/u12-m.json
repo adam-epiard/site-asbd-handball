@@ -1,0 +1,530 @@
+{
+  "majLe": "2026-11-18T16:04:00.173Z",
+  "poules": [
+    {
+      "id": "192722",
+      "nom": "U12M 85 PHASE 1 BRASSAGE POULE B",
+      "competition": "U12M 85",
+      "phase": {
+        "nom": "U12M 85 PHASE 1 BRASSAGE",
+        "classement": true
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u12m-85-32674/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u12m-85-32674/poule-192722/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-09-19",
+          "fin": "2026-09-20"
+        },
+        {
+          "numero": 2,
+          "debut": "2026-09-26",
+          "fin": "2026-09-27"
+        },
+        {
+          "numero": 3,
+          "debut": "2026-10-03",
+          "fin": "2026-10-04"
+        },
+        {
+          "numero": 4,
+          "debut": "2026-10-10",
+          "fin": "2026-10-11"
+        },
+        {
+          "numero": 5,
+          "debut": "2026-10-17",
+          "fin": "2026-10-18"
+        }
+      ],
+      "classement": [
+        {
+          "place": 1,
+          "equipe": "LA ROCHE SUR YON VHB 1",
+          "club": false,
+          "points": 12,
+          "joues": 4,
+          "gagnes": 4,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 148,
+          "butsContre": 44,
+          "difference": 104
+        },
+        {
+          "place": 2,
+          "equipe": "HBC DOMPIERROIS",
+          "club": false,
+          "points": 10,
+          "joues": 4,
+          "gagnes": 3,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 90,
+          "butsContre": 66,
+          "difference": 24
+        },
+        {
+          "place": 3,
+          "equipe": "CHALLANS NOV HB 2",
+          "club": false,
+          "points": 7,
+          "joues": 4,
+          "gagnes": 2,
+          "nuls": 0,
+          "perdus": 2,
+          "butsPour": 45,
+          "butsContre": 80,
+          "difference": -35
+        },
+        {
+          "place": 4,
+          "equipe": "U12M85 E.VICOMTAIS*ST FLORENT",
+          "club": false,
+          "points": 3,
+          "joues": 4,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 3,
+          "butsPour": 40,
+          "butsContre": 80,
+          "difference": -40
+        },
+        {
+          "place": 5,
+          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+          "club": true,
+          "points": 3,
+          "joues": 4,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 3,
+          "butsPour": 32,
+          "butsContre": 85,
+          "difference": -53
+        }
+      ],
+      "journeesLues": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "rencontres": [
+        {
+          "id": "3020137",
+          "journee": 1,
+          "date": "2026-09-19T11:30:00+02:00",
+          "domicile": {
+            "nom": "U12M85 E.VICOMTAIS*ST FLORENT",
+            "club": false,
+            "score": null,
+            "scoreMT": 6
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": 1
+          }
+        },
+        {
+          "id": "3020138",
+          "journee": 2,
+          "date": "2026-09-26T16:00:00+02:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 19,
+            "scoreMT": 4
+          },
+          "exterieur": {
+            "nom": "HBC DOMPIERROIS",
+            "club": false,
+            "score": 30,
+            "scoreMT": 10
+          }
+        },
+        {
+          "id": "3020141",
+          "journee": 3,
+          "date": "2026-10-03T16:00:00+02:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 4,
+            "scoreMT": 1
+          },
+          "exterieur": {
+            "nom": "LA ROCHE SUR YON VHB 1",
+            "club": false,
+            "score": 43,
+            "scoreMT": 17
+          }
+        },
+        {
+          "id": "3020143",
+          "journee": 4,
+          "date": "2026-10-10T15:30:00+02:00",
+          "domicile": {
+            "nom": "CHALLANS NOV HB 2",
+            "club": false,
+            "score": 12,
+            "scoreMT": 3
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 9,
+            "scoreMT": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "200834",
+      "nom": "U12M 85 DIVISION 3 POULE B",
+      "competition": "U12M 85",
+      "phase": {
+        "nom": "U12M 85 2026-2027 PHASE 2",
+        "classement": true
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u12m-85-32674/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u12m-85-32674/poule-200834/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-11-14",
+          "fin": "2026-11-15"
+        },
+        {
+          "numero": 2,
+          "debut": "2026-12-05",
+          "fin": "2026-12-06"
+        },
+        {
+          "numero": 3,
+          "debut": "2026-12-12",
+          "fin": "2026-12-13"
+        },
+        {
+          "numero": 4,
+          "debut": "2027-01-09",
+          "fin": "2027-01-10"
+        },
+        {
+          "numero": 5,
+          "debut": "2027-01-23",
+          "fin": "2027-01-24"
+        },
+        {
+          "numero": 6,
+          "debut": "2027-01-30",
+          "fin": "2027-01-31"
+        },
+        {
+          "numero": 7,
+          "debut": "2027-02-06",
+          "fin": "2027-02-07"
+        },
+        {
+          "numero": 8,
+          "debut": "2027-02-13",
+          "fin": "2027-02-14"
+        },
+        {
+          "numero": 9,
+          "debut": "2027-03-13",
+          "fin": "2027-03-14"
+        },
+        {
+          "numero": 10,
+          "debut": "2027-03-20",
+          "fin": "2027-03-21"
+        }
+      ],
+      "classement": [
+        {
+          "place": 1,
+          "equipe": "U12M85 E.VICOMTAIS*ST FLORENT",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 30,
+          "butsContre": 19,
+          "difference": 11
+        },
+        {
+          "place": 2,
+          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+          "club": true,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 19,
+          "butsContre": 30,
+          "difference": -11
+        },
+        {
+          "place": 3,
+          "equipe": "CLUB DE HAND D'AIZENAY",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 18,
+          "butsContre": 28,
+          "difference": -10
+        },
+        {
+          "place": 4,
+          "equipe": "SABLES EC-OLONNE HANDBALL",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 28,
+          "butsContre": 18,
+          "difference": 10
+        },
+        {
+          "place": 5,
+          "equipe": "U12M85* E.FONTENAY*FOUSSAIS 1",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        }
+      ],
+      "journeesLues": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "rencontres": [
+        {
+          "id": "3096834",
+          "journee": 1,
+          "date": "2026-11-14T15:00:00+01:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 19,
+            "scoreMT": 6
+          },
+          "exterieur": {
+            "nom": "U12M85 E.VICOMTAIS*ST FLORENT",
+            "club": false,
+            "score": 30,
+            "scoreMT": 10
+          }
+        },
+        {
+          "id": "3096837",
+          "journee": 2,
+          "date": "2026-12-05T15:00:00+01:00",
+          "domicile": {
+            "nom": "U12M85* E.FONTENAY*FOUSSAIS 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3096839",
+          "journee": 3,
+          "date": "2026-12-13T11:30:00+01:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "CLUB DE HAND D'AIZENAY",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3096840",
+          "journee": 4,
+          "date": null,
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "SABLES EC-OLONNE HANDBALL",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3096844",
+          "journee": 6,
+          "date": null,
+          "domicile": {
+            "nom": "U12M85 E.VICOMTAIS*ST FLORENT",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3096847",
+          "journee": 7,
+          "date": null,
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "U12M85* E.FONTENAY*FOUSSAIS 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3096849",
+          "journee": 8,
+          "date": null,
+          "domicile": {
+            "nom": "CLUB DE HAND D'AIZENAY",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3096850",
+          "journee": 9,
+          "date": null,
+          "domicile": {
+            "nom": "SABLES EC-OLONNE HANDBALL",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "201081",
+      "nom": "MATCHS SIMPLES 21 22 NOVEMBRE",
+      "competition": "COUPE U12 M85 -  TROPHEE JP BART",
+      "phase": {
+        "nom": "COUPE U12M 85 -TROPHEE JP BART 21 ET 22 NOVEMBRE",
+        "classement": false
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/coupe-u12-m85-trophee-jp-bart-33804/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/coupe-u12-m85-trophee-jp-bart-33804/poule-201081/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-11-21",
+          "fin": "2026-11-22"
+        }
+      ],
+      "classement": [],
+      "journeesLues": [
+        1
+      ],
+      "rencontres": [
+        {
+          "id": "3103994",
+          "journee": 1,
+          "date": "2026-11-22T11:00:00+01:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "MONTAIGU VHB 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        }
+      ]
+    }
+  ],
+  "sansClub": {
+    "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u12m-85-32674/": [
+      "192721",
+      "192723",
+      "192724",
+      "192725",
+      "200830",
+      "200832",
+      "200833"
+    ],
+    "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/coupe-u12-m85-trophee-jp-bart-33804/": [
+      "201082",
+      "201083",
+      "201084",
+      "201085",
+      "201086",
+      "201087"
+    ]
+  }
+}

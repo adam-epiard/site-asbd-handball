@@ -1,0 +1,372 @@
+{
+  "majLe": "2026-11-18T16:04:00.173Z",
+  "poules": [
+    {
+      "id": "192825",
+      "nom": "U15F85 DIVISION 1",
+      "competition": "U15F 85",
+      "phase": {
+        "nom": "U15F85 PHASE 1",
+        "classement": true
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u15f-85-32677/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u15f-85-32677/poule-192825/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-09-19",
+          "fin": "2026-09-20"
+        },
+        {
+          "numero": 2,
+          "debut": "2026-09-26",
+          "fin": "2026-09-27"
+        },
+        {
+          "numero": 3,
+          "debut": "2026-10-03",
+          "fin": "2026-10-04"
+        },
+        {
+          "numero": 4,
+          "debut": "2026-10-10",
+          "fin": "2026-10-11"
+        },
+        {
+          "numero": 5,
+          "debut": "2026-11-07",
+          "fin": "2026-11-08"
+        },
+        {
+          "numero": 6,
+          "debut": "2026-11-14",
+          "fin": "2026-11-15"
+        },
+        {
+          "numero": 7,
+          "debut": "2026-12-05",
+          "fin": "2026-12-06"
+        }
+      ],
+      "classement": [
+        {
+          "place": 1,
+          "equipe": "SL VICOMTAIS",
+          "club": false,
+          "points": 15,
+          "joues": 5,
+          "gagnes": 5,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 171,
+          "butsContre": 59,
+          "difference": 112
+        },
+        {
+          "place": 2,
+          "equipe": "MONTAIGU VHB",
+          "club": false,
+          "points": 13,
+          "joues": 5,
+          "gagnes": 4,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 108,
+          "butsContre": 85,
+          "difference": 23
+        },
+        {
+          "place": 3,
+          "equipe": "U15F85 E.LUCON*MAGNILS",
+          "club": false,
+          "points": 12,
+          "joues": 6,
+          "gagnes": 3,
+          "nuls": 0,
+          "perdus": 3,
+          "butsPour": 120,
+          "butsContre": 102,
+          "difference": 18
+        },
+        {
+          "place": 4,
+          "equipe": "LA ROCHE SUR YON VHB 2",
+          "club": false,
+          "points": 11,
+          "joues": 5,
+          "gagnes": 3,
+          "nuls": 0,
+          "perdus": 2,
+          "butsPour": 91,
+          "butsContre": 103,
+          "difference": -12
+        },
+        {
+          "place": 5,
+          "equipe": "CHALLANS NOV HB 2",
+          "club": false,
+          "points": 9,
+          "joues": 5,
+          "gagnes": 2,
+          "nuls": 0,
+          "perdus": 3,
+          "butsPour": 81,
+          "butsContre": 116,
+          "difference": -35
+        },
+        {
+          "place": 6,
+          "equipe": "LA FERRIERE VHB",
+          "club": false,
+          "points": 7,
+          "joues": 5,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 4,
+          "butsPour": 79,
+          "butsContre": 86,
+          "difference": -7
+        },
+        {
+          "place": 7,
+          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+          "club": true,
+          "points": 4,
+          "joues": 5,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 5,
+          "butsPour": 35,
+          "butsContre": 134,
+          "difference": -99
+        }
+      ],
+      "journeesLues": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "rencontres": [
+        {
+          "id": "3020291",
+          "journee": 1,
+          "date": "2026-09-19T13:30:00+02:00",
+          "domicile": {
+            "nom": "SL VICOMTAIS",
+            "club": false,
+            "score": 35,
+            "scoreMT": 16
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 3,
+            "scoreMT": 2
+          }
+        },
+        {
+          "id": "3020294",
+          "journee": 2,
+          "date": "2026-09-26T17:30:00+02:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "U15F85 E.LUCON*MAGNILS",
+            "club": false,
+            "score": 20,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3020299",
+          "journee": 4,
+          "date": "2026-10-10T15:00:00+02:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 7,
+            "scoreMT": 1
+          },
+          "exterieur": {
+            "nom": "LA FERRIERE VHB",
+            "club": false,
+            "score": 29,
+            "scoreMT": 14
+          }
+        },
+        {
+          "id": "3020301",
+          "journee": 5,
+          "date": "2026-11-07T13:30:00+01:00",
+          "domicile": {
+            "nom": "CHALLANS NOV HB 2",
+            "club": false,
+            "score": 30,
+            "scoreMT": 17
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 15,
+            "scoreMT": 8
+          }
+        },
+        {
+          "id": "3020305",
+          "journee": 6,
+          "date": "2026-11-15T15:00:00+01:00",
+          "domicile": {
+            "nom": "LA ROCHE SUR YON VHB 2",
+            "club": false,
+            "score": 20,
+            "scoreMT": 9
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 10,
+            "scoreMT": 3
+          }
+        },
+        {
+          "id": "3020308",
+          "journee": 7,
+          "date": "2026-12-06T15:00:00+01:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "MONTAIGU VHB",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "200952",
+      "nom": "TOURNOI A LA FERRIERE 2 QUALIFIES",
+      "competition": "COUPE DE VENDEE U15F 85 TROPHEE JP BART",
+      "phase": {
+        "nom": "U15F85 COUPE DE VENDEE  TROPHEE JP BART 21-22 NOVEMBRE",
+        "classement": true
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/coupe-de-vendee-u15f-85-trophee-jp-bart-33794/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/coupe-de-vendee-u15f-85-trophee-jp-bart-33794/poule-200952/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-11-21",
+          "fin": "2026-11-22"
+        }
+      ],
+      "classement": [
+        {
+          "place": 1,
+          "equipe": "LA ROCHE SUR YON VHB 1",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 2,
+          "equipe": "LA FERRIERE VHB",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 3,
+          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+          "club": true,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        }
+      ],
+      "journeesLues": [
+        1
+      ],
+      "rencontres": [
+        {
+          "id": "3101828",
+          "journee": 1,
+          "date": "2026-11-21T15:00:00+01:00",
+          "domicile": {
+            "nom": "LA FERRIERE VHB",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3101829",
+          "journee": 1,
+          "date": "2026-11-21T15:00:00+01:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "LA ROCHE SUR YON VHB 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        }
+      ]
+    }
+  ],
+  "sansClub": {
+    "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u15f-85-32677/": [
+      "192822",
+      "192824",
+      "201489",
+      "201490"
+    ],
+    "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/coupe-de-vendee-u15f-85-trophee-jp-bart-33794/": [
+      "200950",
+      "200951",
+      "200953"
+    ]
+  }
+}

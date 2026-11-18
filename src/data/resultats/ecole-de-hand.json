@@ -1,0 +1,144 @@
+{
+  "majLe": "2026-11-16T14:06:03.492Z",
+  "poules": [
+    {
+      "id": "197847",
+      "nom": "PLATEAU A MONTAIGU",
+      "competition": "PLATEAUX ECOLE DE HAND (U8)",
+      "phase": {
+        "nom": "PLATEAUX ECOLE DE HAND JOURNEE 1PHASE 1",
+        "classement": false
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/plateaux-ecole-de-hand-u8-33450/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/plateaux-ecole-de-hand-u8-33450/poule-197847/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VENDEE HANDBALL",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-11-07",
+          "fin": "2026-11-08"
+        }
+      ],
+      "classement": [],
+      "journeesLues": [
+        1
+      ],
+      "rencontres": [
+        {
+          "id": "3052301",
+          "journee": 1,
+          "date": "2026-11-07T13:30:00+01:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VENDEE HANDBALL",
+            "club": true,
+            "score": 2,
+            "scoreMT": 0
+          },
+          "exterieur": {
+            "nom": "SEVRE VENDEE HANDBALL",
+            "club": false,
+            "score": 3,
+            "scoreMT": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "197851",
+      "nom": "TOURNOI A LA BRUFFIERE",
+      "competition": "PLATEAUX ECOLE DE HAND (U8)",
+      "phase": {
+        "nom": "PLATEAUX ECOLE DE HAND JOURNEE 2 PHASE 1",
+        "classement": false
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/plateaux-ecole-de-hand-u8-33450/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/plateaux-ecole-de-hand-u8-33450/poule-197851/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VENDEE HANDBALL",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-11-21",
+          "fin": "2026-11-22"
+        }
+      ],
+      "classement": [],
+      "journeesLues": [
+        1
+      ],
+      "rencontres": [
+        {
+          "id": "3052324",
+          "journee": 1,
+          "date": "2026-11-21T15:00:00+01:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VENDEE HANDBALL",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "ST LOUIS DE CHAVAGNES EN PAILLERS",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "197855",
+      "nom": "TOURNOI A CHAVAGNES",
+      "competition": "PLATEAUX ECOLE DE HAND (U8)",
+      "phase": {
+        "nom": "PLATEAUX ECOLE DE HAND JOURNEE 3 PHASE 1",
+        "classement": false
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/plateaux-ecole-de-hand-u8-33450/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/plateaux-ecole-de-hand-u8-33450/poule-197855/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VENDEE HANDBALL",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-12-05",
+          "fin": "2026-12-06"
+        }
+      ],
+      "classement": [],
+      "journeesLues": [
+        1
+      ],
+      "rencontres": [
+        {
+          "id": "3052366",
+          "journee": 1,
+          "date": "2026-12-05T11:45:00+01:00",
+          "domicile": {
+            "nom": "SEVRE VENDEE HANDBALL",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VENDEE HANDBALL",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        }
+      ]
+    }
+  ],
+  "sansClub": {
+    "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/plateaux-ecole-de-hand-u8-33450/": [
+      "197848",
+      "197849",
+      "197850",
+      "197852",
+      "197853",
+      "197854",
+      "197856",
+      "197858",
+      "197859"
+    ]
+  }
+}

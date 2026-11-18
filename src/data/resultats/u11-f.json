@@ -1,0 +1,475 @@
+{
+  "majLe": "2026-11-16T14:06:03.492Z",
+  "poules": [
+    {
+      "id": "192865",
+      "nom": "U11F 85 BRASSAGE POULE A",
+      "competition": "U11 F 85",
+      "phase": {
+        "nom": "U11F COMPETITIVE BRASSAGE",
+        "classement": true
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u11-f-85-32679/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u11-f-85-32679/poule-192865/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-09-19",
+          "fin": "2026-09-20"
+        },
+        {
+          "numero": 2,
+          "debut": "2026-09-26",
+          "fin": "2026-09-27"
+        },
+        {
+          "numero": 3,
+          "debut": "2026-10-03",
+          "fin": "2026-10-04"
+        },
+        {
+          "numero": 4,
+          "debut": "2026-10-10",
+          "fin": "2026-10-11"
+        },
+        {
+          "numero": 5,
+          "debut": "2026-10-17",
+          "fin": "2026-10-18"
+        }
+      ],
+      "classement": [
+        {
+          "place": 1,
+          "equipe": "U11F85 C.HAUT BOCAGE*PHB 1",
+          "club": false,
+          "points": 12,
+          "joues": 4,
+          "gagnes": 4,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 185,
+          "butsContre": 21,
+          "difference": 164
+        },
+        {
+          "place": 2,
+          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+          "club": true,
+          "points": 9,
+          "joues": 4,
+          "gagnes": 2,
+          "nuls": 1,
+          "perdus": 1,
+          "butsPour": 58,
+          "butsContre": 66,
+          "difference": -8
+        },
+        {
+          "place": 3,
+          "equipe": "SL CHAVAGNES EN PAILLERS",
+          "club": false,
+          "points": 8,
+          "joues": 4,
+          "gagnes": 2,
+          "nuls": 0,
+          "perdus": 2,
+          "butsPour": 42,
+          "butsContre": 82,
+          "difference": -40
+        },
+        {
+          "place": 4,
+          "equipe": "CHALLANS NOV HB 1",
+          "club": false,
+          "points": 6,
+          "joues": 4,
+          "gagnes": 1,
+          "nuls": 1,
+          "perdus": 2,
+          "butsPour": 37,
+          "butsContre": 49,
+          "difference": -12
+        },
+        {
+          "place": 5,
+          "equipe": "LES HERBIERS VHB",
+          "club": false,
+          "points": 4,
+          "joues": 4,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 4,
+          "butsPour": 17,
+          "butsContre": 121,
+          "difference": -104
+        }
+      ],
+      "journeesLues": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "rencontres": [
+        {
+          "id": "3020356",
+          "journee": 1,
+          "date": "2026-09-20T10:00:00+02:00",
+          "domicile": {
+            "nom": "U11F85 C.HAUT BOCAGE*PHB 1",
+            "club": false,
+            "score": 42,
+            "scoreMT": 15
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 8,
+            "scoreMT": 2
+          }
+        },
+        {
+          "id": "3020357",
+          "journee": 2,
+          "date": "2026-09-26T14:30:00+02:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 18,
+            "scoreMT": 5
+          },
+          "exterieur": {
+            "nom": "LES HERBIERS VHB",
+            "club": false,
+            "score": 4,
+            "scoreMT": 1
+          }
+        },
+        {
+          "id": "3020360",
+          "journee": 3,
+          "date": "2026-10-03T14:30:00+02:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 21,
+            "scoreMT": 6
+          },
+          "exterieur": {
+            "nom": "SL CHAVAGNES EN PAILLERS",
+            "club": false,
+            "score": 9,
+            "scoreMT": 4
+          }
+        },
+        {
+          "id": "3020362",
+          "journee": 4,
+          "date": "2026-10-10T13:30:00+02:00",
+          "domicile": {
+            "nom": "CHALLANS NOV HB 1",
+            "club": false,
+            "score": 11,
+            "scoreMT": 2
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 11,
+            "scoreMT": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "199572",
+      "nom": "U11F 85 1ERE DIV PHASE 2",
+      "competition": "U11 F 85",
+      "phase": {
+        "nom": "CHAMPONNATS U11 F PHASE 2",
+        "classement": true
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u11-f-85-32679/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u11-f-85-32679/poule-199572/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-11-14",
+          "fin": "2026-11-15"
+        },
+        {
+          "numero": 2,
+          "debut": "2026-12-05",
+          "fin": "2026-12-06"
+        },
+        {
+          "numero": 3,
+          "debut": "2026-12-12",
+          "fin": "2026-12-13"
+        },
+        {
+          "numero": 4,
+          "debut": "2027-01-09",
+          "fin": "2027-01-10"
+        },
+        {
+          "numero": 5,
+          "debut": "2027-01-23",
+          "fin": "2027-01-24"
+        },
+        {
+          "numero": 6,
+          "debut": "2027-02-06",
+          "fin": "2027-02-07"
+        },
+        {
+          "numero": 7,
+          "debut": "2027-03-20",
+          "fin": "2027-03-21"
+        },
+        {
+          "numero": 8,
+          "debut": "2027-04-10",
+          "fin": "2027-04-11"
+        },
+        {
+          "numero": 9,
+          "debut": "2027-05-22",
+          "fin": "2027-05-23"
+        },
+        {
+          "numero": 10,
+          "debut": "2027-05-29",
+          "fin": "2027-05-30"
+        }
+      ],
+      "classement": [
+        {
+          "place": 1,
+          "equipe": "U11F85 C.HAUT BOCAGE*PHB 1",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 35,
+          "butsContre": 11,
+          "difference": 24
+        },
+        {
+          "place": 2,
+          "equipe": "HBC FONTENAISIEN",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 15,
+          "butsContre": 3,
+          "difference": 12
+        },
+        {
+          "place": 3,
+          "equipe": "SL CHAVAGNES EN PAILLERS",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 3,
+          "butsContre": 15,
+          "difference": -12
+        },
+        {
+          "place": 4,
+          "equipe": "LA ROCHE SUR YON VHB",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 11,
+          "butsContre": 35,
+          "difference": -24
+        },
+        {
+          "place": 5,
+          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+          "club": true,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        }
+      ],
+      "journeesLues": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "rencontres": [
+        {
+          "id": "3097680",
+          "journee": 2,
+          "date": "2026-12-05T11:30:00+01:00",
+          "domicile": {
+            "nom": "LA ROCHE SUR YON VHB",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3097683",
+          "journee": 3,
+          "date": "2026-12-13T10:00:00+01:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "HBC FONTENAISIEN",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3097685",
+          "journee": 4,
+          "date": null,
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "SL CHAVAGNES EN PAILLERS",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3097686",
+          "journee": 5,
+          "date": null,
+          "domicile": {
+            "nom": "U11F85 C.HAUT BOCAGE*PHB 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3097690",
+          "journee": 7,
+          "date": null,
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "LA ROCHE SUR YON VHB",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3097693",
+          "journee": 8,
+          "date": null,
+          "domicile": {
+            "nom": "HBC FONTENAISIEN",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3097695",
+          "journee": 9,
+          "date": null,
+          "domicile": {
+            "nom": "SL CHAVAGNES EN PAILLERS",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3097696",
+          "journee": 10,
+          "date": null,
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "U11F85 C.HAUT BOCAGE*PHB 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        }
+      ]
+    }
+  ],
+  "sansClub": {
+    "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u11-f-85-32679/": [
+      "192868",
+      "199573"
+    ]
+  }
+}

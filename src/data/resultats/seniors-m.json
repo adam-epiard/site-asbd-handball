@@ -1,0 +1,1144 @@
+{
+  "majLe": "2026-11-16T14:18:10.252Z",
+  "poules": [
+    {
+      "id": "191755",
+      "nom": "D1M85",
+      "competition": "D1M85",
+      "phase": {
+        "nom": "D1M 85",
+        "classement": true
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/d1m85-32667/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/d1m85-32667/poule-191755/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-09-12",
+          "fin": "2026-09-13"
+        },
+        {
+          "numero": 2,
+          "debut": "2026-09-19",
+          "fin": "2026-09-20"
+        },
+        {
+          "numero": 3,
+          "debut": "2026-09-26",
+          "fin": "2026-09-27"
+        },
+        {
+          "numero": 4,
+          "debut": "2026-10-03",
+          "fin": "2026-10-04"
+        },
+        {
+          "numero": 5,
+          "debut": "2026-10-10",
+          "fin": "2026-10-11"
+        },
+        {
+          "numero": 6,
+          "debut": "2026-10-24",
+          "fin": "2026-10-25"
+        },
+        {
+          "numero": 7,
+          "debut": "2026-11-07",
+          "fin": "2026-11-08"
+        },
+        {
+          "numero": 8,
+          "debut": "2026-11-14",
+          "fin": "2026-11-15"
+        },
+        {
+          "numero": 9,
+          "debut": "2026-11-28",
+          "fin": "2026-11-29"
+        },
+        {
+          "numero": 10,
+          "debut": "2026-12-05",
+          "fin": "2026-12-06"
+        },
+        {
+          "numero": 11,
+          "debut": "2026-12-12",
+          "fin": "2026-12-13"
+        },
+        {
+          "numero": 12,
+          "debut": "2027-01-09",
+          "fin": "2027-01-10"
+        },
+        {
+          "numero": 13,
+          "debut": "2027-01-23",
+          "fin": "2027-01-24"
+        },
+        {
+          "numero": 14,
+          "debut": "2027-02-06",
+          "fin": "2027-02-07"
+        },
+        {
+          "numero": 15,
+          "debut": "2027-02-13",
+          "fin": "2027-02-14"
+        },
+        {
+          "numero": 16,
+          "debut": "2027-03-13",
+          "fin": "2027-03-14"
+        },
+        {
+          "numero": 17,
+          "debut": "2027-03-20",
+          "fin": "2027-03-21"
+        },
+        {
+          "numero": 18,
+          "debut": "2027-04-03",
+          "fin": "2027-04-04"
+        },
+        {
+          "numero": 19,
+          "debut": "2027-04-10",
+          "fin": "2027-04-11"
+        },
+        {
+          "numero": 20,
+          "debut": "2027-05-01",
+          "fin": "2027-05-02"
+        },
+        {
+          "numero": 21,
+          "debut": "2027-05-22",
+          "fin": "2027-05-23"
+        },
+        {
+          "numero": 22,
+          "debut": "2027-05-29",
+          "fin": "2027-05-30"
+        }
+      ],
+      "classement": [
+        {
+          "place": 1,
+          "equipe": "LA FERRIERE VHB 2",
+          "club": false,
+          "points": 20,
+          "joues": 8,
+          "gagnes": 6,
+          "nuls": 0,
+          "perdus": 2,
+          "butsPour": 252,
+          "butsContre": 194,
+          "difference": 58
+        },
+        {
+          "place": 2,
+          "equipe": "LE CH DES ACHARDS 1",
+          "club": false,
+          "points": 19,
+          "joues": 8,
+          "gagnes": 7,
+          "nuls": 1,
+          "perdus": 0,
+          "butsPour": 298,
+          "butsContre": 236,
+          "difference": 62
+        },
+        {
+          "place": 3,
+          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+          "club": true,
+          "points": 18,
+          "joues": 8,
+          "gagnes": 5,
+          "nuls": 0,
+          "perdus": 3,
+          "butsPour": 239,
+          "butsContre": 219,
+          "difference": 20
+        },
+        {
+          "place": 4,
+          "equipe": "SABLES ETUDIANT CLUB-OLONNE HB 1",
+          "club": false,
+          "points": 18,
+          "joues": 8,
+          "gagnes": 5,
+          "nuls": 0,
+          "perdus": 3,
+          "butsPour": 216,
+          "butsContre": 211,
+          "difference": 5
+        },
+        {
+          "place": 5,
+          "equipe": "CH D'AIZENAY 1",
+          "club": false,
+          "points": 16,
+          "joues": 8,
+          "gagnes": 4,
+          "nuls": 0,
+          "perdus": 4,
+          "butsPour": 220,
+          "butsContre": 235,
+          "difference": -15
+        },
+        {
+          "place": 6,
+          "equipe": "POUZAUGES VHB 3",
+          "club": false,
+          "points": 16,
+          "joues": 8,
+          "gagnes": 4,
+          "nuls": 0,
+          "perdus": 4,
+          "butsPour": 259,
+          "butsContre": 243,
+          "difference": 16
+        },
+        {
+          "place": 7,
+          "equipe": "D1M 85 C.LES HERBIERS* SEVRE 1",
+          "club": false,
+          "points": 16,
+          "joues": 8,
+          "gagnes": 4,
+          "nuls": 0,
+          "perdus": 4,
+          "butsPour": 226,
+          "butsContre": 223,
+          "difference": 3
+        },
+        {
+          "place": 8,
+          "equipe": "HBC BENET 1",
+          "club": false,
+          "points": 14,
+          "joues": 8,
+          "gagnes": 3,
+          "nuls": 0,
+          "perdus": 5,
+          "butsPour": 203,
+          "butsContre": 210,
+          "difference": -7
+        },
+        {
+          "place": 9,
+          "equipe": "MONTAIGU VHB 1",
+          "club": false,
+          "points": 14,
+          "joues": 8,
+          "gagnes": 2,
+          "nuls": 2,
+          "perdus": 4,
+          "butsPour": 220,
+          "butsContre": 225,
+          "difference": -5
+        },
+        {
+          "place": 10,
+          "equipe": "SL CHAVAGNES EN PAILLERS 2",
+          "club": false,
+          "points": 14,
+          "joues": 8,
+          "gagnes": 3,
+          "nuls": 0,
+          "perdus": 5,
+          "butsPour": 217,
+          "butsContre": 235,
+          "difference": -18
+        },
+        {
+          "place": 11,
+          "equipe": "SL AUBIGNY MOUTIERS VHB 3",
+          "club": false,
+          "points": 12,
+          "joues": 8,
+          "gagnes": 2,
+          "nuls": 0,
+          "perdus": 6,
+          "butsPour": 236,
+          "butsContre": 260,
+          "difference": -24
+        },
+        {
+          "place": 12,
+          "equipe": "HBC LUCONNAIS 1",
+          "club": false,
+          "points": 11,
+          "joues": 8,
+          "gagnes": 1,
+          "nuls": 1,
+          "perdus": 6,
+          "butsPour": 195,
+          "butsContre": 290,
+          "difference": -95
+        }
+      ],
+      "journeesLues": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "rencontres": [
+        {
+          "id": "3019529",
+          "journee": 1,
+          "date": "2026-09-12T19:00:00+02:00",
+          "domicile": {
+            "nom": "D1M 85 C.LES HERBIERS* SEVRE 1",
+            "club": false,
+            "score": 32,
+            "scoreMT": 16
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 29,
+            "scoreMT": 12
+          }
+        },
+        {
+          "id": "3019534",
+          "journee": 2,
+          "date": "2026-09-20T17:00:00+02:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 27,
+            "scoreMT": 15
+          },
+          "exterieur": {
+            "nom": "POUZAUGES VHB 3",
+            "club": false,
+            "score": 30,
+            "scoreMT": 12
+          }
+        },
+        {
+          "id": "3019539",
+          "journee": 3,
+          "date": "2026-09-26T21:45:00+02:00",
+          "domicile": {
+            "nom": "HBC BENET 1",
+            "club": false,
+            "score": 19,
+            "scoreMT": 12
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 21,
+            "scoreMT": 10
+          }
+        },
+        {
+          "id": "3019544",
+          "journee": 4,
+          "date": "2026-10-04T17:00:00+02:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 33,
+            "scoreMT": 14
+          },
+          "exterieur": {
+            "nom": "LE CH DES ACHARDS 1",
+            "club": false,
+            "score": 34,
+            "scoreMT": 17
+          }
+        },
+        {
+          "id": "3019549",
+          "journee": 5,
+          "date": "2026-10-11T15:15:00+02:00",
+          "domicile": {
+            "nom": "MONTAIGU VHB 1",
+            "club": false,
+            "score": 24,
+            "scoreMT": 10
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 28,
+            "scoreMT": 13
+          }
+        },
+        {
+          "id": "3019556",
+          "journee": 6,
+          "date": "2026-10-24T21:30:00+02:00",
+          "domicile": {
+            "nom": "HBC LUCONNAIS 1",
+            "club": false,
+            "score": 24,
+            "scoreMT": 14
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 35,
+            "scoreMT": 15
+          }
+        },
+        {
+          "id": "3019563",
+          "journee": 7,
+          "date": "2026-11-08T15:00:00+01:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 35,
+            "scoreMT": 16
+          },
+          "exterieur": {
+            "nom": "SL AUBIGNY MOUTIERS VHB 3",
+            "club": false,
+            "score": 26,
+            "scoreMT": 14
+          }
+        },
+        {
+          "id": "3019570",
+          "journee": 8,
+          "date": "2026-11-15T17:00:00+01:00",
+          "domicile": {
+            "nom": "SL CHAVAGNES EN PAILLERS 2",
+            "club": false,
+            "score": 30,
+            "scoreMT": 13
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 31,
+            "scoreMT": 17
+          }
+        },
+        {
+          "id": "3019577",
+          "journee": 9,
+          "date": "2026-11-29T17:00:00+01:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "CH D'AIZENAY 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019584",
+          "journee": 10,
+          "date": "2026-12-05T20:00:00+01:00",
+          "domicile": {
+            "nom": "SABLES ETUDIANT CLUB-OLONNE HB 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019590",
+          "journee": 11,
+          "date": "2026-12-13T17:00:00+01:00",
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "LA FERRIERE VHB 2",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019595",
+          "journee": 12,
+          "date": null,
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "D1M 85 C.LES HERBIERS* SEVRE 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019600",
+          "journee": 13,
+          "date": null,
+          "domicile": {
+            "nom": "POUZAUGES VHB 3",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019605",
+          "journee": 14,
+          "date": null,
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "HBC BENET 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019610",
+          "journee": 15,
+          "date": null,
+          "domicile": {
+            "nom": "LE CH DES ACHARDS 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019615",
+          "journee": 16,
+          "date": null,
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "MONTAIGU VHB 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019622",
+          "journee": 17,
+          "date": null,
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "HBC LUCONNAIS 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019629",
+          "journee": 18,
+          "date": null,
+          "domicile": {
+            "nom": "SL AUBIGNY MOUTIERS VHB 3",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019636",
+          "journee": 19,
+          "date": null,
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "SL CHAVAGNES EN PAILLERS 2",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019643",
+          "journee": 20,
+          "date": null,
+          "domicile": {
+            "nom": "CH D'AIZENAY 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019650",
+          "journee": 21,
+          "date": null,
+          "domicile": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "SABLES ETUDIANT CLUB-OLONNE HB 1",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          }
+        },
+        {
+          "id": "3019656",
+          "journee": 22,
+          "date": null,
+          "domicile": {
+            "nom": "LA FERRIERE VHB 2",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "199374",
+      "nom": "COUPE PDLL MASC DEP ; 1E TOUR",
+      "competition": "COUPE PAYS DE LA LOIRE DEPARTEMENTALE MASCULINE",
+      "phase": {
+        "nom": "COUPE PDLL MASC DEP ; 1E TOUR",
+        "classement": true
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/regional/coupe-pays-de-la-loire-departementale-masculine-33594/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/regional/coupe-pays-de-la-loire-departementale-masculine-33594/poule-199374/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-11-21",
+          "fin": "2026-11-22"
+        }
+      ],
+      "classement": [
+        {
+          "place": 1,
+          "equipe": "ANCENIS HANDBALL 2",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 2,
+          "equipe": "SAVENAY HB *ESTUAIRE ET SILLON",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 3,
+          "equipe": "HBC GESVRES*ALLIANCE ERDRE ET GESVRES",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 4,
+          "equipe": "ALSEM* ESTUAIRE ET SILLON",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 5,
+          "equipe": "HBC BLINOIS",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 6,
+          "equipe": "NORT AC HANDBALL",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 7,
+          "equipe": "HERIC HANDBALL",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 8,
+          "equipe": "SEVRE*LES HERBIERS 2",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 9,
+          "equipe": "ASC LA MONTAGNE 1",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 10,
+          "equipe": "HBC DU HAVRE DE VIE",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 11,
+          "equipe": "ECLAIR CHAUVE HANDBALL",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 12,
+          "equipe": "HB DONGES ATLANTIQUE",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 13,
+          "equipe": "LEGE HANDBALL CLUB",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 14,
+          "equipe": "HBC BENET 1",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 15,
+          "equipe": "US LAVALLOISE HB",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 16,
+          "equipe": "HBC LOUE",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 17,
+          "equipe": "HBC PAYS DE LOIRON",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 18,
+          "equipe": "D2M85 E.POIRE *VIE ET YON 2",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 19,
+          "equipe": "HBC DU PAYS DE SILLE",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 20,
+          "equipe": "PORTERIE HB* ALLIANCE ERDRE ET GESVRES",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 21,
+          "equipe": "ASCED RIAILLE",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 22,
+          "equipe": "TALMONT HBC 1",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 23,
+          "equipe": "HBC DURTAL",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 24,
+          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+          "club": true,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 25,
+          "equipe": "FOUSSAIS PAYRE HB",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 26,
+          "equipe": "HB ST FLORENT*SLAM",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 27,
+          "equipe": "ERNEENNE SPORT HB",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        },
+        {
+          "place": 28,
+          "equipe": "LOIR LUCE BERCE HANDBALL",
+          "club": false,
+          "points": 0,
+          "joues": 0,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 0,
+          "butsContre": 0,
+          "difference": 0
+        }
+      ],
+      "journeesLues": [
+        1
+      ],
+      "rencontres": [
+        {
+          "id": "3065219",
+          "journee": 1,
+          "date": "2026-11-22T14:30:00+01:00",
+          "domicile": {
+            "nom": "FOUSSAIS PAYRE HB",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "196380",
+      "nom": "1ER TOUR",
+      "competition": "COUPE DE FRANCE CAISSE D'EPARGNE DEPARTEMENTALE MASCULINE 2026-2027",
+      "phase": {
+        "nom": "CDF DEP MAS (1° TOUR)",
+        "classement": false
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/coupe-de-france/coupe-de-france-caisse-d-epargne-departementale-masculine-2026-2027-33244/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/coupe-de-france/coupe-de-france-caisse-d-epargne-departementale-masculine-2026-2027-33244/poule-196380/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-10-17",
+          "fin": "2026-10-18"
+        }
+      ],
+      "classement": [],
+      "journeesLues": [
+        1
+      ],
+      "rencontres": [
+        {
+          "id": "3098623",
+          "journee": 1,
+          "date": "2026-10-17T20:00:00+02:00",
+          "domicile": {
+            "nom": "HB LIGERIEN",
+            "club": false,
+            "score": 39,
+            "scoreMT": 17
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": 38,
+            "scoreMT": 18
+          }
+        }
+      ]
+    }
+  ],
+  "sansClub": {
+    "https://www.ffhandball.fr/competitions/saison-2026-2027-22/regional/coupe-pays-de-la-loire-departementale-masculine-33594/": [
+      "200766"
+    ],
+    "https://www.ffhandball.fr/competitions/saison-2026-2027-22/coupe-de-france/coupe-de-france-caisse-d-epargne-departementale-masculine-2026-2027-33244/": [
+      "199601"
+    ]
+  }
+}
