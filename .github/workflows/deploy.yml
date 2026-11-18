@@ -1,11 +1,20 @@
 # Déploiement automatique.
 #
-# Chaque push sur main : vérification TypeScript et des données, build,
-# puis publication du dossier dist/ sur la branche « deploy ».
-# L'hébergement OVH suit la branche deploy (intégration Git du Multisite)
-# et récupère la nouvelle version via le webhook GitHub.
+# Déclencheurs :
+# - chaque push sur main ;
+# - tous les jours vers 4 h 40 (heure d'hiver) : nouveaux résultats, et « à venir »
+#   recalculé pour la date du jour ;
+# - le vendredi soir, le samedi et le dimanche toutes les 2 h : résultats du week-end ;
+# - le lundi vers 4 h 20 : en plus, recherche des compétitions où joue le club
+#   (une coupe qui commence) et avertissement si aucune équipe du site ne les suit.
 #
+# Étapes : tests, récupération des matchs sur le site de la FFHB (enregistrés dans
+# src/data/resultats/ et commités sur main), vérification, build, puis publication
+# de dist/ sur la branche « deploy », que l'hébergement OVH récupère via le webhook GitHub.
+#
+# Lors d'un passage programmé du week-end, le site n'est republié que si des données ont changé.
 # Si une étape échoue, rien n'est publié : la version en ligne ne change pas.
+# Un problème côté FFHB ne bloque pas la publication : les dernières données connues sont gardées.
 
 name: Deploy
 
@@ -13,6 +22,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Heures en UTC (heure de Paris moins 1 h l'hiver, moins 2 h l'été).
+    - cron: '41 3 * * *'
+    - cron: '23 3 * * 1'
+    - cron: '7 20,22 * * 5'
+    - cron: '7 12-22/2 * * 6,0'
 
 permissions:
   contents: write
@@ -34,13 +49,47 @@ jobs:
 
       - run: npm ci
 
+      - name: Tests (lecture FFHB, matchs)
+        run: npm test
+
+      - name: Récupérer les matchs et classements sur le site de la FFHB
+        run: npm run sync
+
+      - name: Chercher les compétitions du club non suivies (le lundi)
+        if: github.event.schedule == '23 3 * * 1' || github.event_name == 'workflow_dispatch'
+        run: npm run ffhb:trouver -- --verifier
+
+      - name: Enregistrer les nouvelles données
+        id: donnees
+        run: |
+          if [ -z "$(git status --porcelain -- src/data/resultats)" ]; then
+            echo "Pas de nouvelles données."
+            echo "change=false" >> "$GITHUB_OUTPUT"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A src/data/resultats
+            git commit -m "Résultats FFHB : mise à jour automatique"
+            # Un push a pu arriver pendant la synchronisation : on se replace dessus.
+            git pull --rebase origin main
+            git push origin HEAD:main
+            echo "change=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Décider de la publication
+        id: publier
+        run: echo "oui=${{ github.event_name != 'schedule' || github.event.schedule == '41 3 * * *' || steps.donnees.outputs.change == 'true' }}" >> "$GITHUB_OUTPUT"
+
       - name: Vérifier TypeScript et le contenu
+        if: steps.publier.outputs.oui == 'true'
         run: npm run check
 
       - name: Construire le site
+        if: steps.publier.outputs.oui == 'true'
         run: npm run build
 
       - name: Publier sur la branche deploy
+        if: steps.publier.outputs.oui == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -50,4 +99,4 @@ jobs:
           # qui échouerait si son historique était réécrit à chaque build.
           # Pas de fichier .nojekyll : inutile chez OVH.
           enable_jekyll: true
-          commit_message: ${{ github.event.head_commit.message }}
+          commit_message: ${{ github.event.head_commit.message || 'Mise à jour automatique des matchs' }}
