@@ -6,10 +6,22 @@
     "ordre": 10
   },
   {
+    "id": "braud",
+    "nom": "Braud",
+    "logo": "../assets/partenaires/braud.png",
+    "ordre": 15
+  },
+  {
     "id": "bruffiere-automobiles",
     "nom": "Bruffière Automobiles",
     "logo": "../assets/partenaires/bruffiere-automobiles.png",
     "ordre": 20
+  },
+  {
+    "id": "districroq",
+    "nom": "DistriCroq Sud Loire",
+    "logo": "../assets/partenaires/districroq.png",
+    "ordre": 25
   },
   {
     "id": "drapeau-frederic",
