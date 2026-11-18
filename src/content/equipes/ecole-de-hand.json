@@ -4,16 +4,20 @@
   "categorie": "mixte",
   "ordre": 60,
   "naissances": "2018-19-20",
+  "photo": {
+    "src": "../../assets/equipes/ecole-de-hand.jpg",
+    "alt": "Les enfants de l'école de hand de l'ASBD en maillots rouges, ballons en main, devant un but"
+  },
   "entrainements": [
     {
       "jour": "mercredi",
       "horaire": "13h45 - 15h"
     }
   ],
-  "scorenco": {
-    "matchs": {
-      "widget": "195318",
-      "type": "team"
-    }
-  }
+  "ffhb": {
+    "competitions": [
+      "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/plateaux-ecole-de-hand-u8-33450/"
+    ]
+  },
+  "lienFfhb": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/plateaux-ecole-de-hand-u8-33450/"
 }

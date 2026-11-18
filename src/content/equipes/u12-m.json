@@ -4,19 +4,21 @@
   "categorie": "masculine",
   "ordre": 50,
   "naissances": "2015-16-17",
+  "photo": {
+    "src": "../../assets/equipes/u12-m.jpg",
+    "alt": "L'équipe U12 M de l'ASBD en maillots rouges, posant devant un but de handball"
+  },
   "entrainements": [
     {
       "jour": "mercredi",
       "horaire": "16h30 - 18h"
     }
   ],
-  "scorenco": {
-    "matchs": {
-      "iframe": "https://v1.scorenco.com/widget/58162d175a5ae30bf9d263b3/"
-    },
-    "classement": {
-      "iframe": "https://v1.scorenco.com/widget/58162cd85a5ae30bf9d263ab/"
-    }
+  "ffhb": {
+    "competitions": [
+      "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u12m-85-32674/",
+      "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/coupe-u12-m85-trophee-jp-bart-33804/"
+    ]
   },
-  "lienFfhb": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u12m-85-32674/poule-199621/"
+  "lienFfhb": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u12m-85-32674/"
 }

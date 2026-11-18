@@ -4,21 +4,20 @@
   "categorie": "feminine",
   "ordre": 30,
   "naissances": "2016-17-18",
+  "photo": {
+    "src": "../../assets/equipes/u11-f.jpg",
+    "alt": "L'équipe U11 F de l'ASBD en maillots rouges, posant devant un but de handball"
+  },
   "entrainements": [
     {
       "jour": "mercredi",
       "horaire": "15h - 16h30"
     }
   ],
-  "scorenco": {
-    "matchs": {
-      "widget": "195315",
-      "type": "team"
-    },
-    "classement": {
-      "widget": "195316",
-      "type": "ranking"
-    }
+  "ffhb": {
+    "competitions": [
+      "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u11-f-85-32679/"
+    ]
   },
-  "lienFfhb": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u11-f-85-32679/poule-199572/"
+  "lienFfhb": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/departemental/u11-f-85-32679/"
 }
