@@ -1,5 +1,5 @@
 {
-  "majLe": "2026-11-16T14:18:10.252Z",
+  "majLe": "2026-11-19T12:06:55.607Z",
   "poules": [
     {
       "id": "191755",
@@ -704,6 +704,19 @@
       "classement": [
         {
           "place": 1,
+          "equipe": "LOIR LUCE BERCE HANDBALL",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 20,
+          "butsContre": 0,
+          "difference": 20
+        },
+        {
+          "place": 2,
           "equipe": "ANCENIS HANDBALL 2",
           "club": false,
           "points": 0,
@@ -716,7 +729,7 @@
           "difference": 0
         },
         {
-          "place": 2,
+          "place": 3,
           "equipe": "SAVENAY HB *ESTUAIRE ET SILLON",
           "club": false,
           "points": 0,
@@ -729,7 +742,7 @@
           "difference": 0
         },
         {
-          "place": 3,
+          "place": 4,
           "equipe": "HBC GESVRES*ALLIANCE ERDRE ET GESVRES",
           "club": false,
           "points": 0,
@@ -742,21 +755,8 @@
           "difference": 0
         },
         {
-          "place": 4,
-          "equipe": "ALSEM* ESTUAIRE ET SILLON",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
           "place": 5,
-          "equipe": "HBC BLINOIS",
+          "equipe": "ALSEM* ESTUAIRE ET SILLON",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -782,7 +782,7 @@
         },
         {
           "place": 7,
-          "equipe": "HERIC HANDBALL",
+          "equipe": "HBC BLINOIS",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -795,7 +795,7 @@
         },
         {
           "place": 8,
-          "equipe": "SEVRE*LES HERBIERS 2",
+          "equipe": "HERIC HANDBALL",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -808,7 +808,7 @@
         },
         {
           "place": 9,
-          "equipe": "ASC LA MONTAGNE 1",
+          "equipe": "SEVRE*LES HERBIERS 2",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -834,7 +834,7 @@
         },
         {
           "place": 11,
-          "equipe": "ECLAIR CHAUVE HANDBALL",
+          "equipe": "ASC LA MONTAGNE 1",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -847,7 +847,7 @@
         },
         {
           "place": 12,
-          "equipe": "HB DONGES ATLANTIQUE",
+          "equipe": "ECLAIR CHAUVE HANDBALL",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -860,7 +860,7 @@
         },
         {
           "place": 13,
-          "equipe": "LEGE HANDBALL CLUB",
+          "equipe": "HB DONGES ATLANTIQUE",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -873,7 +873,7 @@
         },
         {
           "place": 14,
-          "equipe": "HBC BENET 1",
+          "equipe": "LEGE HANDBALL CLUB",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -886,7 +886,7 @@
         },
         {
           "place": 15,
-          "equipe": "US LAVALLOISE HB",
+          "equipe": "HBC BENET 1",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -899,7 +899,7 @@
         },
         {
           "place": 16,
-          "equipe": "HBC LOUE",
+          "equipe": "US LAVALLOISE HB",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -912,7 +912,7 @@
         },
         {
           "place": 17,
-          "equipe": "HBC PAYS DE LOIRON",
+          "equipe": "HBC LOUE",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -925,7 +925,7 @@
         },
         {
           "place": 18,
-          "equipe": "D2M85 E.POIRE *VIE ET YON 2",
+          "equipe": "HBC PAYS DE LOIRON",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -938,7 +938,7 @@
         },
         {
           "place": 19,
-          "equipe": "HBC DU PAYS DE SILLE",
+          "equipe": "D2M85 E.POIRE *VIE ET YON 2",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -1055,16 +1055,16 @@
         },
         {
           "place": 28,
-          "equipe": "LOIR LUCE BERCE HANDBALL",
+          "equipe": "HBC DU PAYS DE SILLE",
           "club": false,
           "points": 0,
-          "joues": 0,
+          "joues": 1,
           "gagnes": 0,
           "nuls": 0,
-          "perdus": 0,
+          "perdus": 1,
           "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
+          "butsContre": 20,
+          "difference": -20
         }
       ],
       "journeesLues": [
