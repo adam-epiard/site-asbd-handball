@@ -6,6 +6,12 @@
     "ordre": 10
   },
   {
+    "id": "atelier-du-rossignol",
+    "nom": "L'Atelier du Rossignol",
+    "logo": "../assets/partenaires/atelier-du-rossignol.png",
+    "ordre": 12
+  },
+  {
     "id": "braud",
     "nom": "Braud",
     "logo": "../assets/partenaires/braud.png",

@@ -1,20 +1,31 @@
 ---
 /**
  * Bandeau défilant des partenaires, au-dessus du pied de page sur tout le site.
- * Défilement continu en CSS (aucun JavaScript), en pause au survol ou au clavier.
+ * Défilement continu en CSS, en pause au survol ou au clavier.
  * Si le visiteur a réduit les animations : liste fixe qu'on fait défiler à la main.
+ *
+ * Tant que le bandeau n'est pas encore à l'écran, une version fine des logos reste
+ * collée en bas de l'écran ; elle s'efface quand le vrai bandeau arrive à sa place.
+ * Les logos de cette barre sont décoratifs (masqués aux lecteurs d'écran, sans lien,
+ * ne bloquent pas les clics) : le bandeau du bas reste la version complète et accessible.
+ * Un bouton permet d'arrêter le défilement (obligatoire pour l'accessibilité) ; ce choix
+ * est retenu pendant la visite. Tant que la barre est affichée, la page garde une marge
+ * en bas pour que l'élément qui a le focus clavier ne passe jamais dessous.
+ * Sans JavaScript, la barre ne s'affiche pas.
  */
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 
 const partenaires = (await getCollection('partenaires')).sort((a, b) => a.data.ordre - b.data.ordre);
 // Vitesse constante quel que soit le nombre de logos : environ 3 secondes par logo.
-const duree = `${Math.max(20, partenaires.length * 3)}s`;
+const dureeDefilement = `${Math.max(20, partenaires.length * 3)}s`;
+// La barre du bas ne montre que les logos (les partenaires sans logo restent dans le bandeau).
+const logosBarre = partenaires.flatMap((p) => (p.data.logo ? [p.data.logo] : []));
 ---
 
 {
   partenaires.length > 0 && (
-    <section class="bandeau-partenaires" aria-labelledby="titre-bandeau-partenaires">
+    <section class="bandeau-partenaires" aria-labelledby="titre-bandeau-partenaires" data-bandeau-partenaires>
       <div class="conteneur bandeau-partenaires__entete">
         <h2 id="titre-bandeau-partenaires" class="bandeau-partenaires__titre">
           Merci à nos partenaires
@@ -22,7 +33,7 @@ const duree = `${Math.max(20, partenaires.length * 3)}s`;
         <a href="/nos-partenaires/">Tous nos partenaires</a>
       </div>
       <div class="bandeau-partenaires__fenetre">
-        <div class="bandeau-partenaires__piste" style={`--duree: ${duree}`}>
+        <div class="bandeau-partenaires__piste" style={`--duree-defilement: ${dureeDefilement}`}>
           {[0, 1].map((copie) => (
             <ul class="bandeau-partenaires__liste" aria-hidden={copie === 1 ? 'true' : undefined}>
               {partenaires.map((p) => (
@@ -47,6 +58,71 @@ const duree = `${Math.max(20, partenaires.length * 3)}s`;
     </section>
   )
 }
+
+{
+  logosBarre.length > 0 && (
+    <div class="barre-partenaires" inert data-barre-partenaires>
+      <div class="barre-partenaires__fenetre" aria-hidden="true">
+        <div class="barre-partenaires__piste" style={`--duree-defilement: ${dureeDefilement}`}>
+          {[0, 1].map(() => (
+            <ul class="barre-partenaires__liste">
+              {logosBarre.map((logo) => (
+                <li>
+                  <Image src={logo} alt="" height={56} densities={[1, 2]} loading="eager" decoding="async" class="barre-partenaires__logo" />
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </div>
+      <button class="barre-partenaires__pause" type="button" aria-pressed="false" data-pause-barre>
+        <span class="barre-partenaires__pause-icone" aria-hidden="true" />
+        <span class="visuellement-cache">Arrêter le défilement des logos des partenaires</span>
+      </button>
+    </div>
+  )
+}
+
+<script>
+  // La barre du bas s'affiche tant que le bandeau des partenaires est encore plus bas dans la page.
+  const bandeau = document.querySelector<HTMLElement>('[data-bandeau-partenaires]');
+  const barre = document.querySelector<HTMLElement>('[data-barre-partenaires]');
+  const pause = document.querySelector<HTMLButtonElement>('[data-pause-barre]');
+  const CLE_FIGEE = 'asbd-barre-partenaires-figee';
+
+  const figer = (figee: boolean) => {
+    barre?.classList.toggle('barre-partenaires--figee', figee);
+    pause?.setAttribute('aria-pressed', String(figee));
+  };
+
+  if (bandeau && barre && pause && 'IntersectionObserver' in window) {
+    // Le choix d'arrêter le défilement est gardé d'une page à l'autre pendant la visite.
+    try {
+      figer(sessionStorage.getItem(CLE_FIGEE) === 'oui');
+    } catch {
+      // Stockage indisponible (navigation privée...) : le choix vaut pour cette page seulement.
+    }
+
+    pause.addEventListener('click', () => {
+      const figee = pause.getAttribute('aria-pressed') !== 'true';
+      figer(figee);
+      try {
+        sessionStorage.setItem(CLE_FIGEE, figee ? 'oui' : 'non');
+      } catch {
+        // Idem : rien à faire.
+      }
+    });
+
+    new IntersectionObserver(([entree]) => {
+      const plusBas = !entree.isIntersecting && entree.boundingClientRect.top > 0;
+      barre.classList.toggle('barre-partenaires--visible', plusBas);
+      // Cachée, la barre ne doit pas recevoir le focus ; affichée, son bouton est utilisable.
+      barre.inert = !plusBas;
+      // Marge de défilement en bas tant que la barre recouvre la page (voir le style).
+      document.documentElement.classList.toggle('avec-barre-partenaires', plusBas);
+    }).observe(bandeau);
+  }
+</script>
 
 <style>
   .bandeau-partenaires {
@@ -83,7 +159,7 @@ const duree = `${Math.max(20, partenaires.length * 3)}s`;
   .bandeau-partenaires__piste {
     display: flex;
     width: max-content;
-    animation: defilement var(--duree) linear infinite;
+    animation: defilement var(--duree-defilement) linear infinite;
   }
 
   .bandeau-partenaires__fenetre:hover .bandeau-partenaires__piste,
@@ -121,6 +197,122 @@ const duree = `${Math.max(20, partenaires.length * 3)}s`;
     white-space: nowrap;
   }
 
+  /* Barre fine collée en bas de l'écran (voir le commentaire en tête). */
+  .barre-partenaires {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: var(--espace-3);
+    padding-block: var(--espace-2);
+    border-top: var(--trait);
+    background: color-mix(in srgb, var(--blanc) 96%, transparent);
+    box-shadow: 0 -4px 16px color-mix(in srgb, var(--noir) 6%, transparent);
+    pointer-events: none;
+    transform: translateY(100%);
+    /* --duree : jeton global des transitions (160 ms), à ne pas confondre avec --duree-defilement. */
+    transition: transform var(--duree) var(--courbe);
+  }
+
+  .barre-partenaires--visible {
+    transform: none;
+  }
+
+  /* Tant que la barre est affichée, le navigateur garde cette marge en bas quand il fait
+     défiler la page vers l'élément qui reçoit le focus : il ne finit jamais sous la barre.
+     Pas de marge sur les écrans bas, où la barre est masquée (voir plus bas). */
+  @media (min-height: 30rem) {
+    :global(html.avec-barre-partenaires) {
+      scroll-padding-bottom: 5rem;
+    }
+  }
+
+  .barre-partenaires__fenetre {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    /* Fondu sur les bords, comme le bandeau. */
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .barre-partenaires__piste {
+    display: flex;
+    width: max-content;
+    animation: defilement var(--duree-defilement) linear infinite;
+  }
+
+  /* Arrêtée par le visiteur, ou cachée hors de l'écran : inutile de faire tourner l'animation. */
+  .barre-partenaires--figee .barre-partenaires__piste,
+  .barre-partenaires:not(.barre-partenaires--visible) .barre-partenaires__piste {
+    animation-play-state: paused;
+  }
+
+  /* Petit bouton discret dans le coin en bas à droite, par-dessus le fondu des logos.
+     24 px : la taille minimale d'une cible cliquable (WCAG 2.5.8). */
+  .barre-partenaires__pause {
+    position: absolute;
+    right: var(--espace-1);
+    bottom: var(--espace-1);
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: var(--trait);
+    border-radius: 50%;
+    background: var(--blanc);
+    color: var(--texte);
+    cursor: pointer;
+    /* La barre laisse passer les clics ; seul ce bouton les reçoit. */
+    pointer-events: auto;
+  }
+
+  .barre-partenaires__pause:hover {
+    border-color: var(--texte);
+  }
+
+  /* Icône pause : deux barres ; icône lecture : triangle (comme la vidéo d'accueil). */
+  .barre-partenaires__pause-icone {
+    width: 0.4rem;
+    height: 0.5rem;
+    border-inline: 0.125rem solid currentColor;
+  }
+
+  .barre-partenaires__pause[aria-pressed='true'] .barre-partenaires__pause-icone {
+    width: 0;
+    height: 0;
+    margin-left: 0.1rem;
+    border-block: 0.25rem solid transparent;
+    border-left: 0.4rem solid currentColor;
+    border-right: 0;
+  }
+
+  .barre-partenaires__liste {
+    display: flex;
+    align-items: center;
+    gap: var(--espace-6);
+    margin: 0;
+    padding: 0 var(--espace-6) 0 0;
+    list-style: none;
+    max-width: none;
+  }
+
+  .barre-partenaires__liste li {
+    flex: none;
+    display: flex;
+    align-items: center;
+    height: 2.5rem;
+  }
+
+  .barre-partenaires__logo {
+    width: auto;
+    height: auto;
+    max-height: 2.25rem;
+    max-width: 7rem;
+    object-fit: contain;
+  }
+
   @keyframes defilement {
     to {
       transform: translateX(-50%);
@@ -140,6 +332,38 @@ const duree = `${Math.max(20, partenaires.length * 3)}s`;
     }
 
     .bandeau-partenaires__liste[aria-hidden='true'] {
+      display: none;
+    }
+
+    /* La barre reste immobile : on montre les premiers logos, alignés à gauche,
+       avec un fondu à droite pour signaler qu'il y en a d'autres. */
+    .barre-partenaires__fenetre {
+      mask-image: linear-gradient(90deg, #000 85%, transparent);
+    }
+
+    .barre-partenaires__piste {
+      animation: none;
+      padding-inline-start: var(--gouttiere);
+    }
+
+    .barre-partenaires__liste + .barre-partenaires__liste {
+      display: none;
+    }
+
+    .barre-partenaires {
+      transition: none;
+    }
+
+    /* Rien ne défile : le bouton d'arrêt ne sert à rien. */
+    .barre-partenaires__pause {
+      display: none;
+    }
+  }
+
+  /* Écran bas (téléphone à l'horizontale, fort zoom) : avec l'en-tête, la barre prendrait
+     trop de place. Le bandeau du bas suffit. Même chose à l'impression. */
+  @media (max-height: 29.99rem), print {
+    .barre-partenaires {
       display: none;
     }
   }
