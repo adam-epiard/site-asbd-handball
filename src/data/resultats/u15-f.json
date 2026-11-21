@@ -1,5 +1,5 @@
 {
-  "majLe": "2026-11-20T12:09:03.787Z",
+  "majLe": "2026-11-21T01:22:57.673Z",
   "poules": [
     {
       "id": "192825",
@@ -279,8 +279,8 @@
           "place": 1,
           "equipe": "LA ROCHE SUR YON VHB 1",
           "club": false,
-          "points": 0,
-          "joues": 0,
+          "points": 3,
+          "joues": 1,
           "gagnes": 0,
           "nuls": 0,
           "perdus": 0,
@@ -290,10 +290,10 @@
         },
         {
           "place": 2,
-          "equipe": "LA FERRIERE VHB",
-          "club": false,
-          "points": 0,
-          "joues": 0,
+          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+          "club": true,
+          "points": 3,
+          "joues": 1,
           "gagnes": 0,
           "nuls": 0,
           "perdus": 0,
@@ -303,13 +303,13 @@
         },
         {
           "place": 3,
-          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
-          "club": true,
+          "equipe": "LA FERRIERE VHB",
+          "club": false,
           "points": 0,
-          "joues": 0,
+          "joues": 2,
           "gagnes": 0,
           "nuls": 0,
-          "perdus": 0,
+          "perdus": 2,
           "butsPour": 0,
           "butsContre": 0,
           "difference": 0
