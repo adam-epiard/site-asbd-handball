@@ -1,5 +1,5 @@
 {
-  "majLe": "2026-11-16T14:06:03.492Z",
+  "majLe": "2026-11-21T19:04:24.635Z",
   "poules": [
     {
       "id": "197847",
@@ -73,14 +73,14 @@
           "domicile": {
             "nom": "AS BRUFFIERE DEFONTAINE VENDEE HANDBALL",
             "club": true,
-            "score": null,
-            "scoreMT": null
+            "score": 5,
+            "scoreMT": 5
           },
           "exterieur": {
             "nom": "ST LOUIS DE CHAVAGNES EN PAILLERS",
             "club": false,
-            "score": null,
-            "scoreMT": null
+            "score": 3,
+            "scoreMT": 3
           }
         }
       ]

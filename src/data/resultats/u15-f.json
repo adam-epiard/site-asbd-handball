@@ -1,5 +1,5 @@
 {
-  "majLe": "2026-11-21T01:22:57.673Z",
+  "majLe": "2026-11-21T19:04:24.635Z",
   "poules": [
     {
       "id": "192825",
@@ -279,27 +279,27 @@
           "place": 1,
           "equipe": "LA ROCHE SUR YON VHB 1",
           "club": false,
-          "points": 3,
-          "joues": 1,
-          "gagnes": 0,
+          "points": 6,
+          "joues": 2,
+          "gagnes": 1,
           "nuls": 0,
           "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
+          "butsPour": 49,
+          "butsContre": 7,
+          "difference": 42
         },
         {
           "place": 2,
           "equipe": "AS BRUFFIERE DEFONTAINE VHB",
           "club": true,
-          "points": 3,
-          "joues": 1,
+          "points": 4,
+          "joues": 2,
           "gagnes": 0,
           "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
+          "perdus": 1,
+          "butsPour": 7,
+          "butsContre": 49,
+          "difference": -42
         },
         {
           "place": 3,
@@ -343,14 +343,14 @@
           "domicile": {
             "nom": "AS BRUFFIERE DEFONTAINE VHB",
             "club": true,
-            "score": null,
-            "scoreMT": null
+            "score": 7,
+            "scoreMT": 2
           },
           "exterieur": {
             "nom": "LA ROCHE SUR YON VHB 1",
             "club": false,
-            "score": null,
-            "scoreMT": null
+            "score": 49,
+            "scoreMT": 23
           }
         }
       ]
