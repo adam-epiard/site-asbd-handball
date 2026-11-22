@@ -1,5 +1,5 @@
 {
-  "majLe": "2026-11-22T11:57:58.545Z",
+  "majLe": "2026-11-22T19:27:23.008Z",
   "poules": [
     {
       "id": "191755",
@@ -756,6 +756,19 @@
         },
         {
           "place": 5,
+          "equipe": "SAVENAY HB *ESTUAIRE ET SILLON",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 33,
+          "butsContre": 24,
+          "difference": 9
+        },
+        {
+          "place": 6,
           "equipe": "ANCENIS HANDBALL 2",
           "club": false,
           "points": 3,
@@ -768,7 +781,46 @@
           "difference": 9
         },
         {
-          "place": 6,
+          "place": 7,
+          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+          "club": true,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 34,
+          "butsContre": 27,
+          "difference": 7
+        },
+        {
+          "place": 8,
+          "equipe": "HBC DURTAL",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 40,
+          "butsContre": 35,
+          "difference": 5
+        },
+        {
+          "place": 9,
+          "equipe": "HBC DU HAVRE DE VIE",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 35,
+          "butsContre": 30,
+          "difference": 5
+        },
+        {
+          "place": 10,
           "equipe": "NORT AC HANDBALL",
           "club": false,
           "points": 3,
@@ -781,7 +833,33 @@
           "difference": 5
         },
         {
-          "place": 7,
+          "place": 11,
+          "equipe": "ASCED RIAILLE",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 34,
+          "butsContre": 31,
+          "difference": 3
+        },
+        {
+          "place": 12,
+          "equipe": "D2M85 E.POIRE *VIE ET YON 2",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 33,
+          "butsContre": 30,
+          "difference": 3
+        },
+        {
+          "place": 13,
           "equipe": "LEGE HANDBALL CLUB",
           "club": false,
           "points": 3,
@@ -794,7 +872,7 @@
           "difference": 2
         },
         {
-          "place": 8,
+          "place": 14,
           "equipe": "HB ST FLORENT*SLAM",
           "club": false,
           "points": 1,
@@ -807,7 +885,59 @@
           "difference": -2
         },
         {
-          "place": 9,
+          "place": 15,
+          "equipe": "HERIC HANDBALL",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 31,
+          "butsContre": 34,
+          "difference": -3
+        },
+        {
+          "place": 16,
+          "equipe": "HBC GESVRES*ALLIANCE ERDRE ET GESVRES",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 30,
+          "butsContre": 33,
+          "difference": -3
+        },
+        {
+          "place": 17,
+          "equipe": "US LAVALLOISE HB",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 35,
+          "butsContre": 40,
+          "difference": -5
+        },
+        {
+          "place": 18,
+          "equipe": "PORTERIE HB* ALLIANCE ERDRE ET GESVRES",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 30,
+          "butsContre": 35,
+          "difference": -5
+        },
+        {
+          "place": 19,
           "equipe": "SEVRE*LES HERBIERS 2",
           "club": false,
           "points": 1,
@@ -820,7 +950,33 @@
           "difference": -5
         },
         {
-          "place": 10,
+          "place": 20,
+          "equipe": "FOUSSAIS PAYRE HB",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 27,
+          "butsContre": 34,
+          "difference": -7
+        },
+        {
+          "place": 21,
+          "equipe": "HB DONGES ATLANTIQUE",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 24,
+          "butsContre": 33,
+          "difference": -9
+        },
+        {
+          "place": 22,
           "equipe": "ERNEENNE SPORT HB",
           "club": false,
           "points": 1,
@@ -833,7 +989,7 @@
           "difference": -9
         },
         {
-          "place": 11,
+          "place": 23,
           "equipe": "HBC PAYS DE LOIRON",
           "club": false,
           "points": 1,
@@ -846,7 +1002,7 @@
           "difference": -10
         },
         {
-          "place": 12,
+          "place": 24,
           "equipe": "TALMONT HBC 1",
           "club": false,
           "points": 1,
@@ -859,7 +1015,7 @@
           "difference": -20
         },
         {
-          "place": 13,
+          "place": 25,
           "equipe": "ECLAIR CHAUVE HANDBALL",
           "club": false,
           "points": 1,
@@ -872,33 +1028,7 @@
           "difference": -21
         },
         {
-          "place": 14,
-          "equipe": "SAVENAY HB *ESTUAIRE ET SILLON",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 15,
-          "equipe": "HBC GESVRES*ALLIANCE ERDRE ET GESVRES",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 16,
+          "place": 26,
           "equipe": "HBC BLINOIS",
           "club": false,
           "points": 0,
@@ -911,138 +1041,8 @@
           "difference": 0
         },
         {
-          "place": 17,
-          "equipe": "HERIC HANDBALL",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 18,
-          "equipe": "HBC DU HAVRE DE VIE",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 19,
-          "equipe": "ASC LA MONTAGNE 1",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 20,
-          "equipe": "HB DONGES ATLANTIQUE",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 21,
-          "equipe": "US LAVALLOISE HB",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 22,
-          "equipe": "D2M85 E.POIRE *VIE ET YON 2",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 23,
-          "equipe": "PORTERIE HB* ALLIANCE ERDRE ET GESVRES",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 24,
-          "equipe": "ASCED RIAILLE",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 25,
-          "equipe": "HBC DURTAL",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 26,
-          "equipe": "AS BRUFFIERE DEFONTAINE VHB",
-          "club": true,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
           "place": 27,
-          "equipe": "FOUSSAIS PAYRE HB",
+          "equipe": "ASC LA MONTAGNE 1",
           "club": false,
           "points": 0,
           "joues": 0,
@@ -1078,14 +1078,14 @@
           "domicile": {
             "nom": "FOUSSAIS PAYRE HB",
             "club": false,
-            "score": null,
-            "scoreMT": null
+            "score": 27,
+            "scoreMT": 15
           },
           "exterieur": {
             "nom": "AS BRUFFIERE DEFONTAINE VHB",
             "club": true,
-            "score": null,
-            "scoreMT": null
+            "score": 34,
+            "scoreMT": 19
           }
         }
       ]

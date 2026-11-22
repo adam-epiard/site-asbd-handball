@@ -1,5 +1,5 @@
 {
-  "majLe": "2026-11-22T11:57:58.545Z",
+  "majLe": "2026-11-22T19:27:23.008Z",
   "poules": [
     {
       "id": "193573",
@@ -599,6 +599,19 @@
         },
         {
           "place": 2,
+          "equipe": "LE LANDREAU HANDBALL",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 29,
+          "butsContre": 15,
+          "difference": 14
+        },
+        {
+          "place": 3,
           "equipe": "FANS HB LIGNE",
           "club": false,
           "points": 3,
@@ -611,7 +624,7 @@
           "difference": 13
         },
         {
-          "place": 3,
+          "place": 4,
           "equipe": "ST FLORENT*TALMONT",
           "club": false,
           "points": 3,
@@ -624,7 +637,7 @@
           "difference": 13
         },
         {
-          "place": 4,
+          "place": 5,
           "equipe": "HBC DURTAL",
           "club": false,
           "points": 3,
@@ -637,7 +650,20 @@
           "difference": 11
         },
         {
-          "place": 5,
+          "place": 6,
+          "equipe": "AS ETIVAL HANDBALL",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 23,
+          "butsContre": 12,
+          "difference": 11
+        },
+        {
+          "place": 7,
           "equipe": "SUD ESTUAIRE*ECLAIR CHAUVE HB",
           "club": false,
           "points": 3,
@@ -650,7 +676,20 @@
           "difference": 6
         },
         {
-          "place": 6,
+          "place": 8,
+          "equipe": "SEVRE VENDEE HANDBALL",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 23,
+          "butsContre": 18,
+          "difference": 5
+        },
+        {
+          "place": 9,
           "equipe": "NORT AC HANDBALL",
           "club": false,
           "points": 3,
@@ -663,7 +702,20 @@
           "difference": 4
         },
         {
-          "place": 7,
+          "place": 10,
+          "equipe": "AL ST ETIENNE*ESTUAIRE ET SILLON HB",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 31,
+          "butsContre": 29,
+          "difference": 2
+        },
+        {
+          "place": 11,
           "equipe": "CSC LE MANS",
           "club": false,
           "points": 3,
@@ -676,7 +728,33 @@
           "difference": 1
         },
         {
-          "place": 8,
+          "place": 12,
+          "equipe": "ES AUBANCE HANDBALL",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 20,
+          "butsContre": 19,
+          "difference": 1
+        },
+        {
+          "place": 13,
+          "equipe": "FERRIERE*VICOMTAIS",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 11,
+          "butsContre": 10,
+          "difference": 1
+        },
+        {
+          "place": 14,
           "equipe": "ES LA SUZE HB 1",
           "club": false,
           "points": 1,
@@ -689,7 +767,46 @@
           "difference": -1
         },
         {
-          "place": 9,
+          "place": 15,
+          "equipe": "HANDBALL CLUB LEO LAGRANGE SUCE SUR ERDRE",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 19,
+          "butsContre": 20,
+          "difference": -1
+        },
+        {
+          "place": 16,
+          "equipe": "HANDBALL CLUB MARSIEN",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 10,
+          "butsContre": 11,
+          "difference": -1
+        },
+        {
+          "place": 17,
+          "equipe": "HBC BLINOIS",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 29,
+          "butsContre": 31,
+          "difference": -2
+        },
+        {
+          "place": 18,
           "equipe": "HBC HERBLINOIS",
           "club": false,
           "points": 1,
@@ -702,7 +819,20 @@
           "difference": -4
         },
         {
-          "place": 10,
+          "place": 19,
+          "equipe": "AS BRUFFIERE DEFONTAINE VENDEE HANDBALL",
+          "club": true,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 18,
+          "butsContre": 23,
+          "difference": -5
+        },
+        {
+          "place": 20,
           "equipe": "HBAC STE PAZANNE",
           "club": false,
           "points": 1,
@@ -715,7 +845,7 @@
           "difference": -6
         },
         {
-          "place": 11,
+          "place": 21,
           "equipe": "ANCENIS HANDBALL 2",
           "club": false,
           "points": 1,
@@ -728,7 +858,20 @@
           "difference": -11
         },
         {
-          "place": 12,
+          "place": 22,
+          "equipe": "OLYMPIQUE BAUGEOIS HANDBALL",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 12,
+          "butsContre": 23,
+          "difference": -11
+        },
+        {
+          "place": 23,
           "equipe": "FOUSSAIS PAYRE HB",
           "club": false,
           "points": 1,
@@ -741,7 +884,7 @@
           "difference": -13
         },
         {
-          "place": 13,
+          "place": 24,
           "equipe": "NOZAY OS HANDBALL",
           "club": false,
           "points": 1,
@@ -754,7 +897,20 @@
           "difference": -13
         },
         {
-          "place": 14,
+          "place": 25,
+          "equipe": "PHILBERT HANDBALL",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 15,
+          "butsContre": 29,
+          "difference": -14
+        },
+        {
+          "place": 26,
           "equipe": "HBC DOMPIERROIS*VIEYON",
           "club": false,
           "points": 1,
@@ -765,162 +921,6 @@
           "butsPour": 16,
           "butsContre": 41,
           "difference": -25
-        },
-        {
-          "place": 15,
-          "equipe": "ES AUBANCE HANDBALL",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 16,
-          "equipe": "OLYMPIQUE BAUGEOIS HANDBALL",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 17,
-          "equipe": "HBC BLINOIS",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 18,
-          "equipe": "LE LANDREAU HANDBALL",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 19,
-          "equipe": "PHILBERT HANDBALL",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 20,
-          "equipe": "SEVRE VENDEE HANDBALL",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 21,
-          "equipe": "HANDBALL CLUB LEO LAGRANGE SUCE SUR ERDRE",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 22,
-          "equipe": "FERRIERE*VICOMTAIS",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 23,
-          "equipe": "AL ST ETIENNE*ESTUAIRE ET SILLON HB",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 24,
-          "equipe": "AS BRUFFIERE DEFONTAINE VENDEE HANDBALL",
-          "club": true,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 25,
-          "equipe": "HANDBALL CLUB MARSIEN",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 26,
-          "equipe": "AS ETIVAL HANDBALL",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
         }
       ],
       "journeesLues": [
@@ -934,14 +934,14 @@
           "domicile": {
             "nom": "SEVRE VENDEE HANDBALL",
             "club": false,
-            "score": null,
-            "scoreMT": null
+            "score": 23,
+            "scoreMT": 10
           },
           "exterieur": {
             "nom": "AS BRUFFIERE DEFONTAINE VENDEE HANDBALL",
             "club": true,
-            "score": null,
-            "scoreMT": null
+            "score": 18,
+            "scoreMT": 11
           }
         }
       ]
