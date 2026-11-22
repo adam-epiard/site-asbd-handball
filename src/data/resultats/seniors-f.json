@@ -1,5 +1,5 @@
 {
-  "majLe": "2026-11-21T01:22:57.673Z",
+  "majLe": "2026-11-22T11:57:58.545Z",
   "poules": [
     {
       "id": "193573",
@@ -586,71 +586,188 @@
       "classement": [
         {
           "place": 1,
-          "equipe": "ANCENIS HANDBALL 2",
+          "equipe": "HBC DU LAC",
           "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
           "nuls": 0,
           "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
+          "butsPour": 41,
+          "butsContre": 16,
+          "difference": 25
         },
         {
           "place": 2,
           "equipe": "FANS HB LIGNE",
           "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
           "nuls": 0,
           "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
+          "butsPour": 35,
+          "butsContre": 22,
+          "difference": 13
         },
         {
           "place": 3,
-          "equipe": "HBAC STE PAZANNE",
+          "equipe": "ST FLORENT*TALMONT",
           "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
           "nuls": 0,
           "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
+          "butsPour": 35,
+          "butsContre": 22,
+          "difference": 13
         },
         {
           "place": 4,
-          "equipe": "HBC HERBLINOIS",
+          "equipe": "HBC DURTAL",
           "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
           "nuls": 0,
           "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
+          "butsPour": 33,
+          "butsContre": 22,
+          "difference": 11
         },
         {
           "place": 5,
-          "equipe": "CSC LE MANS",
+          "equipe": "SUD ESTUAIRE*ECLAIR CHAUVE HB",
           "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
           "nuls": 0,
           "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
+          "butsPour": 34,
+          "butsContre": 28,
+          "difference": 6
         },
         {
           "place": 6,
+          "equipe": "NORT AC HANDBALL",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 21,
+          "butsContre": 17,
+          "difference": 4
+        },
+        {
+          "place": 7,
+          "equipe": "CSC LE MANS",
+          "club": false,
+          "points": 3,
+          "joues": 1,
+          "gagnes": 1,
+          "nuls": 0,
+          "perdus": 0,
+          "butsPour": 25,
+          "butsContre": 24,
+          "difference": 1
+        },
+        {
+          "place": 8,
+          "equipe": "ES LA SUZE HB 1",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 24,
+          "butsContre": 25,
+          "difference": -1
+        },
+        {
+          "place": 9,
+          "equipe": "HBC HERBLINOIS",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 17,
+          "butsContre": 21,
+          "difference": -4
+        },
+        {
+          "place": 10,
+          "equipe": "HBAC STE PAZANNE",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 28,
+          "butsContre": 34,
+          "difference": -6
+        },
+        {
+          "place": 11,
+          "equipe": "ANCENIS HANDBALL 2",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 22,
+          "butsContre": 33,
+          "difference": -11
+        },
+        {
+          "place": 12,
+          "equipe": "FOUSSAIS PAYRE HB",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 22,
+          "butsContre": 35,
+          "difference": -13
+        },
+        {
+          "place": 13,
+          "equipe": "NOZAY OS HANDBALL",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 22,
+          "butsContre": 35,
+          "difference": -13
+        },
+        {
+          "place": 14,
+          "equipe": "HBC DOMPIERROIS*VIEYON",
+          "club": false,
+          "points": 1,
+          "joues": 1,
+          "gagnes": 0,
+          "nuls": 0,
+          "perdus": 1,
+          "butsPour": 16,
+          "butsContre": 41,
+          "difference": -25
+        },
+        {
+          "place": 15,
           "equipe": "ES AUBANCE HANDBALL",
           "club": false,
           "points": 0,
@@ -663,20 +780,7 @@
           "difference": 0
         },
         {
-          "place": 7,
-          "equipe": "HBC DU LAC",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 8,
+          "place": 16,
           "equipe": "OLYMPIQUE BAUGEOIS HANDBALL",
           "club": false,
           "points": 0,
@@ -689,7 +793,7 @@
           "difference": 0
         },
         {
-          "place": 9,
+          "place": 17,
           "equipe": "HBC BLINOIS",
           "club": false,
           "points": 0,
@@ -702,7 +806,7 @@
           "difference": 0
         },
         {
-          "place": 10,
+          "place": 18,
           "equipe": "LE LANDREAU HANDBALL",
           "club": false,
           "points": 0,
@@ -715,7 +819,7 @@
           "difference": 0
         },
         {
-          "place": 11,
+          "place": 19,
           "equipe": "PHILBERT HANDBALL",
           "club": false,
           "points": 0,
@@ -728,20 +832,7 @@
           "difference": 0
         },
         {
-          "place": 12,
-          "equipe": "ES LA SUZE HB 1",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 13,
+          "place": 20,
           "equipe": "SEVRE VENDEE HANDBALL",
           "club": false,
           "points": 0,
@@ -754,7 +845,7 @@
           "difference": 0
         },
         {
-          "place": 14,
+          "place": 21,
           "equipe": "HANDBALL CLUB LEO LAGRANGE SUCE SUR ERDRE",
           "club": false,
           "points": 0,
@@ -767,7 +858,7 @@
           "difference": 0
         },
         {
-          "place": 15,
+          "place": 22,
           "equipe": "FERRIERE*VICOMTAIS",
           "club": false,
           "points": 0,
@@ -780,7 +871,7 @@
           "difference": 0
         },
         {
-          "place": 16,
+          "place": 23,
           "equipe": "AL ST ETIENNE*ESTUAIRE ET SILLON HB",
           "club": false,
           "points": 0,
@@ -793,33 +884,7 @@
           "difference": 0
         },
         {
-          "place": 17,
-          "equipe": "HBC DOMPIERROIS*VIEYON",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 18,
-          "equipe": "HANDBALL CLUB MARSIEN",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 19,
+          "place": 24,
           "equipe": "AS BRUFFIERE DEFONTAINE VENDEE HANDBALL",
           "club": true,
           "points": 0,
@@ -832,73 +897,8 @@
           "difference": 0
         },
         {
-          "place": 20,
-          "equipe": "HBC DURTAL",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 21,
-          "equipe": "SUD ESTUAIRE*ECLAIR CHAUVE HB",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 22,
-          "equipe": "NORT AC HANDBALL",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 23,
-          "equipe": "FOUSSAIS PAYRE HB",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
-          "place": 24,
-          "equipe": "ST FLORENT*TALMONT",
-          "club": false,
-          "points": 0,
-          "joues": 0,
-          "gagnes": 0,
-          "nuls": 0,
-          "perdus": 0,
-          "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
-        },
-        {
           "place": 25,
-          "equipe": "NOZAY OS HANDBALL",
+          "equipe": "HANDBALL CLUB MARSIEN",
           "club": false,
           "points": 0,
           "joues": 0,

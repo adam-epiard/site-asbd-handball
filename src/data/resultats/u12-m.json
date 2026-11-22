@@ -1,5 +1,5 @@
 {
-  "majLe": "2026-11-18T16:04:00.173Z",
+  "majLe": "2026-11-22T11:57:58.545Z",
   "poules": [
     {
       "id": "192722",
@@ -495,14 +495,14 @@
           "domicile": {
             "nom": "AS BRUFFIERE DEFONTAINE VHB",
             "club": true,
-            "score": null,
-            "scoreMT": null
+            "score": 8,
+            "scoreMT": 2
           },
           "exterieur": {
             "nom": "MONTAIGU VHB 1",
             "club": false,
-            "score": null,
-            "scoreMT": null
+            "score": 30,
+            "scoreMT": 9
           }
         }
       ]
