@@ -1,5 +1,5 @@
 {
-  "majLe": "2026-11-21T19:04:24.635Z",
+  "majLe": "2026-11-26T13:06:58.283Z",
   "poules": [
     {
       "id": "192825",
@@ -281,12 +281,12 @@
           "club": false,
           "points": 6,
           "joues": 2,
-          "gagnes": 1,
+          "gagnes": 2,
           "nuls": 0,
           "perdus": 0,
-          "butsPour": 49,
+          "butsPour": 69,
           "butsContre": 7,
-          "difference": 42
+          "difference": 62
         },
         {
           "place": 2,
@@ -294,12 +294,12 @@
           "club": true,
           "points": 4,
           "joues": 2,
-          "gagnes": 0,
+          "gagnes": 1,
           "nuls": 0,
           "perdus": 1,
-          "butsPour": 7,
+          "butsPour": 27,
           "butsContre": 49,
-          "difference": -42
+          "difference": -22
         },
         {
           "place": 3,
@@ -311,8 +311,8 @@
           "nuls": 0,
           "perdus": 2,
           "butsPour": 0,
-          "butsContre": 0,
-          "difference": 0
+          "butsContre": 40,
+          "difference": -40
         }
       ],
       "journeesLues": [
