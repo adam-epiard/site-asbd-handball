@@ -20,3 +20,8 @@ desktop.ini
 
 # fichiers sources lourds (vidéos brutes, exports) : seules les versions préparées vont dans public/
 design/
+
+# outils locaux (captures de tests navigateur, réglages de l'assistant, audits de travail)
+.playwright-mcp/
+.claude/
+reviews/
