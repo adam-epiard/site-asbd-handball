@@ -41,7 +41,8 @@ export const site: ReglagesSite = {
   emailLicences: '6285014@ffhandball.net',
   reseaux: {
     instagram: 'https://www.instagram.com/asbd_handball/',
-    facebook: 'https://www.facebook.com/asbdhandball',
+    facebook:
+      'https://www.facebook.com/people/Asbd-Vend%C3%A9e-Hand-Ball/pfbid0Q1DxofbGEgVwNjmKSqS9Ap7jbHRiqKEKjpr9yhYtLiwnRSnGTWBv6Vr2CqrYupGdl/',
   },
   /**
    * true tant que le site n'est en ligne que sur le sous-domaine de test :

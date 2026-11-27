@@ -62,12 +62,12 @@ const { adresse, email, emailLicences, reseaux } = site;
             <ul>
               {reseaux.instagram && (
                 <li>
-                  <a href={reseaux.instagram} rel="noopener">Instagram</a>
+                  <a href={reseaux.instagram} target="_blank" rel="noopener" aria-label="Instagram (nouvel onglet)">Instagram</a>
                 </li>
               )}
               {reseaux.facebook && (
                 <li>
-                  <a href={reseaux.facebook} rel="noopener">Facebook</a>
+                  <a href={reseaux.facebook} target="_blank" rel="noopener" aria-label="Facebook (nouvel onglet)">Facebook</a>
                 </li>
               )}
             </ul>
