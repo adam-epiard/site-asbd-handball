@@ -1,5 +1,5 @@
 {
-  "majLe": "2026-11-22T19:27:23.008Z",
+  "majLe": "2026-11-27T18:31:08.749Z",
   "poules": [
     {
       "id": "191755",
@@ -1086,6 +1086,48 @@
             "club": true,
             "score": 34,
             "scoreMT": 19
+          }
+        }
+      ]
+    },
+    {
+      "id": "202365",
+      "nom": "COUPE PDLL MASC DEP ; 2E TOUR",
+      "competition": "COUPE PAYS DE LA LOIRE DEPARTEMENTALE MASCULINE",
+      "phase": {
+        "nom": "COUPE PDLL MASC DEP ; 2E TOUR",
+        "classement": true
+      },
+      "source": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/regional/coupe-pays-de-la-loire-departementale-masculine-33594/",
+      "adresse": "https://www.ffhandball.fr/competitions/saison-2026-2027-22/regional/coupe-pays-de-la-loire-departementale-masculine-33594/poule-202365/",
+      "equipe": "AS BRUFFIERE DEFONTAINE VHB",
+      "journees": [
+        {
+          "numero": 1,
+          "debut": "2026-12-19",
+          "fin": "2026-12-20"
+        }
+      ],
+      "classement": [],
+      "journeesLues": [
+        1
+      ],
+      "rencontres": [
+        {
+          "id": "3124452",
+          "journee": 1,
+          "date": null,
+          "domicile": {
+            "nom": "ASSOCIATION HANDBALL VALLET",
+            "club": false,
+            "score": null,
+            "scoreMT": null
+          },
+          "exterieur": {
+            "nom": "AS BRUFFIERE DEFONTAINE VHB",
+            "club": true,
+            "score": null,
+            "scoreMT": null
           }
         }
       ]
