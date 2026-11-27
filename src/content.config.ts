@@ -157,6 +157,8 @@ const pages = defineCollection({
     titre: z.string().min(1),
     /** Description unique, reprise dans la balise meta et les aperçus. */
     description: z.string().min(1).max(160),
+    /** Phrase d'accroche sous le titre, dans l'en-tête de la page. Vide : rien ne s'affiche. */
+    intro: z.string().min(1).optional(),
   }),
 });
 
@@ -183,4 +185,18 @@ const partenaires = defineCollection({
     }),
 });
 
-export const collections = { equipes, pages, membres, partenaires, resultats };
+/**
+ * Photo d'en-tête des pages internes. L'id de chaque entrée est l'adresse de la page
+ * (ex. "/histoire/"). Pas d'entrée : l'en-tête reste noir, avec le motif du terrain.
+ */
+const entetes = defineCollection({
+  loader: file('src/content/entetes.json'),
+  schema: ({ image }) =>
+    z.object({
+      photo: image(),
+      /** Texte alternatif obligatoire : la photo est fournie avec sa description. */
+      alt: z.string().min(1),
+    }),
+});
+
+export const collections = { equipes, pages, membres, partenaires, resultats, entetes };

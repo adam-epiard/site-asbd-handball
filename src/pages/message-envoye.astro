@@ -1,13 +1,14 @@
 ---
 /** Confirmation après envoi d'un formulaire sans JavaScript. */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EnteteRubrique from '../components/ui/EnteteRubrique.astro';
 import Alerte from '../components/ui/Alerte.astro';
 import Bouton from '../components/ui/Bouton.astro';
 ---
 
 <BaseLayout titre="Message envoyé" description="Votre message a bien été envoyé au club." bandeauPartenaires={false} noindex>
+  <EnteteRubrique titre="Message envoyé" rubrique={false} />
   <section class="section conteneur confirmation">
-    <h1>Message envoyé</h1>
     <Alerte type="succes" titre="C'est parti">
       <p>Le club a bien reçu votre message et vous répond par e-mail dans les prochains jours.</p>
     </Alerte>

@@ -183,6 +183,21 @@ ffmpeg -ss 1 -i public/video/bandeau-720.mp4 -frames:v 1 -c:v libwebp -quality 7
 Puis décommenter `videoAccueil` dans `src/config/site.ts`.
 La vidéo ne se lance pas si le visiteur a réduit les animations ou active l'économie de données : l'image fixe s'affiche à la place.
 
+## Photo d'en-tête de page
+
+Chaque page interne a un en-tête noir avec le motif du terrain. Pour y mettre une photo à la place :
+
+1. Déposer l'image dans `src/assets/entetes/` (paysage, au moins 1920 px de large).
+2. Ajouter une entrée dans `src/content/entetes.json`, l'`id` étant l'adresse de la page :
+
+```json
+[
+  { "id": "/histoire/", "photo": "../assets/entetes/histoire.jpg", "alt": "Description de la photo" }
+]
+```
+
+Le texte alternatif (`alt`) est obligatoire. Un voile sombre assure la lisibilité du titre. Sans entrée, l'en-tête garde le motif du terrain.
+
 ## Revenir en arrière
 
 - Sur le nouveau site : `git revert <commit>` puis push ; l'Action republie la version précédente.

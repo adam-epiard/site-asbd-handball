@@ -1,14 +1,13 @@
 ---
 titre: Prendre une licence
 description: Comment prendre ou renouveler sa licence à l'ASBD Vendée Handball, de la demande par e-mail à la validation sur Gest'Hand.
+intro: 'La licence se fait en ligne, sur Gest''Hand, la plateforme de la Fédération française de handball. Comptez une quinzaine de minutes.'
 ---
-
-La licence se fait en ligne, sur Gest'Hand, la plateforme de la Fédération française de handball. Comptez une quinzaine de minutes.
 
 ## Réductions
 
-- 50 % sur la licence pour les coachs
-- 25 % pour les bénévoles du bureau et du conseil d'administration
+- **50 %** sur la licence pour les coachs
+- **50 %** pour les bénévoles du bureau et du conseil d'administration
 
 ## Les étapes
 

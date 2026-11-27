@@ -45,7 +45,7 @@ const description = `${descriptionParts.join(', ')} : entraînements, coachs et 
         {rubrique && <a class="entete-equipe__retour" href={rubrique.href}>{rubrique.label}</a>}
         <h1>{nom}</h1>
         <p class="entete-equipe__infos">
-          <Etiquette>{libelleCategorie(equipe)}</Etiquette>
+          <Etiquette variante="rouge">{libelleCategorie(equipe)}</Etiquette>
           {info && <span>{info}</span>}
         </p>
       </div>
@@ -60,6 +60,8 @@ const description = `${descriptionParts.join(', ')} : entraînements, coachs et 
       }
     </div>
   </section>
+
+  <MatchsEquipe equipe={equipe} blocs={['prochain', 'dernier']} titre={false} id="a-suivre" />
 
   {
     (entrainements.length > 0 || coachs.length > 0) && (
@@ -112,11 +114,13 @@ const description = `${descriptionParts.join(', ')} : entraînements, coachs et 
     )
   }
 
-  <MatchsEquipe equipe={equipe} />
+  <MatchsEquipe equipe={equipe} blocs={['calendrier', 'classement', 'coupes']} />
 </BaseLayout>
 
 <style>
   .entete-equipe {
+    background: var(--noir);
+    color: var(--blanc);
     padding-top: var(--espace-7);
     border-bottom: 4px solid var(--rouge);
     overflow: hidden;
@@ -138,10 +142,16 @@ const description = `${descriptionParts.join(', ')} : entraînements, coachs et 
     padding-bottom: var(--espace-6);
   }
 
+  .entete-equipe h1 {
+    color: var(--blanc);
+  }
+
   .entete-equipe__retour {
     display: inline-block;
     margin-bottom: var(--espace-4);
     font-weight: var(--graisse-moyen);
+    color: var(--blanc);
+    text-decoration: underline;
   }
 
   .entete-equipe__infos {
@@ -149,7 +159,7 @@ const description = `${descriptionParts.join(', ')} : entraînements, coachs et 
     flex-wrap: wrap;
     align-items: center;
     gap: var(--espace-2) var(--espace-3);
-    color: var(--texte-doux);
+    color: #e6e6e6; /* gris clair sur noir, comme l'en-tête des pages internes */
   }
 
   .entete-equipe__photo {
@@ -167,13 +177,19 @@ const description = `${descriptionParts.join(', ')} : entraînements, coachs et 
 
   .infos-equipe {
     display: grid;
-    gap: var(--espace-7);
+    gap: var(--espace-5);
   }
 
   @media (min-width: 48rem) {
     .infos-equipe {
       grid-template-columns: 1fr 1fr;
     }
+  }
+
+  .infos-equipe > div {
+    padding: var(--espace-5);
+    background: var(--gris-salle);
+    border-radius: var(--rayon);
   }
 
   .liste-simple {

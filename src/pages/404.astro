@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EnteteRubrique from '../components/ui/EnteteRubrique.astro';
 ---
 
 <BaseLayout titre="Page introuvable" description="Cette page n'existe pas ou a été déplacée.">
-  <section class="conteneur introuvable">
-    <h1>Page introuvable</h1>
+  <EnteteRubrique titre="Page introuvable" rubrique={false} />
+  <section class="section conteneur introuvable">
     <p>Cette page n'existe pas ou a été déplacée. Vous cherchiez peut-être :</p>
     <ul>
       <li><a href="/">l'accueil</a></li>
@@ -19,7 +20,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .introuvable {
-    padding-block: var(--espace-6);
     max-width: 48rem;
   }
 </style>

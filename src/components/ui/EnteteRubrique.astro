@@ -1,0 +1,162 @@
+---
+/**
+ * En-tête commun des pages internes : bandeau noir, liseré rouge, titre blanc.
+ * Même famille que le bandeau d'accueil, mais bien plus bas : le contenu
+ * de la page reste visible dès l'ouverture.
+ *
+ * - Le repère de rubrique (« Le club », « Nos équipes »...) se déduit du menu ;
+ *   `rubrique={false}` le retire, par exemple pour une page hors menu.
+ * - La photo est cherchée dans la collection « entetes » par l'adresse de la page.
+ *   Sans photo, le motif du terrain occupe la droite ; avec photo, il disparaît.
+ * - Un champ vide n'affiche rien : pas d'intro, pas de paragraphe.
+ * - `niveau` ne sert qu'au design system, pour garder un seul h1 par page.
+ */
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import TraitsTerrain from './TraitsTerrain.astro';
+import { menu } from '../../config/navigation';
+import { normaliserChemin, rubriqueDe } from '../../lib/pages-outils';
+
+interface Props {
+  titre: string;
+  intro?: string;
+  /** Repère au-dessus du titre. Absent : déduit du menu. false : aucun. */
+  rubrique?: string | false;
+  lien?: { href: string; label: string };
+  niveau?: 'h1' | 'h2';
+}
+
+const { titre, intro, rubrique, lien, niveau = 'h1' } = Astro.props;
+
+const repere = rubrique === undefined ? rubriqueDe(Astro.url.pathname, menu) : rubrique || undefined;
+const entete = await getEntry('entetes', normaliserChemin(Astro.url.pathname));
+const photo = entete?.data;
+const Titre = niveau;
+---
+
+<header class:list={['entete-rubrique', { 'entete-rubrique--photo': photo }]}>
+  {
+    photo && (
+      <div class="entete-rubrique__media">
+        <Image
+          src={photo.photo}
+          alt={photo.alt}
+          widths={[640, 1280, 1920]}
+          sizes="100vw"
+          loading="eager"
+          class="entete-rubrique__photo"
+        />
+      </div>
+    )
+  }
+
+  <div class="conteneur entete-rubrique__texte">
+    {repere && <p class="entete-rubrique__repere">{repere}</p>}
+    <Titre class="entete-rubrique__titre">{titre}</Titre>
+    {intro && <p class="entete-rubrique__intro">{intro}</p>}
+    {lien && <a class="entete-rubrique__lien" href={lien.href}>{lien.label}</a>}
+  </div>
+
+  {
+    !photo && (
+      <div class="entete-rubrique__terrain">
+        <TraitsTerrain couleur="rouge" />
+      </div>
+    )
+  }
+</header>
+
+<style>
+  .entete-rubrique {
+    position: relative;
+    padding-block: var(--espace-7);
+    background: var(--noir);
+    color: var(--blanc);
+    border-bottom: 4px solid var(--rouge);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .entete-rubrique__texte {
+    position: relative;
+    z-index: 2;
+  }
+
+  .entete-rubrique__repere {
+    margin-bottom: var(--espace-2);
+    font-size: var(--taille-sm);
+    font-weight: 500;
+    color: #e6e6e6;
+  }
+
+  .entete-rubrique__titre {
+    max-width: 24ch;
+    color: var(--blanc);
+  }
+
+  .entete-rubrique__intro {
+    max-width: 36rem;
+    margin-top: var(--espace-4);
+    font-size: var(--taille-lg);
+    color: #e6e6e6;
+  }
+
+  .entete-rubrique__lien {
+    display: inline-block;
+    margin-top: var(--espace-4);
+    color: var(--blanc);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .entete-rubrique__lien:focus-visible {
+    outline-color: var(--blanc);
+  }
+
+  /* Le motif reste derrière le texte : petit et calé en bas à droite sur téléphone. */
+  .entete-rubrique__terrain {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 14rem;
+  }
+
+  /* Sur téléphone, le texte occupe presque toute la largeur : on réserve sous lui la hauteur
+     du motif (14rem de large, soit 7rem de haut) pour qu'il ne passe jamais derrière les lignes. */
+  .entete-rubrique:not(.entete-rubrique--photo) {
+    padding-bottom: calc(7rem + var(--espace-4));
+  }
+
+  /* ---------- Version photo ---------- */
+  .entete-rubrique__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .entete-rubrique__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Voile : même dégradé que le bandeau d'accueil, plus sombre derrière le texte. */
+  .entete-rubrique__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(0 0 0 / 0.72) 0%, rgb(0 0 0 / 0.45) 60%, rgb(0 0 0 / 0.3) 100%);
+  }
+
+  @media (min-width: 60rem) {
+    .entete-rubrique,
+    .entete-rubrique:not(.entete-rubrique--photo) {
+      padding-block: var(--espace-8);
+    }
+
+    .entete-rubrique__terrain {
+      width: 28rem;
+    }
+  }
+</style>

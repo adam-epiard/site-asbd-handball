@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TitreSection from '../components/ui/TitreSection.astro';
+import EnteteRubrique from '../components/ui/EnteteRubrique.astro';
 
 const membres = (await getCollection('membres')).sort((a, b) => a.data.ordre - b.data.ordre);
 const groupes = [
@@ -14,8 +14,8 @@ const groupes = [
   titre="Membres"
   description="Le bureau et les commissions de l'ASBD Vendée Handball, les bénévoles qui font vivre le club de La Bruffière."
 >
+  <EnteteRubrique titre="Les bénévoles du club" intro="Le bureau et les commissions qui font vivre l'ASBD au quotidien." />
   <section class="section conteneur">
-    <TitreSection niveau="h1" titre="Les bénévoles du club" intro="Le bureau et les commissions qui font vivre l'ASBD au quotidien." />
     {
       groupes.map((groupe) => (
         <div class="groupe">

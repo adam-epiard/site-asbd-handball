@@ -4,6 +4,7 @@
  * puis les résultats des dernières semaines. Le détail par équipe est sur sa page.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EnteteRubrique from '../components/ui/EnteteRubrique.astro';
 import TitreSection from '../components/ui/TitreSection.astro';
 import ListeMatchs from '../components/matchs/ListeMatchs.astro';
 import SourceFfhb from '../components/matchs/SourceFfhb.astro';
@@ -32,9 +33,8 @@ const titre = (s: Parameters<typeof libelleSemaine>[0]) => {
   titre="Matchs"
   description="Calendrier et résultats des équipes de l'ASBD Vendée Handball : matchs à domicile à La Bruffière et à l'extérieur."
 >
+  <EnteteRubrique titre="Matchs" intro="Les matchs du club, à domicile et à l'extérieur. Venez encourager les Rouges !" />
   <section class="section conteneur">
-    <TitreSection niveau="h1" titre="Matchs" intro="Les matchs du club, à domicile et à l'extérieur. Venez encourager les Rouges !" />
-
     {
       aVenir.length > 0 ? (
         <div class="semaines">

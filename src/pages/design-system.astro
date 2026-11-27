@@ -5,6 +5,7 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Bandeau from '../components/ui/Bandeau.astro';
+import EnteteRubrique from '../components/ui/EnteteRubrique.astro';
 import Bouton from '../components/ui/Bouton.astro';
 import Etiquette from '../components/ui/Etiquette.astro';
 import TitreSection from '../components/ui/TitreSection.astro';
@@ -274,6 +275,14 @@ const sommaire = [
     </div>
   </section>
 
+  <section class="section conteneur" aria-labelledby="entete">
+    <TitreSection id="entete" titre="En-tête de page" intro="Bandeau noir des pages internes : repère de rubrique, titre, phrase d'accroche facultative. La photo s'ajoute depuis le fichier des en-têtes." />
+    <div class="exemples-entete">
+      <EnteteRubrique niveau="h2" rubrique="Le club" titre="Histoire" intro="Plus de trente ans de handball à La Bruffière." />
+      <EnteteRubrique niveau="h2" rubrique="Nos équipes" titre="Équipes féminines" />
+    </div>
+  </section>
+
   <section class="section conteneur" aria-labelledby="formes">
     <TitreSection id="formes" titre="Espacements et formes" intro="Les espacements suivent une échelle fixe, pour un rythme régulier d'une page à l'autre." />
     <ul class="espacements">
@@ -292,7 +301,7 @@ const sommaire = [
       <div class="forme forme--pilule">Boutons <code>--rayon-bouton</code></div>
     </div>
     <h3 class="sous-titre">Motif du terrain</h3>
-    <p>La zone des 6 et 9 mètres, utilisée avec parcimonie : bandeau d'accueil, cartes sans photo, page introuvable.</p>
+    <p>La zone des 6 et 9 mètres, utilisée avec parcimonie : bandeau d'accueil, en-tête des pages internes, cartes sans photo, page introuvable.</p>
     <div class="motifs">
       <div class="motif"><TraitsTerrain couleur="rouge" /></div>
       <div class="motif motif--gris"><TraitsTerrain couleur="ligne" /></div>
@@ -302,6 +311,11 @@ const sommaire = [
 </BaseLayout>
 
 <style>
+  .exemples-entete {
+    display: grid;
+    gap: var(--espace-5);
+  }
+
   .intro__chapeau {
     font-size: var(--taille-lg);
   }

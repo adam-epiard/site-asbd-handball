@@ -4,8 +4,9 @@
  * changer un horaire ne se fait qu'à un seul endroit.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TitreSection from '../components/ui/TitreSection.astro';
-import { getEquipes, libelleJour, lienEquipe, rangJour } from '../lib/equipes';
+import EnteteRubrique from '../components/ui/EnteteRubrique.astro';
+import { getEquipes, libelleCategorie, libelleJour, lienEquipe, rangJour } from '../lib/equipes';
+import { minutesDebut } from '../lib/pages-outils';
 import { site } from '../config/site';
 
 const equipes = (await getEquipes()).filter((e) => e.data.entrainements.length > 0);
@@ -19,6 +20,14 @@ for (const equipe of equipes) {
     parJour.set(e.jour, liste);
   }
 }
+// Créneaux triés par heure de début ; comparateur sûr si deux horaires sont illisibles (Infinity).
+for (const liste of parJour.values()) {
+  liste.sort((a, b) => {
+    const x = minutesDebut(a.horaire);
+    const y = minutesDebut(b.horaire);
+    return x < y ? -1 : x > y ? 1 : 0;
+  });
+}
 const jours = [...parJour.keys()].sort((a, b) => rangJour(a) - rangJour(b));
 ---
 
@@ -26,14 +35,12 @@ const jours = [...parJour.keys()].sort((a, b) => rangJour(a) - rangJour(b));
   titre="Entraînements"
   description="Horaires d'entraînement de chaque équipe de l'ASBD Vendée Handball, du baby hand aux seniors, à la salle de La Bruffière."
 >
+  <EnteteRubrique
+    titre="Entraînements"
+    intro={`Tous les entraînements ont lieu à la salle de La Bruffière, ${site.adresse.rue}.`}
+    lien={{ href: '/ou-nous-trouver/', label: "Plan d'accès" }}
+  />
   <section class="section conteneur">
-    <TitreSection
-      niveau="h1"
-      titre="Entraînements"
-      intro={`Tous les entraînements ont lieu à la salle de La Bruffière, ${site.adresse.rue}.`}
-      lien={{ href: '/ou-nous-trouver/', label: "Plan d'accès" }}
-    />
-
     <div class="tableau-defilant">
       <table class="tableau">
         <caption class="visuellement-cache">Horaires d'entraînement par équipe</caption>
@@ -70,16 +77,22 @@ const jours = [...parJour.keys()].sort((a, b) => rangJour(a) - rangJour(b));
   <section class="section section--alterne" aria-labelledby="par-jour">
     <div class="conteneur">
       <h2 id="par-jour">Semaine type</h2>
-      <div class="semaine">
+      <ul class="legende" aria-label="Légende des catégories">
+        <li class="legende__item legende__item--feminine">Féminine</li>
+        <li class="legende__item legende__item--masculine">Masculine</li>
+        <li class="legende__item legende__item--mixte">Mixte</li>
+      </ul>
+      <div class="semaine" style={`--colonnes: ${jours.length}`}>
         {
           jours.map((jour) => (
             <div class="semaine__jour">
               <h3>{libelleJour(jour)}</h3>
               <ul>
                 {parJour.get(jour)?.map(({ equipe, horaire }) => (
-                  <li>
+                  <li class={`creneau-bloc creneau-bloc--${equipe.data.categorie}`}>
                     <span class="semaine__horaire">{horaire}</span>
                     <a href={lienEquipe(equipe)}>{equipe.data.nom}</a>
+                    <span class="semaine__categorie">{libelleCategorie(equipe)}</span>
                   </li>
                 ))}
               </ul>
@@ -126,40 +139,88 @@ const jours = [...parJour.keys()].sort((a, b) => rangJour(a) - rangJour(b));
     font-variant-numeric: tabular-nums;
   }
 
+  .legende {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espace-2) var(--espace-5);
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--espace-5);
+    font-size: var(--taille-sm);
+  }
+
+  .legende__item {
+    padding-left: var(--espace-3);
+    border-left: 4px solid var(--ligne);
+  }
+
+  .legende__item--feminine {
+    border-left-color: var(--rouge);
+  }
+
+  .legende__item--masculine {
+    border-left-color: var(--noir);
+  }
+
   .semaine {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    grid-template-columns: 1fr;
     gap: var(--espace-5);
   }
 
-  .semaine__jour {
-    padding: var(--espace-5);
-    background: var(--blanc);
-    border-radius: var(--rayon);
+  @media (min-width: 48rem) {
+    .semaine {
+      grid-template-columns: repeat(var(--colonnes), 1fr);
+      gap: var(--espace-3);
+    }
   }
 
   .semaine__jour h3 {
     font-family: var(--police-titre);
     font-size: 1.75rem;
     font-weight: var(--graisse-titre);
+    margin-bottom: var(--espace-3);
   }
 
   .semaine__jour ul {
+    display: grid;
+    gap: var(--espace-2);
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  .semaine__jour li {
+  .creneau-bloc {
     display: flex;
     flex-direction: column;
-    padding: var(--espace-2) 0;
-    border-top: var(--trait);
+    padding: var(--espace-3);
+    background: var(--blanc);
+    border-left: 4px solid var(--ligne);
+    border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0;
+  }
+
+  .creneau-bloc--feminine {
+    border-left-color: var(--rouge);
+  }
+
+  .creneau-bloc--masculine {
+    border-left-color: var(--noir);
   }
 
   .semaine__horaire {
+    font-family: var(--police-titre);
+    font-size: 1.5rem;
+    font-weight: var(--graisse-titre);
+    line-height: var(--interligne-titre);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .creneau-bloc a {
+    font-weight: var(--graisse-gras);
+  }
+
+  .semaine__categorie {
     font-size: var(--taille-sm);
     color: var(--texte-doux);
-    font-variant-numeric: tabular-nums;
   }
 </style>

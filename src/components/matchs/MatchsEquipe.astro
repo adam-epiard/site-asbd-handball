@@ -30,13 +30,24 @@ type Bloc = 'prochain' | 'dernier' | 'calendrier' | 'classement' | 'coupes';
 interface Props {
   equipe: Equipe;
   blocs?: Bloc[];
+  /** Titre h2 de la section ; `false` : pas de titre visible, la section prend un aria-label. */
+  titre?: string | false;
+  /** Identifiant du titre (utile si la page porte deux instances). */
+  id?: string;
 }
 
-const { equipe, blocs = ['prochain', 'dernier', 'calendrier', 'classement', 'coupes'] } = Astro.props;
+const {
+  equipe,
+  blocs = ['prochain', 'dernier', 'calendrier', 'classement', 'coupes'],
+  titre = 'Matchs',
+  id,
+} = Astro.props;
 const maintenant = new Date();
 const matchs = await matchsEquipe(equipe);
 
-const prochain = blocs.includes('prochain') ? prochainMatch(matchs, maintenant) : undefined;
+// Le prochain match est toujours calculé : le calendrier l'exclut, même s'il est affiché ailleurs.
+const prochainCalcule = prochainMatch(matchs, maintenant);
+const prochain = blocs.includes('prochain') ? prochainCalcule : undefined;
 const dernier = blocs.includes('dernier') ? dernierResultat(matchs) : undefined;
 const avecCalendrier = blocs.includes('calendrier');
 const avecClassement = blocs.includes('classement');
@@ -53,9 +64,10 @@ const autresMatchs = avecPhases ? championnat.filter((m) => !idsPhases.has(m.id)
 const maj = await derniereMaj(equipe);
 const lien = await lienFfhbEquipe(equipe);
 
+const avecOnglets = avecCalendrier || avecClassement || blocs.includes('coupes');
 const aDuChampionnat = championnat.length > 0 || Boolean(classement);
 const aDesDonnees = Boolean(prochain || dernier || aDuChampionnat || coupes.length);
-const titreId = `matchs-${equipe.id}`;
+const titreId = id ? `matchs-${id}` : `matchs-${equipe.id}`;
 const onglets = [
   { id: 'championnat', titre: 'Championnat' },
   { id: 'coupes', titre: coupes.length > 1 ? `Coupes (${coupes.length})` : 'Coupe' },
@@ -75,8 +87,12 @@ const bilan = (c: (typeof coupes)[number]) => {
 
 {
   aDesDonnees && (
-    <section class="section conteneur matchs-equipe" aria-labelledby={titreId}>
-      <h2 id={titreId}>Matchs</h2>
+    <section
+      class="section conteneur matchs-equipe"
+      aria-labelledby={titre === false ? undefined : titreId}
+      aria-label={titre === false ? 'Prochain match et dernier résultat' : undefined}
+    >
+      {titre !== false && <h2 id={titreId}>{titre}</h2>}
 
       {(prochain || dernier) && (
         <div class="matchs-equipe__cartes">
@@ -85,6 +101,7 @@ const bilan = (c: (typeof coupes)[number]) => {
         </div>
       )}
 
+      {avecOnglets && (
       <Onglets onglets={onglets} prefixe={`matchs-${equipe.id}`} libelle={`Compétitions de l'équipe ${equipe.data.nom}`}>
         {aDuChampionnat && (
           <div slot="championnat">
@@ -103,7 +120,7 @@ const bilan = (c: (typeof coupes)[number]) => {
                       <CalendrierClassement
                         matchs={avecCalendrier ? ph.matchs : []}
                         classement={avecClassement ? ph.classement : null}
-                        exclure={prochain}
+                        exclure={prochainCalcule}
                       />
                     </div>
                   ))}
@@ -116,7 +133,7 @@ const bilan = (c: (typeof coupes)[number]) => {
                 )}
               </>
             ) : (
-              <CalendrierClassement matchs={championnat} classement={classement} exclure={prochain} />
+              <CalendrierClassement matchs={championnat} classement={classement} exclure={prochainCalcule} />
             )}
           </div>
         )}
@@ -140,8 +157,9 @@ const bilan = (c: (typeof coupes)[number]) => {
           </div>
         )}
       </Onglets>
+      )}
 
-      <SourceFfhb maj={maj} lien={lien} />
+      {avecOnglets && <SourceFfhb maj={maj} lien={lien} />}
     </section>
   )
 }

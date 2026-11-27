@@ -3,7 +3,7 @@
  * Contact : formulaire (envoyé par public/api/formulaire.php) et coordonnées directes.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TitreSection from '../components/ui/TitreSection.astro';
+import EnteteRubrique from '../components/ui/EnteteRubrique.astro';
 import Formulaire from '../components/Formulaire.astro';
 import Champ from '../components/ui/Champ.astro';
 import { site } from '../config/site';
@@ -15,8 +15,8 @@ const { adresse, email, emailLicences, reseaux } = site;
   titre="Contact"
   description="Contacter l'ASBD Vendée Handball : e-mail du club, adresse de la salle à La Bruffière, réseaux sociaux et licences."
 >
+  <EnteteRubrique titre="Contacter le club" intro="Une question sur une équipe, un essai ou un partenariat ? Écrivez-nous." />
   <section class="section conteneur">
-    <TitreSection niveau="h1" titre="Contacter le club" intro="Une question sur une équipe, un essai ou un partenariat ? Écrivez-nous." />
     <div class="mise-en-page">
       <Formulaire nom="contact" bouton="Envoyer le message" succes="Le club vous répond par e-mail dans les prochains jours.">
         <Champ nom="nom" label="Votre nom" autocomplete="name" maxlength={100} />
@@ -100,10 +100,12 @@ const { adresse, email, emailLicences, reseaux } = site;
   .contact {
     padding: var(--espace-5);
     border: var(--trait);
-    border-radius: var(--rayon);
+    border-left: 4px solid var(--rouge);
+    border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0;
   }
 
   .contact h2 {
+    font-family: var(--police-titre);
     font-size: 1.75rem;
   }
 

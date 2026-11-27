@@ -7,6 +7,7 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EnteteRubrique from '../components/ui/EnteteRubrique.astro';
 
 export const getStaticPaths = (async () => {
   // Défini ici : Astro exécute getStaticPaths à part, sans accès au reste du fichier.
@@ -20,11 +21,15 @@ export const getStaticPaths = (async () => {
 
 const { page } = Astro.props;
 const { Content } = await render(page);
+
+// Mise en page propre à certaines pages : on ajoute la classe « contenu--<nom> ».
+const miseEnPageDediee = ['histoire', 'licences'];
+const classeDediee = miseEnPageDediee.includes(page.id) ? `contenu--${page.id}` : undefined;
 ---
 
 <BaseLayout titre={page.data.titre} description={page.data.description}>
-  <article class="conteneur contenu">
-    <h1>{page.data.titre}</h1>
+  <EnteteRubrique titre={page.data.titre} intro={page.data.intro} />
+  <article class:list={['conteneur', 'contenu', classeDediee]}>
     <Content />
   </article>
 </BaseLayout>
@@ -51,6 +56,16 @@ const { Content } = await render(page);
     font-variant-numeric: tabular-nums;
   }
 
+  /* Le premier élément colle à l'en-tête : pas de marge ni de filet en plus du padding de la page. */
+  .contenu > :global(:first-child) {
+    margin-top: 0;
+  }
+
+  .contenu > :global(h3:first-child) {
+    padding-top: 0;
+    border-top: 0;
+  }
+
   .contenu :global(ol),
   .contenu :global(ul) {
     padding-left: 1.4em;
@@ -62,5 +77,233 @@ const { Content } = await render(page);
 
   .contenu :global(li > ul) {
     margin-top: var(--espace-2);
+  }
+
+  /* ───── Histoire : la frise ─────
+     Titres ## = décennies, titres ### = années, <div class="temps-fort"> = moments marquants.
+     Sur téléphone, l'année est au-dessus de son texte ; à partir de 48rem, elle passe
+     dans une gouttière à gauche, le long d'un trait vertical. */
+  .contenu--histoire :global(h2) {
+    margin: var(--espace-7) 0 var(--espace-5);
+    padding-bottom: var(--espace-2);
+    border-bottom: var(--trait);
+    font-size: 1.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .contenu--histoire :global(h3) {
+    margin: var(--espace-6) 0 var(--espace-2);
+    padding-top: 0;
+    border-top: 0;
+    font-size: 2.5rem;
+    line-height: var(--interligne-titre);
+  }
+
+  .contenu--histoire :global(.temps-fort) {
+    margin-block: var(--espace-6);
+    padding: var(--espace-5);
+    background: var(--gris-salle);
+    border-left: 4px solid var(--rouge);
+    border-radius: var(--rayon);
+  }
+
+  .contenu--histoire :global(.temps-fort > h3) {
+    margin-top: 0;
+  }
+
+  .contenu--histoire :global(.temps-fort > :last-child) {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .contenu--histoire {
+      /* Largeur de la colonne des années (à gauche du texte). */
+      --frise-gouttiere: 9rem;
+      /* Écart entre le trait vertical et le début du texte. */
+      --frise-ecart: var(--espace-5);
+      position: relative;
+      max-width: calc(48rem + var(--frise-gouttiere));
+      padding-left: calc(var(--gouttiere) + var(--frise-gouttiere));
+    }
+
+    /* Le trait fin qui relie les années. */
+    .contenu--histoire::before {
+      content: '';
+      position: absolute;
+      top: var(--espace-section);
+      bottom: var(--espace-section);
+      left: calc(var(--gouttiere) + var(--frise-gouttiere) - var(--frise-ecart));
+      border-left: var(--trait);
+    }
+
+    /* Les décennies prennent toute la largeur et coupent le trait. */
+    .contenu--histoire :global(h2) {
+      position: relative;
+      margin-left: calc(-1 * var(--frise-gouttiere));
+      padding-top: var(--espace-2);
+      background: var(--fond);
+    }
+
+    /* L'année sort du flux et se place dans la gouttière, à la hauteur de son premier
+       paragraphe : l'espace entre deux années est un padding (identique sur l'année et
+       sur le paragraphe qui la suit) pour que les deux démarrent au même niveau. */
+    .contenu--histoire :global(h3) {
+      --frise-decalage: var(--frise-gouttiere);
+      position: absolute;
+      width: calc(var(--frise-gouttiere) - var(--frise-ecart) - var(--espace-4));
+      margin: 0 0 0 calc(-1 * var(--frise-decalage));
+      padding-top: var(--espace-5);
+      font-size: 3rem;
+      text-align: right;
+    }
+
+    .contenu--histoire :global(h3 + p) {
+      padding-top: var(--espace-5);
+    }
+
+    /* Dans un temps fort, l'année doit en plus sortir du padding et du liseré du cadre. */
+    .contenu--histoire :global(.temps-fort > h3) {
+      --frise-decalage: calc(var(--frise-gouttiere) + var(--espace-5) + 4px);
+      padding-top: 0;
+    }
+
+    .contenu--histoire :global(.temps-fort > h3 + p) {
+      padding-top: 0;
+    }
+  }
+
+  /* ───── Licences : un parcours en étapes ─────
+     Le premier ul = les réductions, en tuiles. L'ol = les étapes : numéro dans un rond rouge,
+     trait vertical qui relie les ronds, étape 1 en carte, dernière étape marquée d'une coche. */
+  .contenu--licences > :global(ul) {
+    display: grid;
+    gap: var(--espace-4);
+    margin: var(--espace-5) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .contenu--licences > :global(ul > li) {
+    margin: 0;
+    padding: var(--espace-5);
+    background: var(--gris-salle);
+    border-radius: var(--rayon);
+  }
+
+  .contenu--licences > :global(ul strong) {
+    display: block;
+    font-family: var(--police-titre);
+    font-size: var(--taille-h2);
+    font-weight: var(--graisse-titre);
+    line-height: var(--interligne-titre);
+    color: var(--rouge);
+  }
+
+  .contenu--licences > :global(ol) {
+    --rond: 2.75rem;
+    --rond-haut: 0rem;
+    --rond-gauche: 0rem;
+    /* Place laissée à gauche pour le liseré de la carte de l'étape 1 : la carte reste dans la colonne. */
+    margin: var(--espace-5) 0 0;
+    padding: 0 0 0 calc(var(--espace-4) + 4px);
+    list-style: none;
+    counter-reset: etape;
+  }
+
+  .contenu--licences > :global(ol > li) {
+    position: relative;
+    box-sizing: border-box;
+    /* Au moins un rond + un espace : même rythme que l'étape tienne sur une ligne ou plusieurs. */
+    min-height: calc(var(--rond) + var(--espace-6));
+    margin: 0;
+    padding: 0 0 var(--espace-6) calc(var(--rond) + var(--espace-4));
+    counter-increment: etape;
+  }
+
+  /* Le rond numéroté. */
+  .contenu--licences > :global(ol > li)::before {
+    content: counter(etape);
+    position: absolute;
+    top: var(--rond-haut);
+    left: var(--rond-gauche);
+    display: grid;
+    place-items: center;
+    width: var(--rond);
+    height: var(--rond);
+    border-radius: 50%;
+    background: var(--rouge);
+    color: var(--blanc);
+    font-family: var(--police-titre);
+    font-size: 1.5rem;
+    font-weight: var(--graisse-titre);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Le trait qui descend jusqu'au rond suivant. */
+  .contenu--licences > :global(ol > li:not(:last-child))::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--rond-haut) + var(--rond));
+    bottom: 0;
+    left: calc(var(--rond-gauche) + var(--rond) / 2 - 1px);
+    border-left: 2px solid var(--ligne);
+  }
+
+  /* Étape 1 : en carte, collée au bord gauche de la colonne. Son rond reste dans la colonne des autres. */
+  .contenu--licences > :global(ol > li:first-child) {
+    --rond-haut: var(--espace-4);
+    --rond-gauche: var(--espace-4);
+    margin: 0 0 var(--espace-5) calc(-1 * (var(--espace-4) + 4px));
+    padding: var(--espace-4) var(--espace-4) var(--espace-4) calc(var(--rond) + 2 * var(--espace-4));
+    border: var(--trait);
+    border-left: 4px solid var(--rouge);
+    border-radius: var(--rayon);
+  }
+
+  /* Le trait traverse le bas de la carte et l'espace jusqu'au rond 2. */
+  .contenu--licences > :global(ol > li:first-child)::after {
+    bottom: calc(-1 * var(--espace-5) - 1px);
+  }
+
+  .contenu--licences > :global(ol > li:last-child) {
+    min-height: var(--rond);
+    margin-bottom: var(--espace-6);
+    padding-bottom: 0;
+  }
+
+  /* Arrivée : rond noir, coche dessinée avec deux bordures. */
+  .contenu--licences > :global(ol > li:last-child)::before {
+    content: '';
+    background: var(--noir);
+  }
+
+  .contenu--licences > :global(ol > li:last-child)::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--rond) / 2 - 0.65rem);
+    left: calc(var(--rond) / 2 - 0.3rem);
+    width: 0.6rem;
+    height: 1.1rem;
+    border: solid var(--blanc);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+
+  .contenu--licences > :global(ol > li > ul) {
+    margin: var(--espace-2) 0 0;
+    padding-left: 1.4em;
+    list-style: disc;
+  }
+
+  .contenu--licences > :global(ol > li > ul > li) {
+    margin-bottom: var(--espace-1);
+  }
+
+  @media (min-width: 30rem) {
+    .contenu--licences > :global(ul) {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 </style>

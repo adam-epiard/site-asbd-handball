@@ -4,6 +4,7 @@
  * suivie des sections mixtes pour les plus jeunes.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EnteteRubrique from './ui/EnteteRubrique.astro';
 import TitreSection from './ui/TitreSection.astro';
 import GrilleEquipes from './GrilleEquipes.astro';
 import { getEquipes } from '../lib/equipes';
@@ -22,8 +23,8 @@ const mixtes = equipes.filter((e) => e.data.categorie === 'mixte');
 ---
 
 <BaseLayout titre={titre} description={description}>
+  <EnteteRubrique titre={titre} intro={intro} />
   <section class="section conteneur">
-    <TitreSection titre={titre} intro={intro} niveau="h1" />
     <GrilleEquipes equipes={principales} />
   </section>
   {

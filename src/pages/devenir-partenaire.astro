@@ -5,6 +5,7 @@
  */
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EnteteRubrique from '../components/ui/EnteteRubrique.astro';
 import Formulaire from '../components/Formulaire.astro';
 import Champ from '../components/ui/Champ.astro';
 
@@ -14,9 +15,9 @@ const { Content } = await render(page);
 ---
 
 <BaseLayout titre={page.data.titre} description={page.data.description}>
+  <EnteteRubrique titre={page.data.titre} intro={page.data.intro} />
   <section class="section conteneur mise-en-page">
     <div class="texte">
-      <h1>{page.data.titre}</h1>
       <Content />
     </div>
     <div>

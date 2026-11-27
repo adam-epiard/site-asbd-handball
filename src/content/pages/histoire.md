@@ -1,13 +1,29 @@
 ---
 titre: Histoire du club
 description: De 12 copains en 1977 à plus de 130 licenciés, l'histoire de l'ASBD Vendée Handball, le club de handball de La Bruffière.
+intro: 'L''aventure rouge a débuté avec 12 copains en 1977, pour atteindre 130 licenciés en 2016. Depuis 2010, portés par les titres des Bleus et l''investissement du club, les jeunes sont devenus la force de l''association.'
 ---
 
-L'aventure rouge a débuté avec 12 copains en 1977, pour atteindre 130 licenciés en 2016. Depuis 2010, portés par les titres des Bleus et l'investissement du club, les jeunes sont devenus la force de l'association.
+<!--
+  Mode d'emploi pour les bénévoles :
+  - Chaque année est un titre « ### 2027 » suivi d'un ou plusieurs paragraphes.
+  - Les titres « ## Les années … » regroupent les années par décennie.
+  - Un temps fort (fond gris, liseré rouge) s'écrit en entourant l'année et ses
+    paragraphes de <div class="temps-fort"> et </div>, en laissant une ligne vide
+    juste après l'ouverture et juste avant la fermeture (sinon le texte s'affiche brut).
+  - Cinq temps forts au maximum, pour que la mise en avant garde son sens :
+    pour en ajouter un, en retirer un autre.
+-->
+
+## Les années 70
+
+<div class="temps-fort">
 
 ### 1977
 
 La première équipe de 12 joueurs voit le jour sous l'impulsion d'une bande de copains, et l'aventure rouge commence sous le nom de H.B.C.B. (Handball Club Brufférien).
+
+</div>
 
 ### 1978
 
@@ -17,9 +33,15 @@ Sitôt le club créé, et sous l'impulsion de Mme Pinet, une quinzaine de jeunes
 
 Après 2 ans d'existence, le club compte 33 licenciés et crée une équipe cadette féminine.
 
+## Les années 80
+
+<div class="temps-fort">
+
 ### 1980
 
 Lancement de la célèbre soirée « Cassoulet », avec la contribution d'Yves Auger, dit « Moustache ».
+
+</div>
 
 ### 1985
 
@@ -33,13 +55,19 @@ La salle s'agrandit et les Rouges tiennent bon. Après avoir flirté avec le niv
 
 Le club a grandi tranquillement dans la commune, et l'équipe de copains accède à l'excellence départementale, la division juste en dessous de la région. Une nouvelle équipe senior est créée, puis une équipe benjamins garçons et une équipe minimes filles viennent compléter l'effectif.
 
+## Les années 90
+
 ### 1991
 
 Le bureau change et des commissions sont créées au sein du club.
 
+<div class="temps-fort">
+
 ### 1992
 
 Création d'une école de handball pour assurer l'avenir. Le club et ses supporters recueillent des dons pour les sinistrés de Vaison-la-Romaine, après la catastrophe du 22 septembre 1992. Sept membres du club se déplacent pour distribuer les fonds les 19 et 20 décembre.
+
+</div>
 
 ### 1993
 
@@ -69,6 +97,8 @@ Pascal Girard devient président. Les Rouges sont champions d'honneur départeme
 
 L'équipe seniors féminine monte en excellence départementale, et le club organise les quarts de finale de la Coupe et du Challenge de Vendée.
 
+## Les années 2000
+
 ### 2001
 
 Remontée en excellence de l'équipe masculine, et belle demi-finale face à Dompierre en Challenge de Vendée.
@@ -77,17 +107,27 @@ Remontée en excellence de l'équipe masculine, et belle demi-finale face à Dom
 
 Nouvelle demi-finale, en Coupe de Vendée cette fois : les Rouges s'inclinent avec honneur 33 à 27 face aux Sables, qui évoluaient trois divisions au-dessus. Le club fête ses 25 ans, ses anciens présidents et la naissance de son premier site web.
 
+<div class="temps-fort">
+
 ### 2005
 
 La deuxième, c'est la bonne : les seniors garçons disputent leur deuxième finale du Challenge de Vendée et la gagnent 22 à 17 contre Aubigny-Moutiers.
+
+</div>
+
+<div class="temps-fort">
 
 ### 2007
 
 L'ASBD Handball La Bruffière lance la première édition de son Tournoi sur gazon.
 
+</div>
+
 ### 2009
 
 Les seniors garçons terminent 2es d'excellence départementale. Le 7 juin, ils jouent les barrages à Saint-Pierre-du-Chemin et terminent 2es du tournoi : le club accède pour la première fois à l'honneur régional. La saison se fête par une soirée bavaroise restée dans les mémoires.
+
+## Les années 2010
 
 ### 2010
 
@@ -100,3 +140,13 @@ Troisième tour de Coupe de France pour les seniors masculins, et nouvelle demi-
 ### 2012
 
 Les seniors garçons 2 et les seniors féminines atteignent les quarts de finale. Les seniors garçons retrouvent la région, et la relève est en marche : 62 jeunes sur le terrain chaque week-end. Premier tournoi de pétanque du club.
+
+## Les années 2020
+
+### 2026
+
+Saison historique : les seniors féminines et les seniors masculins montent tous les deux en D1. Après plus de 10 ans, les deux équipes fanions du club évoluent ensemble au plus haut niveau départemental.
+
+### 2027
+
+L'ASBD fête ses 50 ans. Un demi-siècle après la bande de 12 copains de 1977, le club célèbre toutes celles et ceux qui ont porté le maillot rouge.

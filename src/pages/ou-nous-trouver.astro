@@ -1,28 +1,40 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TitreSection from '../components/ui/TitreSection.astro';
+import EnteteRubrique from '../components/ui/EnteteRubrique.astro';
 import CadreExterne from '../components/ui/CadreExterne.astro';
 import { site } from '../config/site';
 
 const { adresse } = site;
 const adresseComplete = `${adresse.rue}, ${adresse.codePostal} ${adresse.ville}`;
 const requete = encodeURIComponent(adresseComplete);
+const lienMaps = `https://www.google.com/maps/search/?api=1&query=${requete}`;
 ---
 
 <BaseLayout
   titre="Où nous trouver"
   description="Adresse et plan d'accès de la salle de l'ASBD Vendée Handball, 1 rue des Salles à La Bruffière, en Vendée."
 >
+  <EnteteRubrique
+    titre="Où nous trouver"
+    intro={`Entraînements et matchs à domicile ont lieu à la salle de La Bruffière, ${adresseComplete}.`}
+    lien={{ href: '/entrainement/', label: "Horaires d'entraînement" }}
+  />
   <section class="section conteneur">
-    <TitreSection
-      niveau="h1"
-      titre="Où nous trouver"
-      intro={`Entraînements et matchs à domicile ont lieu à la salle de La Bruffière, ${adresseComplete}.`}
-      lien={{ href: '/entrainement/', label: "Horaires d'entraînement" }}
-    />
+    <div class="lieu">
+    <div class="lieu__infos">
+      <h2>La salle</h2>
+      <address>
+        {adresse.rue}<br />
+        {adresse.codePostal} {adresse.ville}
+      </address>
+      <ul>
+        <li><a href={lienMaps}>Ouvrir dans Google Maps</a></li>
+        <li><a href="/entrainement/">Horaires d'entraînement</a></li>
+      </ul>
+    </div>
     <CadreExterne
       source="Carte fournie par Google Maps"
-      secours={{ href: `https://www.google.com/maps/search/?api=1&query=${requete}`, label: 'Ouvrir dans Google Maps' }}
+      secours={{ href: lienMaps, label: 'Ouvrir dans Google Maps' }}
       hauteurMin="26rem"
     >
       <iframe
@@ -32,5 +44,39 @@ const requete = encodeURIComponent(adresseComplete);
         referrerpolicy="no-referrer-when-downgrade"
         style="height: 26rem"></iframe>
     </CadreExterne>
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .lieu {
+    display: grid;
+    gap: var(--espace-6);
+  }
+
+  @media (min-width: 60rem) {
+    .lieu {
+      grid-template-columns: 1fr 2fr;
+      align-items: start;
+    }
+  }
+
+  .lieu__infos h2 {
+    font-size: var(--taille-h3);
+  }
+
+  address {
+    font-style: normal;
+    font-family: var(--police-titre);
+    font-size: var(--taille-h3);
+    font-weight: var(--graisse-titre);
+    margin-bottom: var(--espace-4);
+  }
+
+  .lieu__infos ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--espace-2);
+  }
+</style>
